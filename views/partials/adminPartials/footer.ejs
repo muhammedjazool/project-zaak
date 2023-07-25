@@ -1,0 +1,75 @@
+<script>
+  function searchUser() {
+    const searchValue = document.getElementById("search").value.toLowerCase();
+    const rows = document.querySelectorAll("table tbody tr");
+    rows.forEach((row) => {
+      let name = row.querySelector("#searchCategoryName").textContent.toLowerCase();
+
+      // Perform case-insensitive partial match
+      if (name.includes(searchValue)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
+</script>
+
+<!-- 
+<script>
+
+  var currentPage = 1;
+  var rowsPerPage = 10;
+  var totalRows =  Number(document.getElementById('users_length').value)  ;
+
+
+  function changePage(page) {
+    currentPage = page;
+    renderTable();
+    updatePageInfo();
+  }
+  function renderTable() {
+    var table = document.getElementById('myTable');
+    var startIndex = (currentPage - 1) * rowsPerPage;
+    var endIndex = startIndex + rowsPerPage;
+
+    var rows = table.getElementsByTagName('tr');
+    for (var i = 0; i < rows.length; i++) {
+      if (i >= startIndex && i < endIndex) {
+        rows[i].style.display = '';
+      } else {
+        rows[i].style.display = 'none';
+      }
+    }
+  }
+
+
+  function updatePageInfo() {
+    var pageInfo = document.getElementById('pageInfo');
+    var totalPages = Math.ceil(totalRows / rowsPerPage);
+    pageInfo.textContent = 'Page ' + currentPage + ' of ' + totalPages;
+  }
+
+
+  renderTable();
+  updatePageInfo();
+</script> -->
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
+
+
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="/js/validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+</body>
+</html>

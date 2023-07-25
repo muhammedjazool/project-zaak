@@ -1,0 +1,212 @@
+<%- include('../partials/adminPartials/header')%>
+     <div id="app">
+
+          <aside class="aside is-placed-left is-expanded">
+               <div class="aside-tools">
+                    <div>
+                         <b class="font-black">Admin</b>
+                    </div>
+               </div>
+               <div class="menu is-menu-main">
+                    <!-- <p class="menu-label">General</p> -->
+                    <ul class="menu-list">
+                         <li class="active">
+                              <a href="/admin/dashboard" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+                                   <span class="menu-item-label">Dashboard</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/user" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-account"></i></span>
+                                   <span class="menu-item-label">Users</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/categories" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-table"></i></span>
+                                   <span class="menu-item-label">Category</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/products" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                                   <span class="menu-item-label">Products</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/logout" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-logout"></i></span>
+                                   <span class="menu-item-label"><b>Logout</b></span>
+                              </a>
+                         </li>
+                    </ul>
+
+               </div>
+          </aside>
+
+          <section class="is-title-bar">
+               <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                    <ul>
+                         <li>Admin</li>
+                         <li>Products</li>
+                    </ul>
+
+               </div>
+          </section>
+
+          <style>
+               .stock-table {
+                    border-collapse: collapse;
+               }
+
+               .stock-table th,
+               .stock-table td {
+                    padding: 8px;
+                    border: none;
+               }
+
+               .stock-table th {
+                    text-align: left;
+               }
+          </style>
+          <section class="section main-section">
+               <div class="notification blue">
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                         <div>
+                              <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                              <b><big>Products</big></b>
+                         </div>
+
+                    </div>
+               </div>
+               <div class="card has-table">
+                    <header class="card-header bg-dark">
+                         <p class="card-header-title text-secondary">
+                              Details...
+                         </p>
+                         <a href="/admin/addProducts"><button class="button secondary m-2">Add Product</button></a>
+                    </header>
+                    <div class="card-content">
+
+                         <table id="myTable" class="display" class="display stock-table">
+                              <input type="hidden" value="" id="users_length">
+                              <% if (productData.length>0) {%>
+                                   <thead>
+                                        <div class="d-flex ms-4 pl-3">
+                                             <tr>
+                                                  <th>PRODUCT IMAGE</th>
+                                                  <th>NAME</th>
+                                                  <th>PRODUCT CATEGORY</th>
+                                                  <th>PRICE</th>
+                                                  <th>STOCK AND SIZE</th>
+                                                  <th>ACTION</th>
+
+                                             </tr>
+                                        </div>
+                                   </thead>
+                                   <tbody>
+                                        <% productData.forEach((row,index)=>{%>
+                                             <tr>
+
+                                                  <td>
+                                                       <% if (row.imageUrl && Array.isArray(row.imageUrl) &&
+                                                            row.imageUrl.length> 0) { %>
+                                                            <img style="width: 240px; height: 220px;"
+                                                                 src="<%= row.imageUrl[0].url %>" alt="Product Image">
+                                                            <% } else { %>
+                                                                 <span>No Image Available</span>
+                                                                 <% } %>
+                                                  </td>
+                                                  <td>
+                                                       <%= row.name %>
+                                                  </td>
+
+                                                  <td>
+                                                       <%= row.newCategory.category %>
+                                                  </td>
+                                                  <td>
+                                                       <%= row.price %>
+                                                  </td>
+                                                  <td>
+                                                       <% if (row.stock.length> 0) { %>
+                                                            <table class="stock-table">
+                                                                 <tr>
+                                                                      <th>Size</th>
+                                                                      <th>Stock</th>
+                                                                 </tr>
+                                                                 <% row.stock.forEach(stockItem=> { %>
+                                                                      <tr>
+                                                                           <td>Small</td>
+                                                                           <td>
+                                                                                <%= stockItem.small %>
+                                                                           </td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                           <td>Medium</td>
+                                                                           <td>
+                                                                                <%= stockItem.medium %>
+                                                                           </td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                           <td>Large</td>
+                                                                           <td>
+                                                                                <%= stockItem.large %>
+                                                                           </td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                           <td>XLarge</td>
+                                                                           <td>
+                                                                                <%= stockItem.xlarge %>
+                                                                           </td>
+                                                                      </tr>
+                                                                      <% }) %>
+                                                            </table>
+                                                            <% } else { %>
+                                                                 <p>No sizes available</p>
+                                                                 <% } %>
+                                                  </td>
+                                                  <td>
+                                                       <a href="/admin/editProducts/<%= row._id %>"><button
+                                                                 class="button bg-success"><i
+                                                                      class="fa-solid fa-pen-to-square"></i></button></a>
+                                                       <a href="/admin/editProduct/<%= row._id %>"><button
+                                                                 class="button bg-danger"><i
+                                                                      class="fa-solid fa-trash"></i></button></a>
+
+                                                  </td>
+                                             </tr>
+                                             <%}) %>
+                                   </tbody>
+                                   <%} else {%>
+                                        <tbody>
+                                             <tr>
+                                                  <td colspan="4">No users found</td>
+                                             </tr>
+                                             <%} %>
+                                        </tbody>
+
+                         </table>
+
+                         <div class="table-pagination">
+                              <div class="flex items-center justify-between">
+                                   <div class="buttons">
+                                        <button type="button" class="button active" onclick="changePage(1)">1</button>
+                                        <button type="button" class="button" onclick="changePage(2)">2</button>
+                                        <!-- <button type="button" class="button" onclick="changePage(3)">3</button> -->
+                                   </div>
+                                   <small id="pageInfo">Page 1 of 1</small>
+                              </div>
+                         </div>
+
+                         <div class="card empty">
+                              <div class="card-content">
+                                   <div>
+                                        <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+                                   </div>
+                                   <p>Nothing's here…</p>
+                              </div>
+                         </div>
+
+          </section>
+          <%- include('../partials/adminPartials/footer')%>

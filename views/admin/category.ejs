@@ -1,0 +1,189 @@
+<%- include('../partials/adminPartials/header')%>
+ 
+   <div id="app">
+
+
+      <aside class="aside is-placed-left is-expanded">
+        <div class="aside-tools">
+          <div>
+            <b class="font-black">Admin</b>
+          </div>
+        </div>
+        <div class="menu is-menu-main">
+          <!-- <p class="menu-label">General</p> -->
+          <ul class="menu-list">
+            <li class="active">
+              <a href="/admin/dashboard"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+                <span class="menu-item-label">Dashboard</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="/admin/user"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-account"></i></span>
+                <span class="menu-item-label">Users</span>
+              </a>
+            </li>
+           
+            <li class="active">
+              <a href="/admin/categories"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-table"></i></span>
+                <span class="menu-item-label">Category</span>
+              </a>
+            </li>
+            <li class="active">
+                <a href="/admin/products"class="text-decoration-none">
+                  <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                  <span class="menu-item-label">Products</span>
+                </a>
+              </li>
+              <li class="active">
+                <a href="/admin/logout"class="text-decoration-none">
+                  <span class="icon"><i class="mdi mdi-logout"></i></span>
+                  <span class="menu-item-label"><b>Logout</b></span>
+                </a>
+              </li>
+          </ul>
+
+        </div>
+      </aside>
+      
+      
+      <section class="is-title-bar">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <ul>
+            <li>Admin</li>
+            <li>Category</li>
+          </ul>
+          
+        </div>
+        </section>
+        <style>
+      .List-btn {
+        background-color: rgba(225, 33, 33, 0.774);
+        color: #ffffff;
+        padding: 6px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      /* Style for the unblock button */
+      .unList-btn {
+        background-color: #00ff00;
+        color: #ffffff;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      /* Hover effect for the buttons */
+      .List-btn:hover,
+      .unList-btn:hover {
+        opacity: 0.8;
+      }
+    </style>
+      
+
+      <section class="section main-section">
+        <div class="notification blue">
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <div>
+              <span class="icon"><i class="mdi mdi-table"></i></span>
+              <b><big>Category</big></b>
+            </div>
+
+          </div>
+        </div>
+        <div class="card has-table">
+          <header class="card-header bg-dark">
+            <p class="card-header-title text-secondary">
+              Details...
+            </p>
+            
+            <a href="/admin/addCategory" ><button class="button secondary m-2">Add Category</button></a>
+            <div class="d-flex justify-content-end m-2">
+                <input class=" px-2" id="search" placeholder="search user name" />
+                  <button
+                  class="ms-2 p-2 fas fa-search bg-light"
+                  onclick="searchUser()"
+                  type="button"
+                ></button>
+              </div>
+          </header>
+          <div class="card-content">
+            
+            <table id="myTable" class="display">
+                <input type="hidden" value="" id="users_length">
+                <% if (categoryData.length > 0) { %>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    <% categoryData.forEach((row,index)=> { %>
+                      <tr>
+                          <td>
+                              <%= index+1 %>
+                            </td>
+                            
+                            <td><img style="width: 75px; height: 75px;" src="<%= row.imageUrl.url %>"
+                                alt="Category Image"></td>
+                        <td id="searchCategoryName">
+                          <%= row.category %>
+                        </td>
+                        <td>
+                          <%= row.description%>
+                        </td>
+                        <td>
+                          <a href="/admin/editCategory/<%= row._id %>"><button class="button bg-success"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                          <% if (row.isBlocked){%>
+                            <a href="/admin/unListCategory/<%= row._id %>"  >
+                            <button  class="unList-btn" data-user-id="<%= row.id %>">unList</button></a>
+                                 <%} else {%>
+                              <a href="/admin/unListCategory/<%= row._id%>" </a>
+                              <button class="List-btn" data-user-id="<%= row.id%>">List</button>
+                             <% } %> 
+                        </td>
+                      
+                      </tr>
+                    <% }); %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="4">No categories found</td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+              
+
+            <div class="table-pagination">
+              <div class="flex items-center justify-between">
+                <div class="buttons">
+                  <button type="button" class="button active" onclick="changePage(1)">1</button>
+                  <button type="button" class="button" onclick="changePage(2)">2</button>
+                  <!-- <button type="button" class="button" onclick="changePage(3)">3</button> -->
+                </div>
+                <small id="pageInfo">Page 1 of 1</small>
+              </div>
+            </div>
+
+            <div class="card empty">
+              <div class="card-content">
+                <div>
+                  <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+                </div>
+                <p>Nothing's here…</p>
+              </div>
+          
+
+      </section>
+      <%- include('../partials/adminPartials/footer')%>

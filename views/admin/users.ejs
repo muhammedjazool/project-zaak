@@ -1,0 +1,223 @@
+<%- include('../partials/adminPartials/header')%>
+  <div id="app">
+
+
+
+    <div id="app">
+
+
+      <aside class="aside is-placed-left is-expanded">
+        <div class="aside-tools">
+          <div>
+            <b class="font-black">Admin</b>
+          </div>
+        </div>
+        <div class="menu is-menu-main">
+          <!-- <p class="menu-label">General</p> -->
+          <ul class="menu-list">
+            <li class="active">
+              <a href="/admin/dashboard"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+                <span class="menu-item-label">Dashboard</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="/admin/user"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-account"></i></span>
+                <span class="menu-item-label">Users</span>
+              </a>
+            </li>
+           
+            <li class="active">
+              <a href="/admin/categories"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-table"></i></span>
+                <span class="menu-item-label">Category</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="/admin/products"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                <span class="menu-item-label">Products</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="/admin/logout"class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-logout"></i></span>
+                <span class="menu-item-label"><b><b>Logout <i class="fa-solid fa-arrow-up-left-from-circle"></i></b></b></span>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+      </aside>
+
+      <section class="is-title-bar"class="text-decoration-none">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <ul>
+            <li>Admin</li>
+            <li>Users</li>
+          </ul>
+
+        </div>
+      </section>
+
+
+
+      <section class="section main-section">
+        <div class="notification blue">
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <div>
+              <span class="icon"><i class="mdi mdi-account"></i></span>
+              <b><big>Users</big></b>
+            </div>
+
+          </div>
+        </div>
+        <div class="card has-table">
+          <header class="card-header">
+            <p class="card-header-title">
+              Details...
+            </p>
+          </header>
+          <div class="card-content">
+            <style>
+              /* Style for the block button */
+              .block-btn {
+                background-color: rgba(225, 33, 33, 0.774);
+                color: #ffffff;
+                padding: 6px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              }
+
+              /* Style for the unblock button */
+              .unblock-btn {
+                background-color: #00ff00;
+                color: #ffffff;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              }
+
+              /* Hover effect for the buttons */
+              .block-btn:hover,
+              .unblock-btn:hover {
+                opacity: 0.8;
+              }
+            </style>
+
+            <table id="myTable" class="display">
+              <input type="hidden"  value="<%=users.length %>" id="users_length">
+              <% if (users.length> 0) { %>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th> Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% users.forEach((row, index)=> { %>
+                    <tr>
+                      <td>
+                        <%= index + 1 %>
+                      </td>
+                      <td>
+                        <%= row.name %>
+                      </td>
+                      <td>
+                        <%= row.email %>
+                      </td>
+                      <td>
+                        <%= row.phone %>
+                      </td>
+                      <td>
+                        <% if (row.isBlocked) { %>
+                          <a href="/admin/is_Blocked/<%= row.id %>">
+                            <button class="unblock-btn" data-user-id="<%= row.id %>">Unblock</button></a>
+                          <% } else { %>
+                            <a href="/admin/is_Blocked/<%= row.id %>">
+                              <button class="block-btn" data-user-id="<%= row.id %>">Block</button></a>
+                            <% } %>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+                  <% } else { %>
+                    <tbody>
+                      <tr>
+                        <td colspan="4">No users found</td>
+                      </tr>
+                    </tbody>
+                    <% } %>
+            </table>
+
+            <div class="table-pagination">
+              <div class="flex items-center justify-between">
+                <div class="buttons">
+                  <button type="button" class="button active" onclick="changePage(1)">1</button>
+                  <button type="button" class="button" onclick="changePage(2)">2</button>
+                  <!-- <button type="button" class="button" onclick="changePage(3)">3</button> -->
+                </div>
+                <small id="pageInfo">Page 1 of 1</small>
+              </div>
+            </div>
+
+            <div class="card empty">
+              <div class="card-content">
+                <div>
+                  <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+                </div>
+                <p>Nothing's here…</p>
+              </div>
+            </div>
+
+      </section>
+      <!-- <script>
+
+        var currentPage = 1;
+        var rowsPerPage = 11;
+        var totalRows =  Number(document.getElementById('users_length').value)  ;
+
+
+        function changePage(page) {
+          currentPage = page;
+          renderTable();
+          updatePageInfo();
+        }
+        function renderTable() {
+          var table = document.getElementById('myTable');
+          var startIndex = (currentPage - 1) * rowsPerPage;
+          var endIndex = startIndex + rowsPerPage;
+
+          var rows = table.getElementsByTagName('tr');
+          for (var i = 0; i < rows.length; i++) {
+            if (i >= startIndex && i < endIndex) {
+              rows[i].style.display = '';
+            } else {
+              rows[i].style.display = 'none';
+            }
+          }
+        }
+
+
+        function updatePageInfo() {
+          var pageInfo = document.getElementById('pageInfo');
+          var totalPages = Math.ceil(totalRows / rowsPerPage);
+          pageInfo.textContent = 'Page ' + currentPage + ' of ' + totalPages;
+        }
+
+
+        renderTable();
+        updatePageInfo();
+      </script>
+      </div>
+      </div>
+      <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+     </body>
+     </html> -->
+     <%- include('../partials/adminPartials/footer')%>

@@ -1,0 +1,416 @@
+<%- include('../partials/adminPartials/header')%>
+     <div id="app">
+
+          <aside class="aside is-placed-left is-expanded">
+               <div class="aside-tools">
+                    <div>
+                         <b class="font-black">Admin</b>
+                    </div>
+               </div>
+               <div class="menu is-menu-main">
+                    <!-- <p class="menu-label">General</p> -->
+                    <ul class="menu-list">
+                         <li class="active">
+                              <a href="/admin/dashboard" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+                                   <span class="menu-item-label">Dashboard</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/user" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-account"></i></span>
+                                   <span class="menu-item-label">Users</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/categories" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-table"></i></span>
+                                   <span class="menu-item-label">Category</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/products" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                                   <span class="menu-item-label">Products</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/logout" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-logout"></i></span>
+                                   <span class="menu-item-label"><b>Logout</b></span>
+                              </a>
+                         </li>
+                    </ul>
+
+               </div>
+          </aside>
+
+
+          <style>
+               h1 {
+                    margin-left: 1.3rem;
+                    margin-top: 1.5rem;
+               }
+
+               #details {
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 50px;
+               }
+
+               #images {
+                    margin-left: 1.5rem;
+                    margin-top: 50px;
+               }
+
+
+
+
+               #name,
+               #Stock,
+               #Price,
+               #select,
+               #new-brand-input,
+               #offerPrice {
+                    margin-bottom: 20px;
+                    margin-left: 22px;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+                    width: 20rem;
+                    max-width: 400px;
+               }
+
+               textarea {
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+                    margin-top: 40px;
+                    margin-left: 22px;
+                    width: 80%;
+               }
+
+               input[type="file"] {
+                    margin-bottom: 20px;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+                    width: 100%;
+                    max-width: 400px;
+               }
+
+               input[type="submit"] {
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 18px;
+                    font-weight: bold;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+                    width: 100%;
+                    max-width: 400px;
+                    margin-left: 1.2rem;
+               }
+
+               input[type="submit"]:hover {
+                    background-color: #3e8e41;
+
+               }
+
+               .size-table input {
+                    border-radius: 4px;
+                    padding-left: 5px;
+               }
+
+               .image-preview-container {
+                    display: flex;
+                    margin-bottom: 20px;
+                    width: 100px;
+                    max-width: 400px;
+               }
+
+               .image-preview {
+                    height: 100px;
+                    width: 100px;
+                    margin-bottom: 10px;
+                    margin-left: 2rem;
+                    border-radius: 5px;
+                    object-fit: cover;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+               }
+
+               .container {
+                    border-radius: 20px;
+                    border: 1px solid black;
+                    position: relative;
+                    left: 2rem;
+                    padding-bottom: 1.2rem;
+                    padding-left: 2.5rem;
+                    margin-bottom: 5rem;
+                    margin-top: 2.2rem;
+                    background-color: #1f2937;
+                    color: rgb(164, 160, 160);
+                    max-width: 935px;
+               }
+
+               .is-size {
+                    padding-left: 1.5rem;
+                    margin-bottom: 1.5rem;
+                    margin-top: 1.5rem;
+               }
+
+               .size-input {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    max-width: 400px;
+                    margin-bottom: 10px;
+
+               }
+
+               .size-input span {
+                    flex: 1;
+                    margin-right: 10px;
+               }
+
+               .size-input input {
+                    flex: 2;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+                    width: 100%;
+               }
+
+
+
+
+               .category-select,
+               .subCategory-select,
+               .brand-select {
+                    margin-left: 22px;
+                    margin-top: 8px;
+                    height: 30px;
+                    width: 50px;
+                    border: none;
+                    border-radius: 5px;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+               }
+
+               #new-brand-input {
+                    margin-top: 15px;
+               }
+
+               #image1-error {
+                    position: absolute;
+                    top: 86%;
+                    right: 86%;
+                    font-size: 10pt;
+               }
+
+               #name-error,
+               #Price-error,
+               #category-error,
+               #quantity-error,
+               #subCategory-error {
+                    font-size: 10pt;
+                    margin: auto;
+                    margin-left: 4px;
+               }
+
+               #description-error {
+                    font-size: 10pt;
+                    margin: auto;
+                    margin-left: 1.8rem;
+               }
+
+               @media (min-width:1024px) {
+                    tr:nth-child(odd) td {
+                         --tw-bg-opacity: 1;
+                         background-color: #b1b1b1;
+                    }
+               }
+
+
+               image-preview-container {
+                    display: flex;
+                    flex-direction: row;
+               }
+          </style>
+
+          <section class="is-title-bar">
+               <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                    <ul>
+                         <li>Admin</li>
+                         <li>Products</li>
+                         <li>Edit Products</li>
+                    </ul>
+
+               </div>
+          </section>
+
+
+          <div class="container">
+               <form action="/admin/updateProducts/<%= productToEdit._id %>" method="post" id="addProductValidation"
+                    enctype="multipart/form-data">
+                    <div class="container-fluid">
+                         <div class="row mt-5">
+
+                              <div class="col-lg-12 col-md-6 p-0">
+
+                                   <input type="text" id="name" name="name" placeholder="Product Name"
+                                        value="<%= productToEdit.name %>" required>
+
+
+                                   <input type="number" id="Price" name="price" min="0" placeholder="Price"
+                                        value="<%= productToEdit.price %>" required>
+                                   <br>
+                                   <div class="is-size">
+                                        <% if (productToEdit.stock.length> 0) { %>
+                                             <div class="size-input">
+                                                  <span>Small:</span>
+                                                  <input type="number" id="small" name="small" min="0"
+                                                       value="<%= productToEdit.stock[0].small %>">
+                                             </div>
+
+                                             <div class="size-input">
+                                                  <span>Medium:</span>
+                                                  <input type="number" id="medium" name="medium" min="0"
+                                                       value="<%= productToEdit.stock[0].medium %>">
+                                             </div>
+
+                                             <div class="size-input">
+                                                  <span>Large:</span>
+                                                  <input type="number" id="large" name="large" min="0"
+                                                       value="<%= productToEdit.stock[0].large %>">
+                                             </div>
+
+                                             <div class="size-input">
+                                                  <span>Xlarge:</span>
+                                                  <input type="number" id="xlarge" name="xlarge" min="0"
+                                                       value="<%= productToEdit.stock[0].xlarge %>">
+                                             </div>
+                                             <% } %>
+                                   </div>
+
+
+
+
+                              </div>
+                         </div>
+                         <div class="row mt-4">
+                              <div class="col-lg-12 col-md-6 p-0">
+                                   <label class="label ms-4">Add Category</label>
+                                   <select style="width:180px;" name="category" class="category-select" required>
+                                        <% categories.forEach(category=> { %>
+                                             <option value="<%= category._id %>"
+                                                  <%=category._id.equals(productToEdit.category) ? 'selected' : '' %>>
+                                                  <%= category.category %>
+                                             </option>
+                                             <% }) %>
+                                   </select>
+                              </div>
+                         </div>
+                    </div>
+
+                    <textarea type="text" placeholder="Description" id="description" name="description"
+                         required><%= productToEdit.description %></textarea>
+
+
+
+                    <!-- <div id="images">
+                         <input type="file" id="image1" name="image" accept="image/*" required>
+                         <input type="file" id="image2" name="image" accept="image/*" required>
+                         <br>
+                         <input type="file" id="image3" name="image" accept="image/*" required>
+                         <input type="file" id="image4" name="image" accept="image/*" required>
+                    </div>
+
+                    <div class="image-preview-container ">
+                         <% if (productToEdit.imageUrl && productToEdit.imageUrl.length> 0) { %>
+                              <% productToEdit.imageUrl.forEach((image, index)=> { %>
+                                   <img src="<%= image.url %>" alt="Image <%= index + 1 %>" class="image-preview"
+                                        style="display: block;">
+                                   <% }) %>
+                                        <% } %>
+                                             <% if (productToEdit.imageUrl && productToEdit.imageUrl[0]) { %>
+                                                  <img id="preview1" class="image-preview"
+                                                       src="<%= productToEdit.imageUrl[0].url %>" alt="Image Preview"
+                                                       style="display: none;">
+                                                  <% } %>
+                                                       <% if (productToEdit.imageUrl && productToEdit.imageUrl[1]) { %>
+                                                            <img id="preview2" class="image-preview"
+                                                                 src="<%= productToEdit.imageUrl[1].url %>"
+                                                                 alt="Image Preview" style="display: none;">
+                                                            <% } %>
+                                                                 <% if (productToEdit.imageUrl &&
+                                                                      productToEdit.imageUrl[2]) { %>
+                                                                      <img id="preview3" class="image-preview"
+                                                                           src="<%= productToEdit.imageUrl[2].url %>"
+                                                                           alt="Image Preview" style="display: none;">
+                                                                      <% } %>
+                                                                           <% if (productToEdit.imageUrl &&
+                                                                                productToEdit.imageUrl[3]) { %>
+                                                                                <img id="preview4" class="image-preview"
+                                                                                     src="<%= productToEdit.imageUrl[3].url %>"
+                                                                                     alt="Image Preview"
+                                                                                     style="display: none;">
+                                                                                <% } %>
+                    </div> -->
+                    <div class="d-flex justify-content-center">
+                         <input type="submit" value="Add Product" class="btn btn-primary">
+                    </div>
+               </form>
+          </div>
+
+
+          
+
+
+               <script>
+                    // Image preview code
+                    function previewImage(event, imageNumber) {
+                         var preview = document.getElementById(`preview${imageNumber}`);
+                         var file = event.target.files[0];
+                         var reader = new FileReader();
+
+                         reader.onload = function () {
+                              preview.src = reader.result;
+                              preview.style.display = "block";
+                         }
+
+                         if (file) {
+                              reader.readAsDataURL(file);
+                         } else {
+                              preview.src = "#";
+                              preview.style.display = "none";
+                         }
+                    }
+
+                    // Add event listeners for image previews
+                    document.getElementById("image1").addEventListener("change", function (event) {
+                         previewImage(event, 1);
+                    });
+
+                    document.getElementById("image2").addEventListener("change", function (event) {
+                         previewImage(event, 2);
+                    });
+
+                    document.getElementById("image3").addEventListener("change", function (event) {
+                         previewImage(event, 3);
+                    });
+
+                    document.getElementById("image4").addEventListener("change", function (event) {
+                         previewImage(event, 4);
+                    });
+               </script>
+
+     </div>
+
+
+     <%- include('../partials/adminPartials/footer')%>

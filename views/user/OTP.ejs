@@ -1,0 +1,139 @@
+<%- include('../partials/userPartials/header')%>
+
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <title>OTP Enter Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: url('assets/images/backgrounds/login-bg.jpg')
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .otp-input {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 35px;
+      }
+
+      .otp-input input {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-size: 18px;
+        margin: 0 5px;
+        border-radius: 08px;
+        border-color: rgba(74, 73, 73, 0.849);
+      }
+
+      .box {
+        background-color: white;
+        padding: 90px;
+        text-align: center;
+        border: 2px solid;
+        border-color: white;
+        border-radius: 10px;
+      }
+
+      .box h2 {
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgba(167, 145, 145, 0.904);
+      }
+
+      .submit-button {
+        padding: 10px 20px;
+        background-color: #8f907fc1;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+
+      .resend-link {
+        margin-top: 20px;
+      }
+
+      .resend-link a {
+        color: #575755e4;
+        text-decoration: none;
+      }
+
+
+      @media (max-width: 600px) {
+        .otp-input input {
+          width: 30px;
+          height: 30px;
+          font-size: 14px;
+        }
+
+
+
+        .submit-button {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="box">
+        <h2>Enter OTP</h2>
+        <div class="otp-input">
+          <form action="/otpEnter" method="post" id="otpEnter">
+             <!-- <form id="otpEnter"> -->
+            <input type="text" maxlength="1" name="first" oninput="moveToNext(this,second)"  />
+            <input type="text" maxlength="1" name="second" oninput="moveToNext(this,third)" />
+            <input type="text" maxlength="1" name="third" oninput="moveToNext(this,fourth)" />
+            <input type="text" maxlength="1" name="fourth" oninput="moveToNext(this,submit)" />
+            <p id="otpError" class="text-danger error-msg"></p>
+        </div>
+
+        <button type="submit" class="submit-button">Submit</button>
+        </form>
+        <% if (typeof error !=='undefined' && error){%>
+          <p class="text-danger error-message">
+            <%= error %>
+          </p>
+          <%} %>
+            <div class="resend-link">
+              <a href="/otp">Resend OTP</a>
+            </div>
+      </div>
+    </div>
+    
+    <script>
+  //     function moveToNext(input, nextInputName) {
+  // if (input.value.length >= input.getAttribute("maxlength")) {
+  //   var nextInput = document.getElementsByName(nextInputName)[0];
+  //   if (nextInput && nextInput.type !== "submit") {
+  //     nextInput.focus();
+  //   } 
+  // }
+  //}
+  function moveToNext(input, nextInputName) {
+  if (input.value.length >= input.getAttribute("maxlength")) {
+    var nextInput = document.getElementsByName(nextInputName)[0];
+    if (nextInput) {
+      nextInput.focus();
+    } else if (nextInputName === "submit") {
+      document.getElementById("otpEnter").submit();
+    }
+  } else if (input.value.length === 0 && input.previousElementSibling) {
+    input.previousElementSibling.focus();
+  }
+}
+</script>
+</body>
+</html> 
