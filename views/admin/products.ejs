@@ -54,24 +54,39 @@
 
                </div>
           </section>
-
+          
           <style>
-               .stock-table {
-                    border-collapse: collapse;
+               /* Style for the block button */
+               .list-btn {
+                 background-color: rgba(225, 33, 33, 0.774);
+                 color: #ffffff;
+                 padding: 6px 10px;
+                 border: none;
+                 border-radius: 4px;
+                 cursor: pointer;
                }
+ 
+               /* Style for the unblock button */
+               .unlist-btn {
+                 background-color: #00ff00;
+                 color: #ffffff;
+                 padding: 5px 10px;
+                 border: none;
+                 border-radius: 4px;
+                 cursor: pointer;
+               }
+ 
+               /* Hover effect for the buttons */
+               .list-btn:hover,
+               .unlist-btn:hover {
+                 opacity: 0.8;
+               }
+             </style>
 
-               .stock-table th,
-               .stock-table td {
-                    padding: 8px;
-                    border: none;
-               }
 
-               .stock-table th {
-                    text-align: left;
-               }
-          </style>
+          
           <section class="section main-section">
-               <div class="notification blue">
+               <div class="notification blue ">
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
                          <div>
                               <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
@@ -110,14 +125,12 @@
                                              <tr>
 
                                                   <td>
-                                                       <% if (row.imageUrl && Array.isArray(row.imageUrl) &&
-                                                            row.imageUrl.length> 0) { %>
-                                                            <img style="width: 240px; height: 220px;"
-                                                                 src="<%= row.imageUrl[0].url %>" alt="Product Image">
-                                                            <% } else { %>
-                                                                 <span>No Image Available</span>
-                                                                 <% } %>
-                                                  </td>
+                                                       <% if (row.imageUrl && Array.isArray(row.imageUrl) && row.imageUrl.length > 0 && row.imageUrl[0]?.url) { %>
+                                                           <img style="width: 240px; height: 220px;" src="<%= row.imageUrl[0].url %>" alt="Product Image">
+                                                       <% } else { %>
+                                                           <span>No Image Available</span>
+                                                       <% } %>
+                                                   </td>
                                                   <td>
                                                        <%= row.name %>
                                                   </td>
@@ -170,9 +183,16 @@
                                                        <a href="/admin/editProducts/<%= row._id %>"><button
                                                                  class="button bg-success"><i
                                                                       class="fa-solid fa-pen-to-square"></i></button></a>
-                                                       <a href="/admin/editProduct/<%= row._id %>"><button
+                                                       <!-- <a href="/admin/deleteProduct/<%= row._id %>"><button
                                                                  class="button bg-danger"><i
-                                                                      class="fa-solid fa-trash"></i></button></a>
+                                                                      class="fa-solid fa-trash"></i></button></a> -->
+                                                                      <% if (row.available) { %>
+                                                                           <a href="/admin/deleteProduct/<%= row._id %>">
+                                                                             <button class="unlist-btn" data-user-id="<%= row.id %>">list</button></a>
+                                                                           <% } else { %>
+                                                                             <a href="/admin/deleteProduct/<%= row._id %>">
+                                                                               <button class="list-btn" data-user-id="<%= row.id %>">unList</button></a>
+                                                                             <% } %>
 
                                                   </td>
                                              </tr>
@@ -188,16 +208,16 @@
 
                          </table>
 
-                         <div class="table-pagination">
+                         <!-- <div class="table-pagination">
                               <div class="flex items-center justify-between">
                                    <div class="buttons">
                                         <button type="button" class="button active" onclick="changePage(1)">1</button>
                                         <button type="button" class="button" onclick="changePage(2)">2</button>
-                                        <!-- <button type="button" class="button" onclick="changePage(3)">3</button> -->
+                                       
                                    </div>
                                    <small id="pageInfo">Page 1 of 1</small>
                               </div>
-                         </div>
+                         </div> -->
 
                          <div class="card empty">
                               <div class="card-content">

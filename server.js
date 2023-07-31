@@ -40,13 +40,11 @@
 
     const port= process.env.PORT
 
+    const connectDB = require("./config/model");
+    connectDB(); 
+
     app.use('/', user_router)
     app.use("/admin",admin_router)
-
-    mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    const db = mongoose.connection
-    db.on('error', (error) => console.log(error))
-    db.once('open', () => console.log("connected to database!"))
 
 
 

@@ -60,7 +60,7 @@
         </section>
         <style>
       .List-btn {
-        background-color: rgba(225, 33, 33, 0.774);
+        background-color: #00ff00;
         color: #ffffff;
         padding: 6px 10px;
         border: none;
@@ -70,7 +70,7 @@
 
       /* Style for the unblock button */
       .unList-btn {
-        background-color: #00ff00;
+        background-color: rgba(225, 33, 33, 0.774);
         color: #ffffff;
         padding: 5px 10px;
         border: none;
@@ -104,12 +104,7 @@
             
             <a href="/admin/addCategory" ><button class="button secondary m-2">Add Category</button></a>
             <div class="d-flex justify-content-end m-2">
-                <input class=" px-2" id="search" placeholder="search user name" />
-                  <button
-                  class="ms-2 p-2 fas fa-search bg-light"
-                  onclick="searchUser()"
-                  type="button"
-                ></button>
+               
               </div>
           </header>
           <div class="card-content">
@@ -165,16 +160,6 @@
               </table>
               
 
-            <div class="table-pagination">
-              <div class="flex items-center justify-between">
-                <div class="buttons">
-                  <button type="button" class="button active" onclick="changePage(1)">1</button>
-                  <button type="button" class="button" onclick="changePage(2)">2</button>
-                  <!-- <button type="button" class="button" onclick="changePage(3)">3</button> -->
-                </div>
-                <small id="pageInfo">Page 1 of 1</small>
-              </div>
-            </div>
 
             <div class="card empty">
               <div class="card-content">

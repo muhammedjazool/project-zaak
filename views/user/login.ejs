@@ -1,128 +1,207 @@
-    <%- include('../partials/userPartials/header')%>
-    <%- include ('../partials/userPartials/navbar')%>
+<%- include('../partials/userPartials/header')%> 
+<%- include('../partials/userPartials/navbar')%>
 
+<body>
+  <!-- End .header -->
 
+  <main class="main">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/login">Account</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Login</li>
+        </ol>
+      </div>
+      <!-- End .container -->
+    </nav>
+    <!-- End .breadcrumb-nav -->
 
+    <div
+      class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
+      style="background-image: url('assets/images/backgrounds/login-bg.jpg')"
+    >
+      <div class="container">
+        <div class="form-box">
+          <div class="form-tab">
+            <ul class="nav nav-pills nav-fill" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="signin-tab-2"
+                  data-toggle="tab"
+                  href="#signin-2"
+                  role="tab"
+                  aria-controls="signin-2"
+                  aria-selected="false"
+                  >Sign Up</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="register-tab-2"
+                  data-toggle="tab"
+                  href="#register-2"
+                  role="tab"
+                  aria-controls="register-2"
+                  aria-selected="true"
+                  >Login</a
+                >
+              </li>
+            </ul>
 
+            <!-- ///////signup///////// -->
+            <div class="tab-content">
+              <div
+                class="tab-pane fade"
+                id="signin-2"
+                role="tabpanel"
+                aria-labelledby="signin-tab-2"
+              >
+                <form id="signUpForm">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      placeholder="User Name *"
+                      required
+                    />
+                    <p id="nameError" class="text-danger error-msg"></p>
+                  </div>
+                  <!-- End .form-group -->
 
-        <body>
-            <!-- End .header -->
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="Email *"
+                      required
+                    />
+                    <p id="emailError" class="text-danger error-msg"></p>
+                  </div>
 
-            <main class="main">
-                <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
-                    <div class="container">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Account</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Login</li>
-                        </ol>
-                    </div><!-- End .container -->
-                </nav><!-- End .breadcrumb-nav -->
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="phone"
+                      name="phone"
+                      placeholder="Phone No *"
+                      required
+                    />
+                    <p id="phoneError" class="text-danger error-msg"></p>
+                  </div>
 
-                <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
-                    style="background-image: url('assets/images/backgrounds/login-bg.jpg')">
-                    <div class="container">
-                        <div class="form-box">
-                            <div class="form-tab">
-                                <ul class="nav nav-pills nav-fill" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2"
-                                            role="tab" aria-controls="signin-2" aria-selected="false">Sign Up</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="register-tab-2" data-toggle="tab"
-                                            href="#register-2" role="tab" aria-controls="register-2"
-                                            aria-selected="true">Login</a>
-                                    </li>
-                                </ul>
+                  <div class="form-group">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      required
+                    />
+                    <p id="passwordError" class="text-danger error-msg"></p>
+                  </div>
 
-                                <!-- ///////signup///////// -->
-                                <div class="tab-content">
-                                    <div class="tab-pane fade" id="signin-2" role="tabpanel"
-                                        aria-labelledby="signin-tab-2">
+                  <div class="form-group">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="ConfirmPassword"
+                      name="confirmPassword"
+                      placeholder="confirm Password"
+                      required
+                    />
+                    <p
+                      id="confirmPasswordError"
+                      class="text-danger error-msg"
+                    ></p>
+                  </div>
+                  <!-- End .form-group -->
 
-                                        <form id="signUpForm">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                    placeholder="User Name *" required>
-                                                <p id="nameError" class="text-danger error-msg"></p>
-                                            </div><!-- End .form-group -->
+                  <div class="form-footer">
+                    <button type="submit" class="btn btn-outline-primary-2">
+                      <span>SIGN UP</span>
+                      <i class="icon-long-arrow-right"></i>
+                    </button>
+                  </div>
+                  <!-- End .form-footer -->
+                </form>
+              </div>
+              <!-- .End .tab-pane -->
 
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="email" name="email"
-                                                    placeholder="Email *" required>
-                                                <p id="emailError" class="text-danger error-msg"></p>
-                                            </div>
+              <!-- ///////login/////// -->
 
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="phone" name="phone"
-                                                    placeholder="Phone No *" required>
-                                                <p id="phoneError" class="text-danger error-msg"></p>
-                                            </div>
+              <div
+                class="tab-pane fade show active"
+                id="register-2"
+                role="tabpanel"
+                aria-labelledby="register-tab-2"
+              >
+                <form id="loginForm">
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="register-email-2"
+                      name="loginEmail"
+                      placeholder="Email *"
+                    />
+                    <p id="loginEmailError" class="text-danger error-msg"></p>
+                    <p id="isBlockedError" class="text-danger error-msg"></p>
+                    <p id="loginError" class="text-danger error-msg"></p>
+                  </div>
+                  <!-- End .form-group -->
 
+                  <div class="form-group">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="register-password-2"
+                      name="loginPassword"
+                      placeholder="Password"
+                    />
+                    <p
+                      id="loginPasswordError"
+                      class="text-danger error-msg"
+                    ></p>
+                    <p id="incorrectPassword" class="text-danger error-msg"></p>
+                  </div>
+                  <!-- End .form-group -->
+                  <p id="blockCheck" class="text-danger d-none">blocked</p>
 
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" id="password"
-                                                    name="password" placeholder="Password" required>
-                                                <p id="passwordError" class="text-danger error-msg"></p>
-                                            </div>
+                  <div class="form-footer">
+                    <button type="submit" class="btn btn-outline-primary-2">
+                      <span>LOG IN</span>
+                      <i class="icon-long-arrow-right"></i>
+                    </button>
 
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" id="ConfirmPassword"
-                                                    name="confirmPassword" placeholder="confirm Password" required>
-                                                <p id="confirmPasswordError" class="text-danger error-msg"></p>
-                                            </div><!-- End .form-group -->
+                    <a href="/forgotPassword" class="forgot-link"
+                      >Forgot Your Password?</a
+                    >
+                  </div>
+                  <!-- End .form-footer -->
+                </form>
+              </div>
+              <!-- .End .tab-pane -->
+            </div>
+            <!-- End .tab-content -->
+          </div>
+          <!-- End .form-tab -->
+        </div>
+        <!-- End .form-box -->
+      </div>
+      <!-- End .container -->
+    </div>
+    <!-- End .login-page section-bg -->
+  </main>
+  <!-- End .main -->
 
-                                            <div class="form-footer">
-                                                <button type="submit" class="btn btn-outline-primary-2">
-                                                    <span>SIGN UP</span>
-                                                    <i class="icon-long-arrow-right"></i>
-                                                </button>
-                                            </div><!-- End .form-footer -->
-                                        </form>
-                                    </div><!-- .End .tab-pane -->
-
-
-
-                                    <!-- ///////login/////// -->
-
-                                    <div class="tab-pane fade show active" id="register-2" role="tabpanel"
-                                        aria-labelledby="register-tab-2">
-                                        <form id="loginForm">
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" id="register-email-2"
-                                                    name="loginEmail" placeholder="Email *">
-                                                <p id="loginEmailError" class="text-danger error-msg"></p>
-                                                <p id="isBlockedError" class="text-danger error-msg"></p>
-                                                <p id="loginError" class="text-danger error-msg"></p>
-                                            </div><!-- End .form-group -->
-
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" id="register-password-2"
-                                                    name="loginPassword" placeholder="Password">
-                                                <p id="loginPasswordError" class="text-danger error-msg"></p>
-                                                <p id="incorrectPassword" class="text-danger error-msg"></p>
-
-                                            </div><!-- End .form-group -->
-                                            <p id="blockCheck" class="text-danger d-none">blocked</p>
-
-                                            <div class="form-footer">
-                                                <button type="submit" class="btn btn-outline-primary-2">
-                                                    <span>LOG IN</span>
-                                                    <i class="icon-long-arrow-right"></i>
-                                                </button>
-
-                                                <a href="#" class="forgot-link">Forgot Your Password?</a>
-                                            </div><!-- End .form-footer -->
-                                        </form>
-
-                                    </div><!-- .End .tab-pane -->
-                                </div><!-- End .tab-content -->
-                            </div><!-- End .form-tab -->
-                        </div><!-- End .form-box -->
-                    </div><!-- End .container -->
-                </div><!-- End .login-page section-bg -->
-            </main><!-- End .main -->
-
-
-            <%- include("../partials/userPartials/footer")%>
+  <%- include("../partials/userPartials/footer")%>
+</body>

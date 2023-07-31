@@ -49,6 +49,16 @@
                 required: true,
             },
         }],
+
+        available:{
+            type:Boolean,
+            default:true,
+        },
+        
+        isOnCart: {
+            type: Boolean,
+            default: false,
+        },
     
     })
 

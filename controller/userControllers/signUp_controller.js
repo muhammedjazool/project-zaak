@@ -6,6 +6,8 @@ async function validation(data) {
   const errors = {};
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^(\+91)?[6-9]\d{9}$/;
+  const passwordRegex=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+
   const existingUser = await User.findOne({ email: email });
 
   if (!email) {
@@ -17,11 +19,9 @@ async function validation(data) {
   }
 
   if (!name) {
-    errors.nameError = "Please Enter a Firstname";
+    errors.nameError = "Please Enter a Name";
   }
-   //  else if (name.includes(" ")) {
-     // //   errors.nameError = "Invalid spacing between names";
-     // // }
+   
 
   if (!phone) {
     errors.phoneError = "Please provide a Phone number";
@@ -31,8 +31,8 @@ async function validation(data) {
 
   if (!password) {
     errors.passwordError = "Please provide a Password";
-  } else if (password.length < 8) {
-    errors.passwordError = "Password length should be at least 8";
+  } else if (!passwordRegex.test(password)) {
+    errors.passwordError = "Password must be 8 characters with one uppercase letter, one lowercase letter, and one number";
   }
 
   if (password != confirmPassword && password.length > 0) {
@@ -46,20 +46,26 @@ async function validation(data) {
 }
 
 exports.signUpPost = async (req, res) => {
-  const data = {
-    name: req.body.name,
-    email: req.body.email,
-    phone: req.body.phone,
-    password: req.body.password,
-    isBlocked: false,
-  };
-  req.session.detail = data;
+  try {
+    const data = {
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      password: req.body.password,
+      isBlocked: false,
+    };
 
-  const valid = await validation(req.body);
+    req.session.detail = data;
 
-  if (valid.isValid) {
-    return res.status(200).end();
-  } else if (!valid.isValid) {
-    return res.status(400).json({ error: valid.errors });
+    const valid = await validation(req.body);
+
+    if (valid.isValid) {
+      return res.status(200).end();
+    } else if (!valid.isValid) {
+      return res.status(400).json({ error: valid.errors });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };

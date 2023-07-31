@@ -6,80 +6,52 @@
 
         <main class="main">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="banner banner-big banner-overlay">
-                            <a href="#">
-                                <img src="assets/images/demos/demo-7/banners/banner-1.jpg" alt="Banner">
-                            </a>
-
-                            <div class="banner-content banner-content-center">
-                                <h3 class="banner-subtitle text-white"><a href="#">New Collection</a></h3><!-- End .banner-subtitle -->
-                                <h2 class="banner-title text-white"><a href="#">Shop Women's</a></h2><!-- End .banner-title -->
-                                <a href="#" class="btn underline"><span>Discover Now</span></a>
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
-                    </div><!-- End .col-lg-6 -->
-
-                    <div class="col-lg-6">
-                        <div class="banner banner-big banner-overlay">
-                            <a href="#">
-                                <img src="assets/images/demos/demo-7/banners/banner-2.jpg" alt="Banner">
-                            </a>
-
-                            <div class="banner-content banner-content-center">
-                                <h3 class="banner-subtitle text-white"><a href="#">New Collection</a></h3><!-- End .banner-subtitle -->
-                                <h2 class="banner-title text-white"><a href="#">Shop Men's</a></h2><!-- End .banner-title -->
-                                <a href="#" class="btn underline"><span>Discover Now</span></a>
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
-                    </div><!-- End .col-lg-6 -->
+                <div class="page-content">
+                <!-- <div class="video-banner video-banner-bg bg-image text-center" style="background-image: url(assets/images/video/bg-1.jpg)">
+	                <div class="container">
+	                	<h3 class="video-banner-title h1 text-white"><span>New Video</span><strong>Womens New Arrivals</strong></h3>
+	                	
+	                </div>
+            	</div> -->
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="assets/images/video/bg-1.jpg" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="assets/images/video/banner-7.png" class="d-block w-100" alt="...">
+                      </div>
+                      
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                   </div>
+                   <div class="row justify-content-center">
+                    <% categoryData.forEach(category => { %>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="banner banner-cat">
+                                <a href="/products?id=<%= category._id %>">
+                                    <img src="<%= category.imageUrl.url %>" alt="Banner">
+                                </a>
+                                <div class="banner-content">
+                                    <h3 class="banner-title"><%= category.category %></h3>
+                                    <h4 class="banner-subtitle "><%= category.description %></h4>
+                                    <a href="/products?id=<%= category._id %>" class="banner-link">Shop Now</a>
+                                </div><!-- End .banner-content -->
+                            </div><!-- End .banner -->
+                        </div><!-- End .col-md-6 -->
+                    <% }); %>
                 </div><!-- End .row -->
-
-                <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="banner banner-overlay text-white">
-                            <a href="#">
-                                <img src="assets/images/demos/demo-7/banners/banner-3.jpg" alt="Banner">
-                            </a>
-
-                            <div class="banner-content banner-content-right">
-                                <h4 class="banner-subtitle"><a href="#">Flip Flop</a></h4><!-- End .banner-subtitle -->
-                                <h3 class="banner-title"><a href="#">Summer<br>sale -70% off</a></h3><!-- End .banner-title -->
-                                <a href="#" class="btn underline btn-outline-white-3 banner-link">Shop Now</a>
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
-                    </div><!-- End .col-lg-4 -->
-
-                    <div class="col-md-6 col-lg-4">
-                        <div class="banner banner-overlay color-grey">
-                            <a href="#">
-                                <img src="assets/images/demos/demo-7/banners/banner-4.jpg" alt="Banner">
-                            </a>
-
-                            <div class="banner-content">
-                                <h4 class="banner-subtitle"><a href="#">Accessories</a></h4><!-- End .banner-subtitle -->
-                                <h3 class="banner-title"><a href="#">2019 Winter<br>up to 50% off</a></h3><!-- End .banner-title -->
-                                <a href="#" class="btn underline banner-link">Shop Now</a>
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
-                    </div><!-- End .col-lg-4 -->
-
-                    <div class="col-md-6 col-lg-4">
-                        <div class="banner banner-overlay text-white">
-                            <a href="#">
-                                <img src="assets/images/demos/demo-7/banners/banner-5.jpg" alt="Banner">
-                            </a>
-
-                            <div class="banner-content banner-content-right mr">
-                                <h4 class="banner-subtitle"><a href="#">New in</a></h4><!-- End .banner-subtitle -->
-                                <h3 class="banner-title"><a href="#">Women’s<br>sportswear</a></h3><!-- End .banner-title -->
-                                <a href="#" class="btn underline btn-outline-white-3 banner-link">Shop Now</a>
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
-                    </div><!-- End .col-lg-4 -->
-                </div><!-- End .row -->
+                
             </div><!-- End .container-fluid -->
+            </div>
             
 
           
@@ -1065,171 +1037,12 @@
                     <a href="#" class="btn btn-outline-dark-3 btn-more"><span>Load more</span><i class="icon-long-arrow-right"></i></a>
                 </div><!-- End .more-container -->
 
-                <hr class="mt-0 mb-6">
                 
-                <div class="blog-posts mb-4">
-                    <h2 class="title text-center mb-3">From Our Blog</h2><!-- End .title text-center -->
-
-                    <div class="owl-carousel owl-simple mb-2" data-toggle="owl" 
-                        data-owl-options='{
-                            "nav": false, 
-                            "dots": true,
-                            "items": 3,
-                            "margin": 20,
-                            "loop": false,
-                            "responsive": {
-                                "0": {
-                                    "items":1
-                                },
-                                "520": {
-                                    "items":2
-                                },
-                                "768": {
-                                    "items":3
-                                },
-                                "992": {
-                                    "items":4
-                                }
-                            }
-                        }'>
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-1.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Nov 22, 2018</a>, 1 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Sed adipiscing ornare.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-2.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 12, 2018</a>, 0 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Fusce lacinia arcuet nulla.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-3.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 19, 2018</a>, 2 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Quisque volutpat mattis eros.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-4.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 25, 2018</a>, 3 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Mauris suscipit in massa.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .owl-carousel -->
-                </div><!-- End .blog-posts -->
+                
+                
             </div><!-- End .container-fluid -->
 
-            <div class="bg-light-2 pt-7 pb-6 testimonials">
-                <div class="container">
-                    <h2 class="title text-center mb-2">Our Customers Say</h2><!-- End .title text-center -->
-                    <div class="owl-carousel owl-simple owl-testimonials" data-toggle="owl" 
-                        data-owl-options='{
-                            "nav": false, 
-                            "dots": true,
-                            "margin": 20,
-                            "loop": false,
-                            "responsive": {
-                                "1200": {
-                                    "nav": true
-                                }
-                            }
-                        }'>
-                        <blockquote class="testimonial testimonial-icon text-center">
-                            <p class="lead">“Really great store”</p><!-- End .lead -->
-                            <p>“ Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra<br>a, ultricies in, diam. Sed arcu. ”</p>
-
-                            <cite>
-                                Charly Smith,
-                                <span>Customer</span>
-                            </cite>
-                        </blockquote><!-- End .testimonial -->
-
-                        <blockquote class="testimonial testimonial-icon text-center">
-                            <p class="lead">“Friendly Support”</p><!-- End .lead -->
-                            <p>“ Impedit, ratione sequi, sunt incidunt magnam et. Delectus obcaecati optio eius error libero perferendis nesciunt atque dolores magni recusandae! Doloremque quidem error eum quis similique doloribus natus qui ut ipsum.”</p>
-
-                            <cite>
-                                Damon Stone
-                                <span>Customer</span>
-                            </cite>
-                        </blockquote><!-- End .testimonial -->
-
-                        <blockquote class="testimonial testimonial-icon text-center">
-                            <p class="lead">“Free Shipping”</p><!-- End .lead -->
-                            <p>“ Molestias animi illo natus ut quod neque ad accusamus praesentium fuga! Dolores odio alias sapiente odit delectus quasi, explicabo a, modi voluptatibus. Perferendis perspiciatis, voluptate, distinctio earum veritatis animi tempora eget blandit nunc tortor mollis ”</p>
-
-                            <cite>
-                                John Smith
-                                <span>Customer</span>
-                            </cite>
-                        </blockquote><!-- End .testimonial -->
-                    </div><!-- End .testimonials-slider owl-carousel -->
-                </div><!-- End .container -->
-            </div><!-- End .bg-light pt-5 pb-5 -->
+           
 
             <div class="brands-border owl-carousel owl-simple" data-toggle="owl" 
                 data-owl-options='{

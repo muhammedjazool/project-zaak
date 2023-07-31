@@ -1,0 +1,269 @@
+<%- include ('../partials/userPartials/productHeader')%>
+<%- include ('../partials/userPartials/productNavbar')%>
+
+
+          <body>
+               <div class="page-wrapper">
+
+                    <main class="main">
+                         <div class="page-header text-center"
+                              style="background-image: url('assets/images/page-header-bg.jpg')">
+                              <div class="container">
+                                   <h1 class="page-title">My Profile</h1>
+                              </div><!-- End .container -->
+                         </div><!-- End .page-header -->
+                         <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                              <div class="container">
+                                   <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                                   </ol>
+                              </div><!-- End .container -->
+                         </nav><!-- End .breadcrumb-nav -->
+
+                         <div class="page-content">
+                              <div class="dashboard">
+                                   <div class="container">
+                                        <div class="row">
+                                             <aside class="col-md-4 col-lg-3">
+                                                  <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                                                       <li class="nav-item">
+                                                            <a class="nav-link active" id="tab-dashboard-link"
+                                                                 data-toggle="tab" href="#tab-dashboard" role="tab"
+                                                                 aria-controls="tab-dashboard"
+                                                                 aria-selected="true">Dashboard</a>
+                                                       </li>
+                                                       <li class="nav-item">
+                                                            <a class="nav-link" id="tab-orders-link" data-toggle="tab"
+                                                                 href="#tab-orders" role="tab"
+                                                                 aria-controls="tab-orders"
+                                                                 aria-selected="false">Orders</a>
+                                                       </li>
+                                                       <li class="nav-item">
+                                                            <a class="nav-link" id="tab-downloads-link"
+                                                                 data-toggle="tab" href="#tab-downloads" role="tab"
+                                                                 aria-controls="tab-downloads"
+                                                                 aria-selected="false">Wallet</a>
+                                                       </li>
+                                                       <li class="nav-item">
+                                                            <a class="nav-link" id="tab-address-link" data-toggle="tab"
+                                                                 href="#tab-address" role="tab"
+                                                                 aria-controls="tab-address"
+                                                                 aria-selected="false">Adresses</a>
+                                                       </li>
+                                                       <li class="nav-item">
+                                                            <a class="nav-link" id="tab-account-link" data-toggle="tab"
+                                                                 href="#tab-account" role="tab"
+                                                                 aria-controls="tab-account"
+                                                                 aria-selected="false">Account Details</a>
+                                                       </li>
+                                                       <li class="nav-item">
+                                                            <a class="nav-link" href="#">Logout</a>
+                                                       </li>
+                                                  </ul>
+                                             </aside><!-- End .col-lg-3 -->
+
+                                             <div class="col-md-8 col-lg-9">
+                                                  <div class="tab-content">
+                                                       <div class="tab-pane fade show active" id="tab-dashboard"
+                                                            role="tabpanel" aria-labelledby="tab-dashboard-link">
+                                                            <p><h2>Hello <span
+                                                                      class="font-weight-normal text-dark"><%= userDetail.name %></span>
+                                                               </h2> </p>
+                                                                 <br>
+                                                                 From your account dashboard you can view your orders, manage your <a href="#tab-address"
+                                                                      class="tab-trigger-link">shipping and billing
+                                                                      addresses</a>, and <a href="#tab-account"
+                                                                      class="tab-trigger-link">edit your password and
+                                                                      account details</a>.
+                                                            </p>
+                                                       </div><!-- .End .tab-pane -->
+
+                                                       <div class="tab-pane fade" id="tab-orders" role="tabpanel"
+                                                            aria-labelledby="tab-orders-link">
+                                                            <p>No order has been made yet.</p>
+                                                            <a href="category.html"
+                                                                 class="btn btn-outline-primary-2"><span>GO
+                                                                      SHOP</span><i
+                                                                      class="icon-long-arrow-right"></i></a>
+                                                       </div><!-- .End .tab-pane -->
+
+                                                       <div class="tab-pane fade" id="tab-downloads" role="tabpanel"
+                                                            aria-labelledby="tab-downloads-link">
+                                                            <p>No downloads available yet.</p>
+                                                            <a href="category.html"
+                                                                 class="btn btn-outline-primary-2"><span>GO
+                                                                      SHOP</span><i
+                                                                      class="icon-long-arrow-right"></i></a>
+                                                       </div><!-- .End .tab-pane -->
+
+                                                       <div class="tab-pane fade" id="tab-address" role="tabpanel"
+                                                            aria-labelledby="tab-address-link">
+                                                            <p>The following addresses will be used on the checkout page
+                                                                 by default.</p>
+
+                                                            <div class="row">
+                                                                 <div class="col-lg-6">
+                                                                      <div class="card card-dashboard">
+                                                                           <div class="card-body">
+                                                                                <h3 class="card-title">Billing Address
+                                                                                </h3><!-- End .card-title -->
+
+                                                                                <p>User Name<br>
+                                                                                     User Company<br>
+                                                                                     John str<br>
+                                                                                     New York, NY 10001<br>
+                                                                                     1-234-987-6543<br>
+                                                                                     yourmail@mail.com<br>
+                                                                                     <a href="#">Edit <i
+                                                                                               class="icon-edit"></i></a>
+                                                                                </p>
+                                                                           </div><!-- End .card-body -->
+                                                                      </div><!-- End .card-dashboard -->
+                                                                 </div><!-- End .col-lg-6 -->
+
+                                                                 <div class="col-lg-6">
+                                                                      <div class="card card-dashboard">
+                                                                           <div class="card-body">
+                                                                                <h3 class="card-title">Shipping Address
+                                                                                </h3><!-- End .card-title -->
+
+                                                                                <p>You have not set up this type of
+                                                                                     address yet.<br>
+                                                                                     <a href="#">Edit <i
+                                                                                               class="icon-edit"></i></a>
+                                                                                </p>
+                                                                           </div><!-- End .card-body -->
+                                                                      </div><!-- End .card-dashboard -->
+                                                                 </div><!-- End .col-lg-6 -->
+                                                            </div><!-- End .row -->
+                                                       </div><!-- .End .tab-pane -->
+
+                                                       <div class="tab-pane fade" id="tab-account" role="tabpanel"
+                                                            aria-labelledby="tab-account-link">
+                                                            <form id="profileForm">
+                                                                 <div class="row">
+                                                                      <div class="col-sm-6">
+                                                                           <label> Name *</label>
+                                                                           <input type="text" name="name"
+                                                                                class="form-control"
+                                                                                value="<%=userDetail.name%>" required>
+                                                                           <p id="nameError"
+                                                                                class="text-danger error-msg"></p>
+                                                                      </div><!-- End .col-sm-6 -->
+
+                                                                      <div class="col-sm-6">
+                                                                           <label>Mobile No *</label>
+                                                                           <input type="tel" name="phone"
+                                                                                class="form-control"
+                                                                                value="<%=userDetail.phone%>" required>
+                                                                           <p id="phoneError"
+                                                                                class="text-danger error-msg"></p>
+                                                                      </div><!-- End .col-sm-6 -->
+                                                                 </div><!-- End .row -->
+
+
+                                                                 <div class="row">
+                                                                      <div class="col-sm-6">
+                                                                           <label>Email*</label>
+                                                                           <input type="email" name="email"
+                                                                                class="form-control"
+                                                                                value="<%=userDetail.email%>" required>
+                                                                           <p id="emailError"
+                                                                                class="text-danger error-msg"></p>
+                                                                      </div><!-- End .col-sm-6 -->
+
+                                                                      <div class="col-sm-6">
+                                                                           <label>Current Password</label>
+                                                                           <input type="password" name="currentPassword"
+                                                                                class="form-control" required>
+                                                                           <p id="currentPasswordError"
+                                                                                class="text-danger error-msg"></p>
+                                                                      </div><!-- End .col-sm-6 -->
+                                                                 </div><!-- End .row -->
+
+
+                                                                 <div class="row">
+                                                                      <div class="col-sm-6">
+                                                                           <label>New Password *</label>
+                                                                           <input type="password" name="newPassword"
+                                                                                class="form-control" required>
+                                                                           <p id="newPasswordError"
+                                                                                class="text-danger error-msg"></p>
+                                                                      </div><!-- End .col-sm-6 -->
+
+                                                                      <div class="col-sm-6">
+                                                                           <label>Confirm Password *</label>
+                                                                           <input type="password" name="confirmPassword"
+                                                                                class="form-control" required>
+                                                                           <p id="confirmPasswordError"
+                                                                                class="text-danger error-msg"></p>
+                                                                      </div><!-- End .col-sm-6 -->
+                                                                 </div><!-- End .row -->
+
+
+
+
+
+                                                                 <button type="submit"
+                                                                      class="btn btn-outline-primary-2">
+                                                                      <span>SAVE CHANGES</span>
+                                                                      <i class="icon-long-arrow-right"></i>
+                                                                 </button>
+                                                            </form>
+                                                       </div><!-- .End .tab-pane -->
+                                                  </div>
+                                             </div><!-- End .col-lg-9 -->
+                                        </div><!-- End .row -->
+                                   </div><!-- End .container -->
+                              </div><!-- End .dashboard -->
+                         </div><!-- End .page-content -->
+                    </main><!-- End .main -->
+
+                    <script src="/js/axios.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js"></script>
+
+
+                    <script>
+                         const handleProfile = async (event) => {
+                              event.preventDefault();
+
+                              const formData = new FormData(event.target);
+                              console.log(JSON.stringify(Object.fromEntries(formData.entries())))
+                              resetError();
+                              try {
+                                   const response = await axios.post("/verifyProfile", formData, {
+                                        headers: {
+                                             'Content-Type': 'application/json'
+                                        }
+                                   });
+
+                                   if (response.status === 200) {
+                                        window.location.href = "/jazool";
+                                   }
+                              } catch (error) {
+                                   if ( error.response.status === 400) {
+                                        const validationErrors = error.response.data.error;
+                                        Object.keys(validationErrors).forEach((key) => {
+                                             document.getElementById(key).textContent = validationErrors[key];
+                                        });
+                                   } else {
+                                        alertify.alert("Something went wrong", function () {
+                                             alertify.message("OK");
+                                        });
+                                   }
+                              }
+                         }
+
+                         document.getElementById('profileForm').addEventListener("submit", handleProfile);
+
+                         function resetError() {
+                              const errorElements = document.querySelectorAll(".error-msg");
+                              errorElements.forEach((element) => {
+                                   element.textContent = "";
+                              });
+                         }
+                    </script>
+
+                    <%- include ('../partials/userPartials/productFooter')%>

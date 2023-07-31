@@ -1,15 +1,14 @@
 <%- include('../partials/userPartials/header')%>
 
-  <!DOCTYPE html>
-  <html>
-
+<!DOCTYPE html>
+<html>
   <head>
     <title>OTP Enter Page</title>
     <style>
       body {
         font-family: Arial, sans-serif;
         text-align: center;
-        background: url('assets/images/backgrounds/login-bg.jpg')
+        background: url("assets/images/backgrounds/login-bg.jpg");
       }
 
       .container {
@@ -69,15 +68,12 @@
         text-decoration: none;
       }
 
-
       @media (max-width: 600px) {
         .otp-input input {
           width: 30px;
           height: 30px;
           font-size: 14px;
         }
-
-
 
         .submit-button {
           font-size: 14px;
@@ -90,50 +86,117 @@
     <div class="container">
       <div class="box">
         <h2>Enter OTP</h2>
-        <div class="otp-input">
-          <form action="/otpEnter" method="post" id="otpEnter">
-             <!-- <form id="otpEnter"> -->
-            <input type="text" maxlength="1" name="first" oninput="moveToNext(this,second)"  />
-            <input type="text" maxlength="1" name="second" oninput="moveToNext(this,third)" />
-            <input type="text" maxlength="1" name="third" oninput="moveToNext(this,fourth)" />
-            <input type="text" maxlength="1" name="fourth" oninput="moveToNext(this,submit)" />
-            <p id="otpError" class="text-danger error-msg"></p>
-        </div>
+        <form action="/otpEnter" method="post" id="otpEnter">
+          <div class="otp-input">
+            <input
+              type="text"
+              maxlength="1"
+              name="first"
+              oninput="handleInput(this, 'second', '');"
+              onkeydown="handleBackspace(this, '');"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              name="second"
+              oninput="handleInput(this, 'third', 'first')"
+              onkeydown="handleBackspace(this, 'first')"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              name="third"
+              oninput="handleInput(this, 'fourth', 'second')"
+              onkeydown="handleBackspace(this, 'second')"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              name="fourth"
+              oninput="handleInput(this, 'submit', 'third')"
+              onkeydown="handleBackspace(this, 'third')"
+            />
 
-        <button type="submit" class="submit-button">Submit</button>
+            <p id="otpError" class="text-danger error-msg"></p>
+          </div>
+
+          <button type="submit" class="submit-button">Submit</button>
         </form>
         <% if (typeof error !=='undefined' && error){%>
-          <p class="text-danger error-message">
-            <%= error %>
-          </p>
-          <%} %>
-            <div class="resend-link">
-              <a href="/otp">Resend OTP</a>
-            </div>
+        <p class="text-danger error-message"><%= error %></p>
+        <%} %>
+        
+        <div id="countdownContainer" class="text-center">
+          <span id="countdown"></span>
+       </div> 
+           
+        <div class="resend-link text-center" id="resendContainer" style="display: none;">
+          <a href="/otp">Resend OTP</a>
+        </div>
+
+
       </div>
     </div>
-    
+
     <script>
-  //     function moveToNext(input, nextInputName) {
-  // if (input.value.length >= input.getAttribute("maxlength")) {
-  //   var nextInput = document.getElementsByName(nextInputName)[0];
-  //   if (nextInput && nextInput.type !== "submit") {
-  //     nextInput.focus();
-  //   } 
-  // }
-  //}
-  function moveToNext(input, nextInputName) {
-  if (input.value.length >= input.getAttribute("maxlength")) {
-    var nextInput = document.getElementsByName(nextInputName)[0];
-    if (nextInput) {
-      nextInput.focus();
-    } else if (nextInputName === "submit") {
-      document.getElementById("otpEnter").submit();
-    }
-  } else if (input.value.length === 0 && input.previousElementSibling) {
-    input.previousElementSibling.focus();
-  }
-}
+      function handleInput(input, nextInputName, prevInputName) {
+        if (input.value.length >= input.getAttribute("maxlength")) {
+          var nextInput = document.getElementsByName(nextInputName)[0];
+          if (nextInput) {
+            nextInput.focus();
+          } else if (nextInputName === "submit") {
+          }
+        }
+      }
+
+      function handleBackspace(input, prevInputName) {
+        if (
+          event.key === "Backspace" &&
+          input.value.length === 0 &&
+          input.previousElementSibling
+        ) {
+          var prevInput = document.getElementsByName(prevInputName)[0];
+          if (prevInput) {
+            prevInput.focus();
+          }
+        }
+      }
+    </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      let countdown = 30;
+      let countdownInterval;
+
+      function startCountdown() {
+          countdownInterval = setInterval(updateCountdown, 1000);
+      }
+
+      function updateCountdown() {
+          const countdownContainer = document.getElementById('countdownContainer');
+          const resendContainer = document.getElementById('resendContainer');
+          const countdownElement = document.getElementById('countdown');
+
+          countdown--;
+
+          if (countdown >= 0) {
+              countdownElement.textContent = countdown;
+          } else {
+              clearInterval(countdownInterval);
+              countdownContainer.style.display = 'none';
+              resendContainer.style.display = 'block';
+          }
+      }
+
+      document.getElementById('otpEnter').addEventListener('reset', function (event) {
+          event.preventDefault();
+          handleOtp(event);
+      });
+
+      startCountdown();
+  });
 </script>
-</body>
-</html> 
+
+
+  </body>
+</html>

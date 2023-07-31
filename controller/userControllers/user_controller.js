@@ -1,17 +1,23 @@
+    const Category = require("../../model/categoryModel")
 const User = require("../../model/userModel")
+const Product = require("../../model/productModel")
+const cloudinary = require("../../config/cloudinary")
 
 
 exports.homePage = async (req, res) => {
   try {
-    const userDetail = await User.findOne({ email: req.session.email })
+    const categoryData= await Category.find({isBlocked:true})
+     const userDetail = await User.findOne({ email: req.session.email })
+   
     if (userDetail) {
-      res.render("home", { userDetail })
+      res.render("home", { userDetail ,categoryData})
     }
     else {
-      res.render("home")
+      res.render("home",{categoryData})
     }
   } catch (error) {
-    error.message
+    console.log(error)
+    res.render("404")
   }
 }
 

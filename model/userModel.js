@@ -19,6 +19,18 @@ const userSchema=new mongoose.Schema({
      isBlocked:{
       type:Boolean,
       required:true,
-     }
+     },
+     cart: [
+      {
+          product: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "Product",
+          },
+          quantity: {
+              type: Number,
+              default: 1,
+          },
+      },
+  ],
 })
 module.exports=mongoose.model("user",userSchema)

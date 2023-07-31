@@ -9,21 +9,21 @@ exports.loadCategory = async (req, res) => {
       let catUpdated = "";
       let catNoUpdation='';
     if (req.session.categoryUpdate) {
-      res.render("category", {
+      res.render("category", {title:"Category",
         categoryData,
         catUpdated: "Category updated successfully",
         user: req.session.admin,
       });
       req.session.categoryUpdate = false;
     } else if (req.session.categorySave) {
-      res.render("category", {
+      res.render("category", {title:"Category",
         categoryData,
         catUpdated: "Category Added successfully",
         user: req.session.admin,
       });
       req.session.categorySave = false;
     } else if (req.session.categoryExist) {
-      res.render("category", {
+      res.render("category", {title:"Category",
         categoryData,
         catNoUpdation: "Category Already Exists!!",
         user: req.session.admin,
@@ -98,7 +98,7 @@ exports.addNewCategory = async (req, res) => {
 
 exports.editCategory = async (req, res) => {
   const categoryId = req.params.id;
-
+ 
   try {
     const categoryData = await Category.findById({ _id: categoryId });
     res.render("editCategory", {title:"Edit category", categoryData, user: req.session.admin });
@@ -141,8 +141,8 @@ exports.updateCategory = async (req, res) => {
     const imageExist = await Category.findOne({
       "imageUrl.url": result.secure_url,
     });
-
-    if (!catExist || !imageExist) {
+    const descriptionExist = await Category.findOne({description: categoryDescription})
+    if (!catExist || !imageExist || !descriptionExist) {
       await Category.findByIdAndUpdate(
         categoryId,
         {

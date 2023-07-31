@@ -90,6 +90,7 @@
                     margin-top: 40px;
                     margin-left: 22px;
                     width: 80%;
+                    background-color: #374151;
                }
 
                input[type="file"] {
@@ -100,11 +101,12 @@
                     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
                     width: 100%;
                     max-width: 400px;
+                    background-color: #374151;
                }
 
                input[type="submit"] {
-                    background-color: #4CAF50;
-                    color: white;
+                    background-color: #6dc86d;
+                    color: #e1e3e4;
                     padding: 10px 20px;
                     border: none;
                     border-radius: 5px;
@@ -121,7 +123,21 @@
                     background-color: #3e8e41;
 
                }
+               input[type="text"]{
+                    background-color:  #374151;
+               }
+               input[type="number"]{
+                    background-color:  #374151;
+               }
 
+               select{
+                    background-color:  #374151;
+
+               }
+               option{
+                    background-color:  #374151;
+                        
+               }
                .size-table input {
                     border-radius: 4px;
                     padding-left: 5px;
@@ -154,7 +170,7 @@
                     margin-bottom: 5rem;
                     margin-top: 2.2rem;
                     background-color: #1f2937;
-                    color: rgb(164, 160, 160);
+                    color: rgb(255, 255, 255);
                     max-width: 935px;
                }
 
@@ -185,6 +201,7 @@
                     border-radius: 5px;
                     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
                     width: 100%;
+                    background-color:  #374151;
                }
 
 
@@ -323,45 +340,31 @@
 
 
 
-                    <!-- <div id="images">
-                         <input type="file" id="image1" name="image" accept="image/*" required>
-                         <input type="file" id="image2" name="image" accept="image/*" required>
-                         <br>
-                         <input type="file" id="image3" name="image" accept="image/*" required>
-                         <input type="file" id="image4" name="image" accept="image/*" required>
-                    </div>
 
-                    <div class="image-preview-container ">
-                         <% if (productToEdit.imageUrl && productToEdit.imageUrl.length> 0) { %>
-                              <% productToEdit.imageUrl.forEach((image, index)=> { %>
-                                   <img src="<%= image.url %>" alt="Image <%= index + 1 %>" class="image-preview"
-                                        style="display: block;">
-                                   <% }) %>
-                                        <% } %>
-                                             <% if (productToEdit.imageUrl && productToEdit.imageUrl[0]) { %>
-                                                  <img id="preview1" class="image-preview"
-                                                       src="<%= productToEdit.imageUrl[0].url %>" alt="Image Preview"
-                                                       style="display: none;">
-                                                  <% } %>
-                                                       <% if (productToEdit.imageUrl && productToEdit.imageUrl[1]) { %>
-                                                            <img id="preview2" class="image-preview"
-                                                                 src="<%= productToEdit.imageUrl[1].url %>"
-                                                                 alt="Image Preview" style="display: none;">
-                                                            <% } %>
-                                                                 <% if (productToEdit.imageUrl &&
-                                                                      productToEdit.imageUrl[2]) { %>
-                                                                      <img id="preview3" class="image-preview"
-                                                                           src="<%= productToEdit.imageUrl[2].url %>"
-                                                                           alt="Image Preview" style="display: none;">
-                                                                      <% } %>
-                                                                           <% if (productToEdit.imageUrl &&
-                                                                                productToEdit.imageUrl[3]) { %>
-                                                                                <img id="preview4" class="image-preview"
-                                                                                     src="<%= productToEdit.imageUrl[3].url %>"
-                                                                                     alt="Image Preview"
-                                                                                     style="display: none;">
-                                                                                <% } %>
-                    </div> -->
+                         <div id="images">
+                              <% for (let i = 0; i < productToEdit.imageUrl.length; i++) { %>
+                                <div class="image-container">
+                                  <img src="<%= productToEdit.imageUrl[i]?.url %>" alt="Image <%= i + 1 %>" class="image-preview" style="display: block;">
+                                  <input type="checkbox" name="imageCheckbox" value="<%= i %>" checked>
+                                </div>
+                                <br>
+                              <% } %>
+                            </div>
+                            <div class="image-preview-container">
+                              <% for (let i = 0; i < productToEdit.imageUrl.length; i++) { %>
+                                <img id="preview<%= i + 1 %>" class="image-preview" src="#" alt="Image Preview" style="display: none;">
+                              <% } %>
+                            </div>
+                     <div id="images">
+                         <input type="file" id="image1" name="image" accept="image/*" >
+                     </div>
+                     <div class="image-preview-container">
+                         <img id="preview1" class="image-preview" src="#" alt="Image Preview" style="display: none;">
+                     </div>
+                    
+                    
+                     
+
                     <div class="d-flex justify-content-center">
                          <input type="submit" value="Add Product" class="btn btn-primary">
                     </div>
@@ -392,22 +395,12 @@
                          }
                     }
 
-                    // Add event listeners for image previews
+                    
                     document.getElementById("image1").addEventListener("change", function (event) {
                          previewImage(event, 1);
                     });
 
-                    document.getElementById("image2").addEventListener("change", function (event) {
-                         previewImage(event, 2);
-                    });
-
-                    document.getElementById("image3").addEventListener("change", function (event) {
-                         previewImage(event, 3);
-                    });
-
-                    document.getElementById("image4").addEventListener("change", function (event) {
-                         previewImage(event, 4);
-                    });
+                    
                </script>
 
      </div>

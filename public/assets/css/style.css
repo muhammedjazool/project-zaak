@@ -420,7 +420,7 @@ blockquote.text-white cite span {
 }
 
 .page-content {
-    padding-bottom: 5rem
+    padding-bottom: 2rem
 }
 
 @media screen and (min-width: 992px) {
@@ -9365,7 +9365,7 @@ p {
 }
 
 .banner-subtitle {
-    color: #777;
+    color: 	#36454F;
     font-weight: 300;
     font-size: 1.6rem;
     line-height: 1.2;
@@ -9708,11 +9708,14 @@ p {
 }
 
 .banner-cat .banner-title {
-    margin-bottom: .1rem
+    margin-bottom: .4rem;
+    
 }
 
 .banner-cat .banner-subtitle {
-    margin-bottom: 1.6rem
+    margin-bottom: 1.6rem;
+    max-width: 180px;
+    font-weight: 500px;
 }
 
 .banner-content-overlay {
@@ -13215,7 +13218,8 @@ button:focus {
 .details-action-col {
     display: flex;
     align-items: center;
-    margin-bottom: 2.2rem
+    margin-bottom: 2.2rem;
+    margin-left: 13rem;
 }
 
 .details-action-col .product-details-quantity {
