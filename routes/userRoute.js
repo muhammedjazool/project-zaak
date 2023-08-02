@@ -6,6 +6,7 @@ const signUpController= require("../controller/userControllers/signUp_controller
 const otpController= require("../controller/userControllers/otp_controller")
 const productController= require("../controller/userControllers/product_controller")
 const profileController= require("../controller/userControllers/profile_controller")
+const orderController= require("../controller/userControllers/order_controller")
 const cartController= require("../controller/userControllers/cart_controller")
 const auth = require("../middleware/userAuth");
 
@@ -18,6 +19,9 @@ user_router.get("/",userController.homePage)
 user_router.get("/home",isLogin,blockCheck, userController.homeLoad)
 user_router.get("/profile",isLogin,blockCheck, profileController.loadProfile)
 user_router.post("/verifyProfile",profileController.verifyProfile)
+
+user_router.post('/addNewAddress', userController.addNewAddress)
+user_router.get("/deleteAddress", userController.deleteAddress);
 
 
 user_router.get("/login",isLogout,loginController.loginGet)
@@ -37,7 +41,15 @@ user_router.post("/resetPassword",isLogout,loginController.verifyResetPassword)
 user_router.get("/products",blockCheck,productController.products)
 user_router.get("/productView",productController.loadProductView)
 
-// user_router.get("/cart",cartController.loadCart)
+user_router.get("/cart",isLogin, blockCheck,cartController.loadCart)
+user_router.post("/addToCart",cartController.addToCart)
+user_router.post('/cartUpdation',cartController.updateCart)
+user_router.get("/removeFromCart",cartController.removeFromCart)
+user_router.get("/checkOut", isLogin, blockCheck,cartController.loadCheckOut)
+
+
+user_router.post("/placeOrder",orderController.placeOrder)
+// user_router.get("/orderSuccess",orderController.orderSuccess)
 
 user_router.get("/otp",isLogout,otpController.otpGet)
 user_router.post("/otpEnter",isLogout,otpController.otpVerify)

@@ -4,7 +4,7 @@ const Product = require("../../model/productModel")
 const cloudinary = require("../../config/cloudinary")
 
 const credential = {
-    email: "jazool@gmail.com",
+    email: "jazoolzax1234@gmail.com",
     password: "12"
 }
 

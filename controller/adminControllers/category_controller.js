@@ -77,7 +77,7 @@ exports.addNewCategory = async (req, res) => {
           },
         category: lowerCategoryName,
         description: categoryDescription,
-        isBlocked: false,
+        isNotBlocked: false,
       });
 
       await newCategory.save();
@@ -171,6 +171,6 @@ exports.unListCategory=async(req,res)=>{
   const Id=req.params.categoryDataId
    const unList=await Category.findById(Id)
 
-  await Category.findByIdAndUpdate(Id,{$set:{isBlocked: !unList.isBlocked}})
+  await Category.findByIdAndUpdate(Id,{$set:{isNotBlocked: !unList.isNotBlocked}})
   res.redirect("/admin/categories")
 }

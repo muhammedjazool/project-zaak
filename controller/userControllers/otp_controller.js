@@ -1,15 +1,13 @@
-const User = require("../../model/userModel")
+const User = require("../../model/userModel");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
-require("dotenv").config(); 
+require("dotenv").config();
 
 let otp;
 const otpGenerator = () => {
   const otp = Math.floor(1000 + Math.random() * 9000);
   return otp.toString();
 };
-
-
 
 exports.otpGet = (req, res) => {
   const email = req.session.detail?.email; // Use optional chaining to safely access the email property
@@ -38,21 +36,17 @@ exports.otpGet = (req, res) => {
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
-
       if (error) {
         console.error("Error occurred:", error);
         return res.render("login");
       } else {
-
         return res.render("OTP");
       }
     });
   } catch (error) {
-        console.log(error)
+    console.log(error);
   }
 };
-
-
 
 const securePassword = async (password) => {
   try {
@@ -71,15 +65,15 @@ exports.otpVerify = async (req, res) => {
   const data = req.session.detail;
   if (completeotp == otp) {
     try {
-      const { name, email, phone, password, isBlocked } = data;
-      const hashedPassword = await securePassword(password); 
+      const { name, email, phone, password, isNotBlocked } = data;
+      const hashedPassword = await securePassword(password);
 
       const newUser = new User({
         name,
         email,
         phone,
-        password: hashedPassword, 
-        isBlocked,
+        password: hashedPassword,
+        isNotBlocked,
       });
 
       const result = await newUser.save();

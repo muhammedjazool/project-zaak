@@ -1,103 +1,123 @@
- <%- include("../partials/userPartials/header")%>
- <script src="https://kit.fontawesome.com/ab14f3903c.js" crossorigin="anonymous"></script>
-    <div class="page-wrapper">
-        <header class="header header-7">
-           <div class="header-top">
-                <div class="container-fluid">
-                    
-                 </div> 
-                 <!-- End .container-fluid --> 
-            </div><!-- End .header-top -->
+<%- include("../partials/userPartials/header")%>
+<script
+  src="https://kit.fontawesome.com/ab14f3903c.js"
+  crossorigin="anonymous"
+></script>
+<div class="page-wrapper">
+  <header class="header header-7">
+    <div class="header-top">
+      <div class="container-fluid"></div>
+      <!-- End .container-fluid -->
+    </div>
+    <!-- End .header-top -->
 
-            <div class="header-middle sticky-header">
-                <div class="container-fluid">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
-                        
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/demos/demo-7/logo.png" alt="Molla Logo" width="105" height="25">
-                        </a>
+    <div class="header-middle sticky-header">
+      <div class="container-fluid">
+        <div class="header-left">
+          <button class="mobile-menu-toggler">
+            <span class="sr-only">Toggle mobile menu</span>
+            <i class="icon-bars"></i>
+          </button>
 
-                        <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="/" class="sf-with-ul">Home</a>
+          <a href="index.html" class="logo">
+            <img
+              src="assets/images/demos/demo-7/logo.png"
+              alt="Molla Logo"
+              width="105"
+              height="25"
+            />
+          </a>
 
-                                    
-                                </li>
-                                
-                                <% if (typeof categoryData !== 'undefined' && categoryData.length > 0) { %>
-                                    <% categoryData.forEach((category) => { %>
-                                      <li>
-                                        <a href="/products?id=<%= category._id %>" class="sf-with-ul"><%= category.category %></a>
-                                      </li>
-                                    <% }); %>
-                                  <% } %>
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                           
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
-                                
+          <nav class="main-nav">
+            <ul class="menu sf-arrows">
+              <li class="megamenu-container active">
+                <a href="/" class="sf-with-ul">Home</a>
+              </li>
 
-                                
-                               
-                                
-                                    <li>
-                                        <% if (typeof userDetail !== 'undefined' ) { %>
-                                          <a href="#">Hello <%= userDetail.name %></a>
-                                          <ul>
-                                            <li>
-                                              <a href="/profile">My profile</a>
-                                            </li>
-                                            <li><a href="/logout">Logout</a></li>
-                                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                                          </ul>
-                                        <% } else { %>
-                                          <a href="#">Account</a>
-                                          <ul>
-                                            <li><a href="/login">Login</a></li>
-                                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                                          </ul>
-                                        <% } %>
-                                      </li>
-                            </ul><!-- End .menu -->
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-left -->
+              <% if (typeof categoryData !== 'undefined' && categoryData.length
+              > 0) { %> <% categoryData.forEach((category) => { %>
+              <li>
+                <a href="/products?id=<%= category._id %>" class="sf-with-ul"
+                  ><%= category.category %></a
+                >
+              </li>
+              <% }); %> <% } %>
+              <div class="megamenu megamenu-sm">
+                <div class="row no-gutters"></div>
+                <!-- End .row -->
+              </div>
+              <!-- End .megamenu megamenu-sm -->
 
-                    <div class="header-right">
-                            <div class="header-search">
-                                <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                                <form action="#" method="get">
-                                    <div class="header-search-wrapper">
-                                        <label for="q" class="sr-only">Search</label>
-                                        <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
-                                    </div><!-- End .header-search-wrapper -->
-                                </form>
-                            </div><!-- End .header-search -->
+              <li>
+                <% if (typeof userDetail !== 'undefined' ) { %>
+                <a href="#">Hello <%= userDetail.name %></a>
+                <ul>
+                  <li>
+                    <a href="/profile">My profile</a>
+                  </li>
+                  <li><a href="/logout">Logout</a></li>
+                  <li><a href="coming-soon.html">Coming Soon</a></li>
+                </ul>
+                <% } else { %>
+                <a href="#">Account</a>
+                <ul>
+                  <li><a href="/login">Login</a></li>
+                  <li><a href="coming-soon.html">Coming Soon</a></li>
+                </ul>
+                <% } %>
+              </li>
+            </ul>
+            <!-- End .menu -->
+          </nav>
+          <!-- End .main-nav -->
+        </div>
+        <!-- End .header-left -->
 
+        <div class="header-right">
+          <div class="header-search">
+            <a href="#" class="search-toggle" role="button" title="Search"
+              ><i class="icon-search"></i
+            ></a>
+            <form action="#" method="get">
+              <div class="header-search-wrapper">
+                <label for="q" class="sr-only">Search</label>
+                <input
+                  type="search"
+                  class="form-control"
+                  name="q"
+                  id="q"
+                  placeholder="Search in..."
+                  required
+                />
+              </div>
+              <!-- End .header-search-wrapper -->
+            </form>
+          </div>
+          <!-- End .header-search -->
 
+          <div class="wishlist pl-4">
+            <a href="/wishlist"
+              ><i class="fa-regular fa-heart fa-xl"></i><span>(3)</span></a
+            >
+          </div>
 
-                    
-                        <div class="wishlist pl-4">
-                            <a href="/wishlist"><i class="fa-regular fa-heart fa-xl"></i><span>(3)</span></a>
-                        </div>
-                        
-                        <div class="wallet pl-4">
-                            <a href="/wallet"><i class="fa-solid fa-wallet fa-xl"></i></a>
-                        </div>
+          <div class="wallet pl-4">
+            <a href="/wallet"><i class="fa-solid fa-wallet fa-xl"></i></a>
+          </div>
 
-                       
-                        <div class="dropdown cart-dropdown">
-                            <a href="/cart" class="dropdown-toggle"  aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
-                            </a>
+          <div class="dropdown cart-dropdown">
+            <a
+              href="/cart"
+              class="dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-display="static"
+            >
+              <i class="icon-shopping-cart"></i>
+              <span class="cart-count">2</span>
+            </a>
 
-                            <!-- <div class="dropdown-menu dropdown-menu-right">
+            <!-- <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-cart-products">
                                    
                                    
@@ -107,10 +127,15 @@
                                 
                                
                             </div> -->
-                            <!-- End .dropdown-menu -->
-                        </div>
-                        <!-- End .cart-dropdown -->
-                    </div><!-- End .header-right -->
-                </div><!-- End .container-fluid -->
-            </div><!-- End .header-middle -->
-        </header><!-- End .header -->
+            <!-- End .dropdown-menu -->
+          </div>
+          <!-- End .cart-dropdown -->
+        </div>
+        <!-- End .header-right -->
+      </div>
+      <!-- End .container-fluid -->
+    </div>
+    <!-- End .header-middle -->
+  </header>
+  <!-- End .header -->
+</div>

@@ -104,39 +104,32 @@
                                                                  by default.</p>
 
                                                             <div class="row">
-                                                                 <div class="col-lg-6">
-                                                                      <div class="card card-dashboard">
-                                                                           <div class="card-body">
-                                                                                <h3 class="card-title">Billing Address
-                                                                                </h3><!-- End .card-title -->
+                                                                 <% addressData.forEach(address => { %>
+                                                                      <div class="col-lg-6" id="addressCard<%= address._id %>">
+                                                                          
+                                                                          <div class="card card-dashboard">
+                                                                              <div class="card-body">
+                                                                                  
+                                                                                  <p>
+                                                                                      <strong>Name:</strong> <%= address.name %><br>
+                                                                                      <strong>Mobile number:</strong> <%= address.mobile %><br>
+                                                                                      <strong>Email:</strong> <%= address.email %><br>
+                                                                                      <strong>Address:</strong> <%= address.addressLine %><br>
+                                                                                      <strong>City:</strong> <%= address.city %><br>
+                                                                                      <strong>State:</strong> <%= address.state %><br>
+                                                                                      <strong>Pincode:</strong> <%= address.pincode %><br>
+                                                                  
+                                                                                      <a class="edit-address-btn" id="editAddressBtn" href="#" data-id="<%= address._id %>" onclick="scrollToForm()">Edit 
+                                                                                          <i class="icon-edit"></i></a>
+                                                                                      <a href="#" class="ml-5" onclick="deleteAddress('<%= address._id %>')">Delete <i class="fa-solid fa-trash"></i></a>
+                                                                                  </p>
+                                                                              </div><!-- End .card-body -->
+                                                                          </div><!-- End .card-dashboard -->
+                                                                      </div><!-- End .col-lg-6 -->
+                                                                  
+                                                                      <% }) %>
 
-                                                                                <p>User Name<br>
-                                                                                     User Company<br>
-                                                                                     John str<br>
-                                                                                     New York, NY 10001<br>
-                                                                                     1-234-987-6543<br>
-                                                                                     yourmail@mail.com<br>
-                                                                                     <a href="#">Edit <i
-                                                                                               class="icon-edit"></i></a>
-                                                                                </p>
-                                                                           </div><!-- End .card-body -->
-                                                                      </div><!-- End .card-dashboard -->
-                                                                 </div><!-- End .col-lg-6 -->
-
-                                                                 <div class="col-lg-6">
-                                                                      <div class="card card-dashboard">
-                                                                           <div class="card-body">
-                                                                                <h3 class="card-title">Shipping Address
-                                                                                </h3><!-- End .card-title -->
-
-                                                                                <p>You have not set up this type of
-                                                                                     address yet.<br>
-                                                                                     <a href="#">Edit <i
-                                                                                               class="icon-edit"></i></a>
-                                                                                </p>
-                                                                           </div><!-- End .card-body -->
-                                                                      </div><!-- End .card-dashboard -->
-                                                                 </div><!-- End .col-lg-6 -->
+                                                                 
                                                             </div><!-- End .row -->
                                                        </div><!-- .End .tab-pane -->
 
@@ -264,6 +257,56 @@
                                    element.textContent = "";
                               });
                          }
-                    </script>
 
-                    <%- include ('../partials/userPartials/productFooter')%>
+
+
+
+
+  const deleteAddress = async (addressId) => {
+    
+    const result = await Swal.fire({
+        title: "Delete Address",
+        text: "Do you want to delete this address?\nThis cannot be undone!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Delete",
+        cancelButtonText: "DISMISS",
+    });
+
+    if (result.value) {
+        try {
+            const response = await fetch(`/deleteAddress?addressId=${addressId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.ok) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Address has been deleted successfully",
+                    showConfirmButton: true,
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#4CAF50",
+                });
+                document.getElementById("addressCard" + addressId).innerHTML = "";
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Something error!!",
+                    showConfirmButton: true,
+                    confirmButtonText: "DISMISS",
+                    confirmButtonColor: "#D22B2B",
+                });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+};
+</script>
+
+<%- include('../partials/userPartials/productFooter') %>

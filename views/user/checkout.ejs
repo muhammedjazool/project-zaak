@@ -1,0 +1,297 @@
+<%- include("../partials/userPartials/productHeader")%>
+<%- include ('../partials/userPartials/productNavbar')%>
+
+
+<body>
+    <div class="page-wrapper">
+      
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		
+                <div class="container">
+        			<h1 class="page-title">Checkout</h1>
+        		
+                </div><
+        	</div>
+           
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    </ol>
+                </div><
+            </nav>
+
+            <div class="page-content">
+            	<div class="checkout">
+	                <div class="container">
+            			<div class="checkout-discount">
+            				<!-- <form action="#">
+        						<input type="text" class="form-control" required id="checkout-discount-input">
+            					<label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
+            				</form> -->
+                            
+            			</div>
+                        
+                           
+
+            			
+		                	<div class="row">
+
+                                
+		                		<div class="col-lg-9">
+
+                                  
+                                    <h3 class="card-title">Billing Address
+                                    </h3>
+                                    <br>
+                                    <% addressData.forEach(address => { %>
+                                        <div class="card card-dashboard">
+                                             <div class="card-body">
+                                                <label for="address<%= address.id %>">
+                                                <strong>Name:</strong> <%= address.name %><br>
+                                                <strong>Mobile number:</strong> <%= address.mobile %><br>
+                                                <strong>Email:</strong> <%= address.email %><br>
+                                                <strong>Address:</strong> <%= address.addressLine %><br>
+                                                <strong>City:</strong> <%= address.city %><br>
+                                                <strong>State:</strong> <%= address.state %><br>
+                                                <strong>Pincode:</strong> <%= address.pincode %><br>
+                                                </label>
+
+                                                <input type="radio" id="address<%= address.id %>" name="selectedAddress" value="<%= address.id %>" onchange="handleAddressSelection()">
+                                                
+                                            </div>
+                                        </div>
+                                    <% }); %>
+
+		                			<h2 class="checkout-title">Add New Address</h2>
+		                			
+                                    <form id="addressForm">	
+                                   
+                                        <div class="row">
+		                					
+                                            <div class="col-sm-6">
+		                						
+                                                <label>First Name *</label>
+		                						<input type="text" name="name" class="form-control" >
+                                                <p id="nameError" class="text-danger error-msg"></p>
+		                					
+                                            </div>
+
+		                					<div class="col-sm-6">
+		                						
+                                                <label>Email *</label>
+		                						<input type="email" name="email" class="form-control" >
+                                                <p id="emailError" class="text-danger error-msg"></p>
+		                					
+                                            </div>
+		                				
+                                        </div>
+
+	            						<label>Address Line *</label>
+	            						<input type="text" name="address" class="form-control">
+                                        <p id="addressError" class="text-danger error-msg"></p>
+
+	            						
+
+	            						<div class="row">
+		                					
+                                            <div class="col-sm-6">
+		                						
+                                                <label>City *</label>
+		                						<input type="text" name="city"  class="form-control" >
+                                                <p id="cityError" class="text-danger error-msg"></p>
+		                					
+                                            </div>
+
+		                					<div class="col-sm-6">
+		                						
+                                                <label>State  *</label>
+		                						<input type="text" name="state" class="form-control" >
+                                                <p id="stateError" class="text-danger error-msg"></p>
+		                					
+                                            </div>
+		                				
+                                        </div>
+
+		                				<div class="row">
+		                					
+                                            <div class="col-sm-6">
+		                						
+                                                <label>Postcode / ZIP *</label>
+		                						<input type="text" name="pincode" class="form-control" >
+                                                <p id="pincodeError" class="text-danger error-msg"></p>
+		                					
+                                            </div><!-- End .col-sm-6 -->
+
+		                					<div class="col-sm-6">
+		                						
+                                                <label>Phone *</label>
+		                						<input type="tel" name="mobile" class="form-control" >
+                                                <p id="phoneError" class="text-danger error-msg"></p>
+		                					
+                                            </div><!-- End .col-sm-6 -->
+		                				
+                                        
+                                        </div><!-- End .row -->
+                                        
+                                        <button type="submit" class="btn btn-outline-primary-2 mt-1">
+                                            <span>SAVE ADDRESS</span>
+                                            <i class="icon-long-arrow-right"></i>
+                                        </button>
+                                        
+                                    
+                                    </form>
+
+	                			                                    
+		                		</div>
+
+		                		<aside class="col-lg-3">
+		                			
+                                    <div class="summary">
+		                				
+                                        <h3 class="summary-title">Your Order</h3>
+
+		                				<table class="table table-summary">
+		                					
+                                            <thead>
+		                						
+                                                <tr>
+		                							<th>Product</th>
+		                							<th>Total</th>
+		                						</tr>
+		                					
+                                            </thead>
+
+		                					<tbody>
+		                						<% cart.forEach(item => { %>
+                                                <tr>
+		                							<td><a href="#"><%= item.product.name %></a></td>
+		                							<td>₹<%= item.total %></td>
+		                						</tr>
+                                                <% }); %>
+		                						
+		                						
+                                                <!-- <tr class="summary-subtotal">
+		                							<td>Subtotal:</td>
+		                							<td>$160.00</td>
+		                						</tr> -->
+		                						
+                                                <tr>
+		                							<td>Shipping:</td>
+		                							<td>Free shipping</td>
+		                						</tr>
+  
+                                                <input type="hidden" id="subTotalValue" value="<%= subTotal %>">
+
+                                                <tr class="summary-total">
+		                							<td id="subTotalText"> Grand Total:</td>
+		                							<td id="subTotal">₹ <%= subTotal %></td>
+		                						</tr>
+		                					
+                                            </tbody>
+		                				
+                                        </table>
+
+		                				<div class="accordion-summary" id="accordion-payment">
+										    
+                                          
+                                            <h5 class="mt-1 mb-2">PAYMENT METHODS</h5>
+										    
+                                            <div class="card">
+										        
+                                                <div class="card-header" id="heading-2">
+										            <h2 class="card-title">
+                                                        <label>
+                                                            <input data-bs-toggle="collapse" href="#collapseExample"
+                                                                role="button" aria-expanded="false"
+                                                                aria-controls="collapseExample" class="payment-radio"
+                                                                type="radio" name="payment" value="Wallet"
+                                                                onchange="handleAddressSelection()">
+        
+                                                            Wallet
+                                                        </label>
+										            </h2>
+										        </div>
+										        
+                                               
+                                            </div>
+
+										   
+                                            <div class="card mt-1">
+										        
+                                                <div class="card-header" id="heading-3">
+										            <h2 class="card-title">
+                                                        <label>
+										                <input class="payment-radio" type="radio" name="payment"  value="Cash On Delivery" onchange="handleAddressSelection()">
+										                Cash On Delivery
+                                                       </label>
+                                                      
+										            </h2>
+										        </div>
+										       
+                                               
+										   
+                                            </div>
+
+										   
+                                           
+                                            <div class="card mt-1">
+										       
+                                                <div class="card-header" id="heading-4">
+										            <h2 class="card-title">
+                                                        <label>
+                                                            <input class="payment-radio" type="radio" name="payment"
+                                                                value="Paypal" onchange="handleAddressSelection()">
+        
+                                                            Paypal
+                                                        </label>
+										            </h2>
+										        </div>
+										       
+                                              
+										   
+                                            </div>
+
+										   
+                                           
+                                            <div class="card ml-5 mt-3">
+										        
+                                                <div class="card-header" id="heading-5">
+										          
+										                    <img src="assets/images/payments-summary.png" alt="payments cards">
+										                
+										            </h2>
+										        </div>
+										        
+                                                
+										   
+                                           
+                                            </div>
+										
+                                        
+                                        </div>
+
+		                				<button disabled onclick="placeOrder()" id="place-order-btn"
+                                            class="btn btn-outline-primary-2 btn-order btn-block">
+                                            Place Order
+                                        </button>
+		                			
+                                    
+                                    </div><!-- End .summary -->
+		                		
+                                </aside><!-- End .col-lg-3 -->
+		                	
+                            </div><!-- End .row -->
+            			</form>
+	                </div><
+                </div><!-- End .checkout -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+
+
+
+        <%- include ('../partials/userPartials/productFooter')%>

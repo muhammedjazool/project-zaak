@@ -140,7 +140,7 @@
                         </td>
                         <td>
                           <a href="/admin/editCategory/<%= row._id %>"><button class="button bg-success"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                          <% if (row.isBlocked){%>
+                          <% if (row.isNotBlocked){%>
                             <a href="/admin/unListCategory/<%= row._id %>"  >
                             <button  class="unList-btn" data-user-id="<%= row.id %>">unList</button></a>
                                  <%} else {%>

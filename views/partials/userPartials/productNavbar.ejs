@@ -1,104 +1,128 @@
-<script src="https://kit.fontawesome.com/ab14f3903c.js" crossorigin="anonymous"></script>
+<script
+  src="https://kit.fontawesome.com/ab14f3903c.js"
+  crossorigin="anonymous"
+></script>
 <div class="page-wrapper">
-    <header class="header">
-        <div class="header-top">
-            <div class="container">
-               
+  <header class="header">
+    <div class="header-top">
+      <div class="container"></div>
+      <!-- End .container -->
+    </div>
+    <!-- End .header-top -->
 
-                
-            </div><!-- End .container -->
-        </div><!-- End .header-top -->
+    <div class="header-middle sticky-header">
+      <div class="container">
+        <div class="header-left">
+          <button class="mobile-menu-toggler">
+            <span class="sr-only">Toggle mobile menu</span>
+            <i class="icon-bars"></i>
+          </button>
 
-        <div class="header-middle sticky-header">
-            <div class="container">
-                <div class="header-left">
-                    <button class="mobile-menu-toggler">
-                        <span class="sr-only">Toggle mobile menu</span>
-                        <i class="icon-bars"></i>
-                    </button>
+          <a href="index.html" class="logo">
+            <img
+              src="assets/images/logo.png"
+              alt="Molla Logo"
+              width="105"
+              height="25"
+            />
+          </a>
 
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="Molla Logo" width="105" height="25">
-                    </a>
+          <nav class="main-nav">
+            <ul class="menu sf-arrows">
+              <li class="megamenu-container active">
+                <a href="/" class="sf-with-ul">Home</a>
+              </li>
 
-                    <nav class="main-nav">
-                        <ul class="menu sf-arrows">
-                            <li class="megamenu-container active">
-                                <a href="/" class="sf-with-ul">Home</a>
+              <% if (typeof categoryData !== 'undefined' && categoryData.length
+              > 0) { %> <% categoryData.forEach((category) => { %>
+              <li>
+                <a href="/products?id=<%= category._id %>" class="sf-with-ul"
+                  ><%= category.category %></a
+                >
+              </li>
+              <% }); %> <% } %>
+              <div class="megamenu megamenu-sm">
+                <div class="row no-gutters"></div>
+                <!-- End .row -->
+              </div>
+              <!-- End .megamenu megamenu-sm -->
 
-                                
-                            </li>
-                            
-                            <% if (typeof categoryData !== 'undefined' && categoryData.length > 0) { %>
-                                <% categoryData.forEach((category) => { %>
-                                  <li>
-                                    <a href="/products?id=<%= category._id %>" class="sf-with-ul"><%= category.category %></a>
-                                  </li>
-                                <% }); %>
-                              <% } %>
-                                <div class="megamenu megamenu-sm">
-                                    <div class="row no-gutters">
-                                       
-                                    </div><!-- End .row -->
-                                </div><!-- End .megamenu megamenu-sm -->
-                            
+              <li>
+                <% if (typeof userDetail !== 'undefined') { %>
+                <a href="#">Hello <%= userDetail.name %></a>
+                <ul>
+                  <li>
+                    <a href="/profile">My profile</a>
+                  </li>
+                  <li><a href="/logout">Logout</a></li>
+                  <li><a href="coming-soon.html">Coming Soon</a></li>
+                </ul>
+                <% } else { %>
+                <a href="#">Account</a>
+                <ul>
+                  <li><a href="/login">Login</a></li>
+                  <li><a href="coming-soon.html">Coming Soon</a></li>
+                </ul>
+                <% } %>
+              </li>
+            </ul>
+            <!-- End .menu -->
+          </nav>
+          <!-- End .main-nav -->
+        </div>
+        <!-- End .header-left -->
 
-                            
-                           
-                            
-                          
-                                <li>
-                                   <% if (typeof userDetail !== 'undefined') { %>
-                                     <a href="#">Hello <%= userDetail.name %></a>
-                                     <ul>
-                                       <li>
-                                         <a href="/profile">My profile</a>
-                                       </li>
-                                       <li><a href="/logout">Logout</a></li>
-                                       <li><a href="coming-soon.html">Coming Soon</a></li>
-                                     </ul>
-                                   <% } else { %>
-                                     <a href="#">Account</a>
-                                     <ul>
-                                       <li><a href="/login">Login</a></li>
-                                       <li><a href="coming-soon.html">Coming Soon</a></li>
-                                     </ul>
-                                   <% } %>
-                                 </li>
-                        </ul><!-- End .menu -->
-                    </nav><!-- End .main-nav -->
-                </div><!-- End .header-left -->
+        <div class="header-right">
+          <div class="header-search">
+            <a href="#" class="search-toggle" role="button" title="Search"
+              ><i class="icon-search"></i
+            ></a>
+            <form action="#" method="get">
+              <div class="header-search-wrapper">
+                <label for="q" class="sr-only">Search</label>
+                <input
+                  type="search"
+                  class="form-control"
+                  name="q"
+                  id="q"
+                  placeholder="Search in..."
+                  required
+                />
+              </div>
+              <!-- End .header-search-wrapper -->
+            </form>
+          </div>
+          <!-- End .header-search -->
 
-                <div class="header-right">
-                    <div class="header-search">
-                        <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                        <form action="#" method="get">
-                            <div class="header-search-wrapper">
-                                <label for="q" class="sr-only">Search</label>
-                                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
-                            </div><!-- End .header-search-wrapper -->
-                        </form>
-                    </div><!-- End .header-search -->
+          <div class="wishlist pl-4">
+            <a href="/wishlist"
+              ><i class="fa-regular fa-heart fa-xl"></i><span>(3)</span></a
+            >
+          </div>
 
+          <div class="wallet pl-4">
+            <a href="/wallet"><i class="fa-solid fa-wallet fa-xl"></i></a>
+          </div>
 
-                    
-                    <div class="wishlist pl-4">
-                        <a href="/wishlist"><i class="fa-regular fa-heart fa-xl"></i><span>(3)</span></a>
-                    </div>
-                    
-                    <div class="wallet pl-4">
-                        <a href="/wallet"><i class="fa-solid fa-wallet fa-xl"></i></a>
-                    </div>
-
-                    <div class="dropdown cart-dropdown">
-                        <a href="/cart" class="dropdown-toggle" role="button"  aria-haspopup="true" aria-expanded="false" data-display="static">
-                            <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
-                        </a>
-
-                       
-                    </div><!-- End .cart-dropdown -->
-                </div><!-- End .header-right -->
-            </div><!-- End .container -->
-        </div><!-- End .header-middle -->
-    </header>
+          <div class="dropdown cart-dropdown">
+            <a
+              href="/cart"
+              class="dropdown-toggle"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-display="static"
+            >
+              <i class="icon-shopping-cart"></i>
+              <span class="cart-count">2</span>
+            </a>
+          </div>
+          <!-- End .cart-dropdown -->
+        </div>
+        <!-- End .header-right -->
+      </div>
+      <!-- End .container -->
+    </div>
+    <!-- End .header-middle -->
+  </header>
+</div>

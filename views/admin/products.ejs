@@ -188,10 +188,10 @@
                                                                       class="fa-solid fa-trash"></i></button></a> -->
                                                                       <% if (row.available) { %>
                                                                            <a href="/admin/deleteProduct/<%= row._id %>">
-                                                                             <button class="unlist-btn" data-user-id="<%= row.id %>">list</button></a>
+                                                                             <button class="list-btn" data-user-id="<%= row.id %>">unList</button></a>
                                                                            <% } else { %>
-                                                                             <a href="/admin/deleteProduct/<%= row._id %>">
-                                                                               <button class="list-btn" data-user-id="<%= row.id %>">unList</button></a>
+                                                                                <a href="/admin/deleteProduct/<%= row._id %>">
+                                                                                  <button class="unlist-btn" data-user-id="<%= row.id %>">list</button></a>
                                                                              <% } %>
 
                                                   </td>

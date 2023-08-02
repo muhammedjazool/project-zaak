@@ -1,9 +1,11 @@
 const User = require("../model/userModel")
 
 const isLogin = async (req, res, next) => {
+ 
      try {
-         if (!req.session.user) {
-             res.redirect("/");
+         if (!req.session.email) {
+             console.log(req.session.email);
+             res.redirect("/login");
          } else {
              next();
          }
@@ -15,7 +17,7 @@ const isLogin = async (req, res, next) => {
 
  const isLogout = async (req, res, next) => {
      try {
-         if (req.session.user) {
+         if (req.session.email) {
              res.redirect("/home");
          } else {
              next();
@@ -27,17 +29,20 @@ const isLogin = async (req, res, next) => {
 
  const blockCheck = async (req, res, next) => {
      try {
-         if (req.session.user) {
-             const userData = req.session.user;
+         if (req.session.email) {
+             const userData = req.session.email;
              const id = userData._id;
              const user = await User.findById(id);
  
-             if (user.isBlocked) {
+             if (user.isNotBlocked) {
+               
                  res.redirect("/logout");
              } else {
+              
                  next();
              }
          } else {
+         
              next();
          }
      } catch (error) {
@@ -45,8 +50,13 @@ const isLogin = async (req, res, next) => {
      }
  };
 
+
+
+ 
+
  module.exports = {
      isLogin,
      isLogout,
      blockCheck,
+     
  };

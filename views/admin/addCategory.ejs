@@ -1,131 +1,149 @@
 <%- include('../partials/adminPartials/header')%>
 
-  <div id="app">
-    <aside class="aside is-placed-left is-expanded">
-      <div class="aside-tools">
-        <div>
-          <b class="font-black">Admin</b>
-        </div>
+<div id="app">
+  <aside class="aside is-placed-left is-expanded">
+    <div class="aside-tools">
+      <div>
+        <b class="font-black">Admin</b>
       </div>
-      <div class="menu is-menu-main">
-        <ul class="menu-list">
-          <li class="active">
-            <a href="/admin/dashboard"class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-              <span class="menu-item-label">Dashboard</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/user"class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-account"></i></span>
-              <span class="menu-item-label">Users</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/categories"class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Category</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/products"class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-logout"></i></span>
-              <span class="menu-item-label">Products</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/logout"class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
-              <span class="menu-item-label"><b>Logout</b></span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </aside>
-  
-    <section class="is-title-bar">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-        <ul>
-          <li>Admin</li>
-          <li>Category</li>
-          <li>Add Category</li>
-        </ul>
-      </div>
-    </section>
-  
-    <section class="is-hero-bar">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-        <h1 class="title">Forms</h1>
-      </div>
-    </section>
-  
-    <section class="section main-section addCat">
-      <div class="card mb-6">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-ballot"></i></span>
-            Add New Category
-          </p>
-        </header>
-       
-  
-        <div class="card-content inner-addCat">
-          <form id="categoryValidate" method="post" action="/admin/addCategory" enctype="multipart/form-data">
-            <div class="field">
-              <label class="label">Category Name</label>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control icons-left">
-                    <input class="input" type="text" placeholder="Category name" name="name" id="name">
-                    <span class="icon left"><i class="mdi mdi-table"></i></span>
-                    </div>
-                </div>
-              </div>
-            </div>  
+    </div>
+    <div class="menu is-menu-main">
+      <ul class="menu-list">
+        <li class="active">
+          <a href="/admin/dashboard" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+            <span class="menu-item-label">Dashboard</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin/user" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span class="menu-item-label">Users</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin/categories" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-table"></i></span>
+            <span class="menu-item-label">Category</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin/products" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-logout"></i></span>
+            <span class="menu-item-label">Products</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin/logout" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+            <span class="menu-item-label"><b>Logout</b></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
 
+  <section class="is-title-bar">
+    <div
+      class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
+    >
+      <ul>
+        <li>Admin</li>
+        <li>Category</li>
+        <li>Add Category</li>
+      </ul>
+    </div>
+  </section>
 
-            <div class="field">
-              <label class="label">Description</label>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control icons-left">
-                    <input class="input" type="text" placeholder="Description" name="categoryDescription" id="categoryDescription">
-                    <span class="icon left"><i class="mdi mdi-note-outline"></i></span>
-                  </div>
+  <section class="is-hero-bar">
+    <div
+      class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
+    >
+      <h1 class="title">Forms</h1>
+    </div>
+  </section>
+
+  <section class="section main-section addCat">
+    <div class="card mb-6">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-ballot"></i></span>
+          Add New Category
+        </p>
+      </header>
+
+      <div class="card-content inner-addCat">
+        <form
+          id="categoryValidate"
+          method="post"
+          action="/admin/addCategory"
+          enctype="multipart/form-data"
+        >
+          <div class="field">
+            <label class="label">Category Name</label>
+            <div class="field-body">
+              <div class="field">
+                <div class="control icons-left">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Category name"
+                    name="name"
+                    id="name"
+                  />
+                  <span class="icon left"><i class="mdi mdi-table"></i></span>
                 </div>
               </div>
             </div>
+          </div>
 
-
-            <hr>
-
-
-            <div class="field">
-              <label class="label" for="image">Category Image</label>
-              <div class="field-body">
-                <div class="field file">
-                  <label class="upload control">
-                    <a class="button blue">Image Upload</a>
-                    <img id="preview" src="#" alt="Image Preview" style="display: none;">
-                    <input type="file" id="image" name="image" accept="image/*">
-                  </label>
-                 </div>
+          <div class="field">
+            <label class="label">Description</label>
+            <div class="field-body">
+              <div class="field">
+                <div class="control icons-left">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Description"
+                    name="categoryDescription"
+                    id="categoryDescription"
+                  />
+                  <span class="icon left"
+                    ><i class="mdi mdi-note-outline"></i
+                  ></span>
+                </div>
               </div>
             </div>
+          </div>
 
-            
-            <button type="submit" class="button light" style="margin-left: 15rem;">Add</button>
-          
-          
-          </form>
-        </div>
+          <hr />
+
+          <div class="field">
+            <label class="label" for="image">Category Image</label>
+            <div class="field-body">
+              <div class="field file">
+                <label class="upload control">
+                  <a class="button blue">Image Upload</a>
+                  <img
+                    id="preview"
+                    src="#"
+                    alt="Image Preview"
+                    style="display: none"
+                  />
+                  <input type="file" id="image" name="image" accept="image/*" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="button light" style="margin-left: 15rem">
+            Add
+          </button>
+        </form>
       </div>
-    </section>
-  </div>
-  
- 
-
-  
-
+    </div>
+  </section>
+</div>
 
 <%- include("../partials/adminPartials/footer")%>

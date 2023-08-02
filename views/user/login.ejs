@@ -1,9 +1,13 @@
-<%- include('../partials/userPartials/header')%> 
-<%- include('../partials/userPartials/navbar')%>
+<%- include('../partials/userPartials/header')%> <%-
+include('../partials/userPartials/navbar')%>
 
 <body>
   <!-- End .header -->
-
+  <% if (typeof alertifyMessage !== 'undefined') { %>
+  <script>
+    alertify.alert("<%= alertifyMessage %>");
+  </script>
+  <% } %>
   <main class="main">
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
       <div class="container">
@@ -154,7 +158,7 @@
                       placeholder="Email *"
                     />
                     <p id="loginEmailError" class="text-danger error-msg"></p>
-                    <p id="isBlockedError" class="text-danger error-msg"></p>
+                    <p id="isNotBlockedError" class="text-danger error-msg"></p>
                     <p id="loginError" class="text-danger error-msg"></p>
                   </div>
                   <!-- End .form-group -->

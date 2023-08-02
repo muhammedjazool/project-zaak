@@ -1,70 +1,67 @@
 <%- include('../partials/adminPartials/header')%>
 <div id="app">
-
-
-<aside class="aside is-placed-left is-expanded">
-  <div class="aside-tools">
-    <div>
-       <b class="font-black">Admin</b>
+  <aside class="aside is-placed-left is-expanded">
+    <div class="aside-tools">
+      <div>
+        <b class="font-black">Admin</b>
+      </div>
     </div>
-  </div>
-  <div class="menu is-menu-main">
-    <!-- <p class="menu-label">General</p> -->
-    <ul class="menu-list">
-      <li class="active">
-        <a href="/admin/dashboard" class="text-decoration-none">
-          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-          <span class="menu-item-label">Dashboard</span>
-        </a>
-      </li>
-      <li class="active">
-        <a href="/admin/user"class="text-decoration-none">
-          <span class="icon"><i class="mdi mdi-account"></i></span>
-          <span class="menu-item-label">Users</span>
-        </a>
-      </li>
-      
-      <li class="active">
-        <a href="/admin/categories"class="text-decoration-none">
-          <span class="icon"><i class="mdi mdi-table"></i></span>
-          <span class="menu-item-label">Category</span>
-        </a>
-      </li>
-      <li class="active">
-        <a href="/admin/products"class="text-decoration-none">
-          <span class="icon"><i class="mdi mdi-logout"></i></span>
-          <span class="menu-item-label">Products</span>
-        </a>
-      </li>
-      <li class="active">
-        <a href="/admin/logout"class="text-decoration-none">
-          <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
-          <span class="menu-item-label"><b>Logout</b></span>
-        </a>
-      </li>
-    </ul>
-    
-  </div>
-</aside>
+    <div class="menu is-menu-main">
+      <!-- <p class="menu-label">General</p> -->
+      <ul class="menu-list">
+        <li class="active">
+          <a href="/admin/dashboard" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+            <span class="menu-item-label">Dashboard</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin/user" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span class="menu-item-label">Users</span>
+          </a>
+        </li>
 
-<section class="is-title-bar">
-  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-    <ul>
-      <li>Admin</li>
-      <li>Dashboard</li>
-    </ul>
-    
-  </div>
-</section>
+        <li class="active">
+          <a href="/admin/categories" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-table"></i></span>
+            <span class="menu-item-label">Category</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin/products" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-logout"></i></span>
+            <span class="menu-item-label">Products</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="/admin/logout" class="text-decoration-none">
+            <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+            <span class="menu-item-label"><b>Logout</b></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
 
-<section class="is-hero-bar">
-  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-    <h1 class="title">
-      Dashboard
-    </h1>
-   
-  </div>
-</section>
+  <section class="is-title-bar">
+    <div
+      class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
+    >
+      <ul>
+        <li>Admin</li>
+        <li>Dashboard</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="is-hero-bar">
+    <div
+      class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
+    >
+      <h1 class="title">Dashboard</h1>
+    </div>
+  </section>
 
   <section class="section main-section">
     <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
@@ -72,14 +69,12 @@
         <div class="card-content">
           <div class="flex items-center justify-between">
             <div class="widget-label">
-              <h3>
-                Clients
-              </h3>
-              <h1>
-                512
-              </h1>
+              <h3>Clients</h3>
+              <h1>512</h1>
             </div>
-            <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+            <span class="icon widget-icon text-green-500"
+              ><i class="mdi mdi-account-multiple mdi-48px"></i
+            ></span>
           </div>
         </div>
       </div>
@@ -87,14 +82,12 @@
         <div class="card-content">
           <div class="flex items-center justify-between">
             <div class="widget-label">
-              <h3>
-                Sales
-              </h3>
-              <h1>
-                $7,770
-              </h1>
+              <h3>Sales</h3>
+              <h1>$7,770</h1>
             </div>
-            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+            <span class="icon widget-icon text-blue-500"
+              ><i class="mdi mdi-cart-outline mdi-48px"></i
+            ></span>
           </div>
         </div>
       </div>
@@ -103,14 +96,12 @@
         <div class="card-content">
           <div class="flex items-center justify-between">
             <div class="widget-label">
-              <h3>
-                Performance
-              </h3>
-              <h1>
-                256%
-              </h1>
+              <h3>Performance</h3>
+              <h1>256%</h1>
             </div>
-            <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>
+            <span class="icon widget-icon text-red-500"
+              ><i class="mdi mdi-finance mdi-48px"></i
+            ></span>
           </div>
         </div>
       </div>
@@ -137,7 +128,13 @@
                 <div></div>
               </div>
             </div>
-            <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor block" style="height: 400px; width: 1197px;"></canvas>
+            <canvas
+              id="big-line-chart"
+              width="2992"
+              height="1000"
+              class="chartjs-render-monitor block"
+              style="height: 400px; width: 1197px"
+            ></canvas>
           </div>
         </div>
       </div>
@@ -145,4 +142,3 @@
   </section>
 </div>
 <%- include('../partials/adminPartials/footer')%>
-  

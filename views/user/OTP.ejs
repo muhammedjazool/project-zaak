@@ -125,16 +125,18 @@
         <% if (typeof error !=='undefined' && error){%>
         <p class="text-danger error-message"><%= error %></p>
         <%} %>
-        
+
         <div id="countdownContainer" class="text-center">
           <span id="countdown"></span>
-       </div> 
-           
-        <div class="resend-link text-center" id="resendContainer" style="display: none;">
-          <a href="/otp">Resend OTP</a>
         </div>
 
-
+        <div
+          class="resend-link text-center"
+          id="resendContainer"
+          style="display: none"
+        >
+          <a href="/otp">Resend OTP</a>
+        </div>
       </div>
     </div>
 
@@ -163,40 +165,41 @@
       }
     </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      let countdown = 30;
-      let countdownInterval;
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let countdown = 30;
+        let countdownInterval;
 
-      function startCountdown() {
+        function startCountdown() {
           countdownInterval = setInterval(updateCountdown, 1000);
-      }
+        }
 
-      function updateCountdown() {
-          const countdownContainer = document.getElementById('countdownContainer');
-          const resendContainer = document.getElementById('resendContainer');
-          const countdownElement = document.getElementById('countdown');
+        function updateCountdown() {
+          const countdownContainer =
+            document.getElementById("countdownContainer");
+          const resendContainer = document.getElementById("resendContainer");
+          const countdownElement = document.getElementById("countdown");
 
           countdown--;
 
           if (countdown >= 0) {
-              countdownElement.textContent = countdown;
+            countdownElement.textContent = countdown;
           } else {
-              clearInterval(countdownInterval);
-              countdownContainer.style.display = 'none';
-              resendContainer.style.display = 'block';
+            clearInterval(countdownInterval);
+            countdownContainer.style.display = "none";
+            resendContainer.style.display = "block";
           }
-      }
+        }
 
-      document.getElementById('otpEnter').addEventListener('reset', function (event) {
-          event.preventDefault();
-          handleOtp(event);
+        document
+          .getElementById("otpEnter")
+          .addEventListener("reset", function (event) {
+            event.preventDefault();
+            handleOtp(event);
+          });
+
+        startCountdown();
       });
-
-      startCountdown();
-  });
-</script>
-
-
+    </script>
   </body>
 </html>

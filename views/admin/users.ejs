@@ -136,7 +136,7 @@
                         <%= row.phone %>
                       </td>
                       <td>
-                        <% if (row.isBlocked) { %>
+                        <% if (row.isNotBlocked) { %>
                           <a href="/admin/is_Blocked/<%= row.id %>">
                             <button class="unblock-btn" data-user-id="<%= row.id %>">Unblock</button></a>
                           <% } else { %>

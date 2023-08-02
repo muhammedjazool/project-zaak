@@ -17,7 +17,7 @@ exports.getUser = async (req, res) => {
      try {
          const Id = req.params.userId;
          const blocked = await User.findById(Id)
-         await User.findByIdAndUpdate(Id, { $set: { isBlocked: !blocked.isBlocked } })
+         await User.findByIdAndUpdate(Id, { $set: { isNotBlocked: !blocked.isNotBlocked } })
          res.redirect("/admin/user")
      }
      catch (error) {
