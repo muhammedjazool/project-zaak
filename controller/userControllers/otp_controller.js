@@ -11,6 +11,7 @@ const otpGenerator = () => {
 
 exports.otpGet = (req, res) => {
   const email = req.session.detail?.email; // Use optional chaining to safely access the email property
+
   if (!email) {
     return res.render("login");
   }

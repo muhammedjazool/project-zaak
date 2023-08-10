@@ -35,6 +35,18 @@
                               </a>
                          </li>
                          <li class="active">
+                              <a href="/admin/orders" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                                   <span class="menu-item-label">Orders</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/coupons" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-ticket-percent"></i></span>
+                                   <span class="menu-item-label">Coupons</span>
+                              </a>
+                         </li>
+                         <li class="active">
                               <a href="/admin/logout" class="text-decoration-none">
                                    <span class="icon"><i class="mdi mdi-logout"></i></span>
                                    <span class="menu-item-label"><b>Logout</b></span>
@@ -54,37 +66,37 @@
 
                </div>
           </section>
-          
+
           <style>
                /* Style for the block button */
                .list-btn {
-                 background-color: rgba(225, 33, 33, 0.774);
-                 color: #ffffff;
-                 padding: 6px 10px;
-                 border: none;
-                 border-radius: 4px;
-                 cursor: pointer;
+                    background-color: rgba(225, 33, 33, 0.774);
+                    color: #ffffff;
+                    padding: 6px 10px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
                }
- 
+
                /* Style for the unblock button */
                .unlist-btn {
-                 background-color: #00ff00;
-                 color: #ffffff;
-                 padding: 5px 10px;
-                 border: none;
-                 border-radius: 4px;
-                 cursor: pointer;
+                    background-color: #00ff00;
+                    color: #ffffff;
+                    padding: 5px 10px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
                }
- 
+
                /* Hover effect for the buttons */
                .list-btn:hover,
                .unlist-btn:hover {
-                 opacity: 0.8;
+                    opacity: 0.8;
                }
-             </style>
+          </style>
 
 
-          
+
           <section class="section main-section">
                <div class="notification blue ">
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
@@ -125,12 +137,14 @@
                                              <tr>
 
                                                   <td>
-                                                       <% if (row.imageUrl && Array.isArray(row.imageUrl) && row.imageUrl.length > 0 && row.imageUrl[0]?.url) { %>
-                                                           <img style="width: 240px; height: 220px;" src="<%= row.imageUrl[0].url %>" alt="Product Image">
-                                                       <% } else { %>
-                                                           <span>No Image Available</span>
-                                                       <% } %>
-                                                   </td>
+                                                       <% if (row.imageUrl && Array.isArray(row.imageUrl) &&
+                                                            row.imageUrl.length> 0 && row.imageUrl[0]?.url) { %>
+                                                            <img style="width: 240px; height: 220px;"
+                                                                 src="<%= row.imageUrl[0].url %>" alt="Product Image">
+                                                            <% } else { %>
+                                                                 <span>No Image Available</span>
+                                                                 <% } %>
+                                                  </td>
                                                   <td>
                                                        <%= row.name %>
                                                   </td>
@@ -186,13 +200,15 @@
                                                        <!-- <a href="/admin/deleteProduct/<%= row._id %>"><button
                                                                  class="button bg-danger"><i
                                                                       class="fa-solid fa-trash"></i></button></a> -->
-                                                                      <% if (row.available) { %>
-                                                                           <a href="/admin/deleteProduct/<%= row._id %>">
-                                                                             <button class="list-btn" data-user-id="<%= row.id %>">unList</button></a>
-                                                                           <% } else { %>
-                                                                                <a href="/admin/deleteProduct/<%= row._id %>">
-                                                                                  <button class="unlist-btn" data-user-id="<%= row.id %>">list</button></a>
-                                                                             <% } %>
+                                                       <% if (row.available) { %>
+                                                            <a href="/admin/deleteProduct/<%= row._id %>">
+                                                                 <button class="list-btn"
+                                                                      data-user-id="<%= row.id %>">unList</button></a>
+                                                            <% } else { %>
+                                                                 <a href="/admin/deleteProduct/<%= row._id %>">
+                                                                      <button class="unlist-btn"
+                                                                           data-user-id="<%= row.id %>">list</button></a>
+                                                                 <% } %>
 
                                                   </td>
                                              </tr>

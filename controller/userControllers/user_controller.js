@@ -32,7 +32,6 @@ exports.logout = (req, res) => {
 
 async function validation(data) {
   const { name, email, address, mobile, city, state, pincode } = data;
-  console.log(42, "val", data);
   const errors = {};
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^(\+91)?[6-9]\d{9}$/;
@@ -136,8 +135,6 @@ exports.deleteAddress = async (req, res) => {
     console.log(error.message);
   }
 };
-
-exports.homeLoad = async (req, res) => {};
 
 ////////////////WISHLIST//////////////
 exports.wishlistLoad = (req, res) => {

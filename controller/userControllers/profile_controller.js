@@ -2,23 +2,32 @@ const Category = require("../../model/categoryModel");
 const User = require("../../model/userModel");
 const Address = require("../../model/addressModel");
 const Product = require("../../model/productModel");
-const cloudinary = require("../../config/cloudinary");
 const bcrypt = require("bcrypt");
+const moment = require("moment");
 
 exports.loadProfile = async (req, res) => {
-  const categoryData = await Category.find({ isNotBlocked: true });
-  const userDetail = req.session.email;
-  const userId = userDetail._id;
-  const addressData = await Address.find({ userId: userId });
-  const user = await User.findById(userId);
-
   try {
+    const categoryData = await Category.find({ isNotBlocked: true });
+    const userDetail = req.session.email;
+    const userId = userDetail._id;
+    const addressData = await Address.find({ userId: userId });
+    const user = await User.findById(userId);
+    const transactions = user.wallet.transactions.sort(
+      (a, b) => b.date - a.date
+    );
+
+    const newTransactions = transactions.map((transactions) => {
+      const formattedDate = moment(transactions.date).format("MMMM D, YYYY");
+      return { ...transactions.toObject(), date: formattedDate };
+    });
+
     if (userDetail) {
       res.render("profile", {
         title: "profile",
         userDetail,
         categoryData,
         addressData,
+        newTransactions,
       });
     } else {
       res.render("profile", { title: "profile", categoryData });

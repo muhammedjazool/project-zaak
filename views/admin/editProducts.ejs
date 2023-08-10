@@ -35,6 +35,18 @@
                               </a>
                          </li>
                          <li class="active">
+                              <a href="/admin/orders" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                                   <span class="menu-item-label">Orders</span>
+                              </a>
+                         </li>
+                         <li class="active">
+                              <a href="/admin/coupons" class="text-decoration-none">
+                                   <span class="icon"><i class="mdi mdi-ticket-percent"></i></span>
+                                   <span class="menu-item-label">Coupons</span>
+                              </a>
+                         </li>
+                         <li class="active">
                               <a href="/admin/logout" class="text-decoration-none">
                                    <span class="icon"><i class="mdi mdi-logout"></i></span>
                                    <span class="menu-item-label"><b>Logout</b></span>
@@ -123,21 +135,25 @@
                     background-color: #3e8e41;
 
                }
-               input[type="text"]{
-                    background-color:  #374151;
-               }
-               input[type="number"]{
-                    background-color:  #374151;
+
+               input[type="text"] {
+                    background-color: #374151;
                }
 
-               select{
-                    background-color:  #374151;
+               input[type="number"] {
+                    background-color: #374151;
+               }
+
+               select {
+                    background-color: #374151;
 
                }
-               option{
-                    background-color:  #374151;
-                        
+
+               option {
+                    background-color: #374151;
+
                }
+
                .size-table input {
                     border-radius: 4px;
                     padding-left: 5px;
@@ -201,7 +217,7 @@
                     border-radius: 5px;
                     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
                     width: 100%;
-                    background-color:  #374151;
+                    background-color: #374151;
                }
 
 
@@ -341,29 +357,31 @@
 
 
 
-                         <div id="images">
-                              <% for (let i = 0; i < productToEdit.imageUrl.length; i++) { %>
-                                <div class="image-container">
-                                  <img src="<%= productToEdit.imageUrl[i]?.url %>" alt="Image <%= i + 1 %>" class="image-preview" style="display: block;">
-                                  <input type="checkbox" name="imageCheckbox" value="<%= i %>" checked>
-                                </div>
-                                <br>
+                    <div id="images">
+                         <% for (let i=0; i < productToEdit.imageUrl.length; i++) { %>
+                              <div class="image-container">
+                                   <img src="<%= productToEdit.imageUrl[i]?.url %>" alt="Image <%= i + 1 %>"
+                                        class="image-preview" style="display: block;">
+                                   <input type="checkbox" name="imageCheckbox" value="<%= i %>" checked>
+                              </div>
+                              <br>
                               <% } %>
-                            </div>
-                            <div class="image-preview-container">
-                              <% for (let i = 0; i < productToEdit.imageUrl.length; i++) { %>
-                                <img id="preview<%= i + 1 %>" class="image-preview" src="#" alt="Image Preview" style="display: none;">
+                    </div>
+                    <div class="image-preview-container">
+                         <% for (let i=0; i < productToEdit.imageUrl.length; i++) { %>
+                              <img id="preview<%= i + 1 %>" class="image-preview" src="#" alt="Image Preview"
+                                   style="display: none;">
                               <% } %>
-                            </div>
-                     <div id="images">
-                         <input type="file" id="image1" name="image" accept="image/*" >
-                     </div>
-                     <div class="image-preview-container">
+                    </div>
+                    <div id="images">
+                         <input type="file" id="image1" name="image" accept="image/*">
+                    </div>
+                    <div class="image-preview-container">
                          <img id="preview1" class="image-preview" src="#" alt="Image Preview" style="display: none;">
-                     </div>
-                    
-                    
-                     
+                    </div>
+
+
+
 
                     <div class="d-flex justify-content-center">
                          <input type="submit" value="Add Product" class="btn btn-primary">
@@ -372,36 +390,36 @@
           </div>
 
 
-          
 
 
-               <script>
-                    // Image preview code
-                    function previewImage(event, imageNumber) {
-                         var preview = document.getElementById(`preview${imageNumber}`);
-                         var file = event.target.files[0];
-                         var reader = new FileReader();
 
-                         reader.onload = function () {
-                              preview.src = reader.result;
-                              preview.style.display = "block";
-                         }
+          <script>
+               // Image preview code
+               function previewImage(event, imageNumber) {
+                    var preview = document.getElementById(`preview${imageNumber}`);
+                    var file = event.target.files[0];
+                    var reader = new FileReader();
 
-                         if (file) {
-                              reader.readAsDataURL(file);
-                         } else {
-                              preview.src = "#";
-                              preview.style.display = "none";
-                         }
+                    reader.onload = function () {
+                         preview.src = reader.result;
+                         preview.style.display = "block";
                     }
 
-                    
-                    document.getElementById("image1").addEventListener("change", function (event) {
-                         previewImage(event, 1);
-                    });
+                    if (file) {
+                         reader.readAsDataURL(file);
+                    } else {
+                         preview.src = "#";
+                         preview.style.display = "none";
+                    }
+               }
 
-                    
-               </script>
+
+               document.getElementById("image1").addEventListener("change", function (event) {
+                    previewImage(event, 1);
+               });
+
+
+          </script>
 
      </div>
 

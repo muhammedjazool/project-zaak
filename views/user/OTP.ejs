@@ -1,7 +1,8 @@
 <%- include('../partials/userPartials/header')%>
 
-<!DOCTYPE html>
-<html>
+  <!DOCTYPE html>
+  <html>
+
   <head>
     <title>OTP Enter Page</title>
     <style>
@@ -88,34 +89,14 @@
         <h2>Enter OTP</h2>
         <form action="/otpEnter" method="post" id="otpEnter">
           <div class="otp-input">
-            <input
-              type="text"
-              maxlength="1"
-              name="first"
-              oninput="handleInput(this, 'second', '');"
-              onkeydown="handleBackspace(this, '');"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              name="second"
-              oninput="handleInput(this, 'third', 'first')"
-              onkeydown="handleBackspace(this, 'first')"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              name="third"
-              oninput="handleInput(this, 'fourth', 'second')"
-              onkeydown="handleBackspace(this, 'second')"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              name="fourth"
-              oninput="handleInput(this, 'submit', 'third')"
-              onkeydown="handleBackspace(this, 'third')"
-            />
+            <input type="text" maxlength="1" name="first" oninput="handleInput(this, 'second', '');"
+              onkeydown="handleBackspace(this, '');" />
+            <input type="text" maxlength="1" name="second" oninput="handleInput(this, 'third', 'first')"
+              onkeydown="handleBackspace(this, 'first')" />
+            <input type="text" maxlength="1" name="third" oninput="handleInput(this, 'fourth', 'second')"
+              onkeydown="handleBackspace(this, 'second')" />
+            <input type="text" maxlength="1" name="fourth" oninput="handleInput(this, 'submit', 'third')"
+              onkeydown="handleBackspace(this, 'third')" />
 
             <p id="otpError" class="text-danger error-msg"></p>
           </div>
@@ -123,20 +104,18 @@
           <button type="submit" class="submit-button">Submit</button>
         </form>
         <% if (typeof error !=='undefined' && error){%>
-        <p class="text-danger error-message"><%= error %></p>
-        <%} %>
+          <p class="text-danger error-message">
+            <%= error %>
+          </p>
+          <%} %>
 
-        <div id="countdownContainer" class="text-center">
-          <span id="countdown"></span>
-        </div>
+            <div id="countdownContainer" class="text-center">
+              <span id="countdown"></span>
+            </div>
 
-        <div
-          class="resend-link text-center"
-          id="resendContainer"
-          style="display: none"
-        >
-          <a href="/otp">Resend OTP</a>
-        </div>
+            <div class="resend-link text-center" id="resendContainer" style="display: none">
+              <a href="/otp">Resend OTP</a>
+            </div>
       </div>
     </div>
 
@@ -202,4 +181,5 @@
       });
     </script>
   </body>
-</html>
+
+  </html>

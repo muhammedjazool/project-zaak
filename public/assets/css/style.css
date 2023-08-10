@@ -374,7 +374,7 @@ blockquote.text-white cite span {
 .col-xl,
 .col-xl-auto {
     padding-right: 10px;
-    padding-left: 10px
+    padding-left: 5px
 }
 
 .no-gutters {
@@ -399,7 +399,7 @@ blockquote.text-white cite span {
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    /* min-height: 100%; */
     transition: transform 0.4s ease
 }
 

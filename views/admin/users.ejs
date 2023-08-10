@@ -16,34 +16,47 @@
           <!-- <p class="menu-label">General</p> -->
           <ul class="menu-list">
             <li class="active">
-              <a href="/admin/dashboard"class="text-decoration-none">
+              <a href="/admin/dashboard" class="text-decoration-none">
                 <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
                 <span class="menu-item-label">Dashboard</span>
               </a>
             </li>
             <li class="active">
-              <a href="/admin/user"class="text-decoration-none">
+              <a href="/admin/user" class="text-decoration-none">
                 <span class="icon"><i class="mdi mdi-account"></i></span>
                 <span class="menu-item-label">Users</span>
               </a>
             </li>
-           
+
             <li class="active">
-              <a href="/admin/categories"class="text-decoration-none">
+              <a href="/admin/categories" class="text-decoration-none">
                 <span class="icon"><i class="mdi mdi-table"></i></span>
                 <span class="menu-item-label">Category</span>
               </a>
             </li>
             <li class="active">
-              <a href="/admin/products"class="text-decoration-none">
+              <a href="/admin/products" class="text-decoration-none">
                 <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
                 <span class="menu-item-label">Products</span>
               </a>
             </li>
             <li class="active">
-              <a href="/admin/logout"class="text-decoration-none">
+              <a href="/admin/orders" class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
+                <span class="menu-item-label">Orders</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="/admin/coupons" class="text-decoration-none">
+                <span class="icon"><i class="mdi mdi-ticket-percent"></i></span>
+                <span class="menu-item-label">Coupons</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="/admin/logout" class="text-decoration-none">
                 <span class="icon"><i class="mdi mdi-logout"></i></span>
-                <span class="menu-item-label"><b><b>Logout <i class="fa-solid fa-arrow-up-left-from-circle"></i></b></b></span>
+                <span class="menu-item-label"><b><b>Logout <i
+                        class="fa-solid fa-arrow-up-left-from-circle"></i></b></b></span>
               </a>
             </li>
           </ul>
@@ -51,7 +64,7 @@
         </div>
       </aside>
 
-      <section class="is-title-bar"class="text-decoration-none">
+      <section class="is-title-bar" class="text-decoration-none">
         <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
           <ul>
             <li>Admin</li>
@@ -109,7 +122,7 @@
             </style>
 
             <table id="myTable" class="display">
-              <input type="hidden"  value="<%=users.length %>" id="users_length">
+              <input type="hidden" value="<%=users.length %>" id="users_length">
               <% if (users.length> 0) { %>
                 <thead>
                   <tr>
@@ -147,13 +160,13 @@
                     </tr>
                     <% }) %>
                 </tbody>
-                  <% } else { %>
-                    <tbody>
-                      <tr>
-                        <td colspan="4">No users found</td>
-                      </tr>
-                    </tbody>
-                    <% } %>
+                <% } else { %>
+                  <tbody>
+                    <tr>
+                      <td colspan="4">No users found</td>
+                    </tr>
+                  </tbody>
+                  <% } %>
             </table>
 
             <div class="table-pagination">
@@ -220,4 +233,4 @@
       <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
      </body>
      </html> -->
-     <%- include('../partials/adminPartials/footer')%>
+      <%- include('../partials/adminPartials/footer')%>

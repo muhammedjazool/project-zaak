@@ -1,0 +1,56 @@
+<%- include("../partials/userPartials/productHeader")%>
+    <%- include ('../partials/userPartials/productNavbar')%>
+
+
+        <style>
+            body {
+                font-size: 16px;
+            }
+
+            .page-title {
+                font-size: 28px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                color: #28a745;
+            }
+
+
+
+            .center-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+        </style>
+        </head>
+
+        <body>
+            <div class="page-wrapper">
+                <main class="main mt-5">
+                    <div class="page-header text-center  center-content">
+                        <div class="container">
+                            <h1 class="page-title" style="color:#28a745">Order Successfull</h1>
+                            <br>
+                            <div class="btn-wrap">
+
+                                <a href="/myOrder" class="btn btn-primary btn-round"><span>View Orders</span><i
+                                        class="icon-long-arrow-right"></i></a>
+                            </div><!-- End .btn-wrap -->
+
+                        </div><!-- End .container -->
+                    </div><!-- End .page-header -->
+
+
+                    <!-- Elements list -->
+
+                </main><!-- End .main -->
+
+                <%- include ('../partials/userPartials/productFooter')%>
+            </div><!-- End .page-wrapper -->
+
+            <!-- Include Bootstrap JS and jQuery -->
+
+        </body>
+
+        </html>

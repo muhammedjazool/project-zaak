@@ -24,7 +24,7 @@
     app.use(express.urlencoded({extended:true}))
     app.use(express.static(path.join(__dirname,"public")))
     app.use("/js",express.static(path.join(__dirname,"public/assets/js")))
-    app.use("/css",express.static(path.join(__dirname,"public/assests/css")))
+    app.use("/css",express.static(path.join(__dirname,"public/assets/css")))
 
 
     app.use(session({

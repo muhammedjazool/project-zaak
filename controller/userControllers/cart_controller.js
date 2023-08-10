@@ -2,6 +2,7 @@ const Category = require("../../model/categoryModel");
 const User = require("../../model/userModel");
 const Product = require("../../model/productModel");
 const Address = require("../../model/addressModel");
+const Coupon = require("../../model/couponModel");
 const cloudinary = require("../../config/cloudinary");
 const { Query } = require("mongoose");
 
@@ -18,6 +19,7 @@ exports.loadCart = async (req, res) => {
       .lean();
 
     const cart = user.cart;
+    const cartLength = user.cart.length;
 
     let subTotal = 0;
 
@@ -62,22 +64,28 @@ exports.addToCart = async (req, res) => {
 
     const product = await Product.findById(productId);
 
+    const smallStock = product.stock[0].small;
+    const mediumStock = product.stock[0].medium;
+    const largeStock = product.stock[0].large;
+    const xlargeStock = product.stock[0].xlarge;
+
     const existed = await User.findOne({
       _id: userId,
       "cart.product": productId,
     });
 
     let status = false;
-    if (size.s && quantity > product.stock[0]) {
+
+    if (size === "s" && quantity > smallStock) {
       status = true;
     }
-    if (size.m && quantity > product.stock[1]) {
+    if (size === "m" && quantity > mediumStock) {
       status = true;
     }
-    if (size.l && quantity > product.stock[2]) {
+    if (size === "l" && quantity > largeStock) {
       status = true;
     }
-    if (size.xl && quantity > product.stock[3]) {
+    if (size === "xl" && quantity > xlargeStock) {
       status = true;
     }
 
@@ -184,6 +192,14 @@ exports.loadCheckOut = async (req, res) => {
       subTotal += element.total;
     });
 
+    const now = new Date();
+
+    const availableCoupons = await Coupon.find({
+      expiryDate: { $gte: now },
+      usedBy: { $nin: [userId] },
+      status: true,
+    });
+
     res.render("checkout", {
       title: "Checkout",
       categoryData,
@@ -191,6 +207,64 @@ exports.loadCheckOut = async (req, res) => {
       addressData,
       subTotal,
       cart,
+      availableCoupons,
     });
   } catch (error) {}
+};
+
+exports.validateCoupon = async (req, res) => {
+  try {
+    const { coupon, subTotal } = req.body;
+    const couponData = await Coupon.findOne({ code: coupon });
+
+    if (!couponData) {
+      res.json("invalid");
+    } else if (couponData.expiryDate < new Date()) {
+      res.json("expired");
+    } else {
+      const couponId = couponData._id;
+      const discount = couponData.discount;
+      const minDiscount = couponData.minDiscount;
+      const maxDiscount = couponData.maxDiscount;
+      const userId = req.session.email._id;
+
+      const couponUsed = await Coupon.findOne({
+        _id: couponId,
+        usedBy: { $in: [userId] },
+      });
+
+      if (couponUsed) {
+        res.json("already used");
+      } else {
+        let discountAmount;
+        let maximum;
+
+        const discountValue = Number(discount);
+        const couponDiscount = (subTotal * discountValue) / 100;
+
+        if (couponDiscount < minDiscount) {
+          res.json("minimum value not met");
+        } else {
+          if (couponDiscount > maxDiscount) {
+            discountAmount = maxDiscount;
+            maximum = "maximum";
+          } else {
+            discountAmount = couponDiscount;
+          }
+
+          const newTotal = subTotal - discountAmount;
+          const couponName = coupon;
+
+          res.json({
+            couponName,
+            discountAmount,
+            newTotal,
+            maximum,
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };

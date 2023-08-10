@@ -169,7 +169,15 @@ exports.verifyForgotPasswordOtp = async (req, res) => {
 };
 
 exports.loadResetPassword = (req, res) => {
-  res.render("reset_password");
+  try {
+   if(req.session.userEmail){ 
+    res.render("reset_password");
+   }else{
+      res.redirect("/login")
+   }
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 const securePassword = async (password) => {
@@ -185,13 +193,14 @@ const securePassword = async (password) => {
 exports.verifyResetPassword = async (req, res) => {
   try {
     const email = req.session.userEmail;
+   
     const newPassword = req.body.password;
-
+   
     const hashedPassword = await securePassword(newPassword);
-
+   
     const userData = await User.findOneAndUpdate(
       { email: email },
-      { set: { password: hashedPassword } }
+      { $set: { password: hashedPassword } }
     );
 
     if (userData) {

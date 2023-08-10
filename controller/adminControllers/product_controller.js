@@ -92,7 +92,7 @@ exports.verifyAddProducts = async (req, res) => {
       },
     ];
 
-    console.log("here is the sizeArray", sizeArray);
+   
 
     const newProduct = new Product({
       name,
