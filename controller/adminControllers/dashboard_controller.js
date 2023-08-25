@@ -62,7 +62,7 @@ exports.loadDashboard = async (req, res) => {
         
 
         const chartData = [];
-        // const categorySalesData = [];
+        categorySalesData = [];
 
         Object.keys(salesByMonth).forEach((monthYear) => {
             const { totalOrders, totalRevenue } = salesByMonth[monthYear];
@@ -118,9 +118,6 @@ exports.loadDashboard = async (req, res) => {
 
 exports.chartData = async (req, res) => {
     try {
-        console.log(119);
-        console.log(121,categorySalesData);
-        console.log(122,paymentMethodSalesData);
         res.json({
             months: months,
             revenueByMonth: revenueByMonth,
