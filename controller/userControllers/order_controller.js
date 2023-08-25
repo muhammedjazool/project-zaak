@@ -86,22 +86,32 @@ exports.placeOrder = async (req, res) => {
       let userCartDetails = userDetails.cart;
 
       userCartDetails.forEach(async (item) => {
-        const productId = item.product;
+        const productId = item.product._id;
+
         const quantity = item.quantity;
-        const size = item.product.size;
+
+        const size = item.size;
 
         const product = await Product.findById(productId);
+
         const stock = product.stock;
 
-        // Update the stock
-        if (size === "s") {
-          product.stock.small -= quantity;
-        } else if (size === "m") {
-          product.stock.medium -= quantity;
-        } else if (size === "l") {
-          product.stock.large -= quantity;
-        } else if (size === "xl") {
-          product.stock.xlarge -= quantity;
+        const sizeId = product.stock[0]._id;
+
+        let stockIndex = product.stock.findIndex((stockItem) =>
+          stockItem._id.equals(sizeId)
+        );
+
+        if (stockIndex !== -1) {
+          if (size === "s") {
+            product.stock[stockIndex].small -= quantity;
+          } else if (size === "m") {
+            product.stock[stockIndex].medium -= quantity;
+          } else if (size === "l") {
+            product.stock[stockIndex].large -= quantity;
+          } else if (size === "xl") {
+            product.stock[stockIndex].xlarge -= quantity;
+          }
         }
 
         await product.save();
@@ -120,7 +130,6 @@ exports.placeOrder = async (req, res) => {
           order: "Success",
         });
       } else if (paymentMethod === "Razorpay") {
-       
         var instance = new Razorpay({
           key_id: process.env.RAZORPAY_KEY_ID,
           key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -187,7 +196,7 @@ exports.orderSuccess = async (req, res) => {
       categoryData,
       userDetail,
     });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.myOrders = async (req, res) => {
@@ -302,30 +311,53 @@ exports.updateOrder = async (req, res) => {
     const userId = userDetail._id;
 
     const orderId = req.query.orderId;
+
     const status = req.body.orderStatus;
+
     const paymentMethod = req.body.paymentMethod;
+  
     const updatedBalance = req.body.wallet;
     const total = req.body.total;
     const order = await Order.findOne({ _id: orderId });
     const orderIdValue = order.orderId;
 
-    if (paymentMethod !== "Cash On Delivery") {
+    if (paymentMethod != "Cash On Delivery") {
+     
       await User.findByIdAndUpdate(
         userId,
         { $set: { "wallet.balance": updatedBalance } },
         { new: true }
       );
 
-      c;
-      if (status === "Returned") {
+      if (status === "Returned" || status === "Cancelled") {
+        // Update order status
+
         await Order.findByIdAndUpdate(orderId, {
           $set: { status: status },
           $unset: { ExpectedDeliveryDate: "" },
         });
 
+        // Handle stock management for each product in the order
+        for (const productInfo of order.product) {
+          const productId = productInfo.product;
+          const productSize = productInfo.size; // Assuming you have a size field in the order
+
+          const product = await Product.findById(productId);
+          if (product) {
+            // Find the corresponding size stock and update it
+            const stockToUpdate = `stock.${productSize}`;
+            const quantityReturnedOrCancelled = productInfo.quantity;
+            const updateQuery = {};
+            updateQuery[stockToUpdate] = quantityReturnedOrCancelled;
+
+            await Product.findByIdAndUpdate(productId, { $inc: updateQuery });
+          }
+        }
+
         const transaction = {
           date: new Date(),
-          details: `Returned Order - ${orderIdValue}`,
+          details: `${status === "Returned" ? "Returned" : "Cancelled"
+            } Order - ${orderIdValue}`,
           amount: total,
           status: "Credit",
         };
@@ -337,42 +369,33 @@ exports.updateOrder = async (req, res) => {
         );
 
         res.json({
-          message: "Returned",
-          refund: "Refund",
-        });
-      }
-
-      if (status === "Cancelled") {
-        await Order.findByIdAndUpdate(orderId, {
-          $set: { status: status },
-          $unset: { ExpectedDeliveryDate: "" },
-        });
-
-        const transaction = {
-          date: new Date(),
-          details: `Cancelled Order - ${orderIdValue}`,
-          amount: total,
-          status: "Credit",
-        };
-
-        await User.findByIdAndUpdate(
-          userId,
-          { $push: { "wallet.transactions": transaction } },
-          { new: true }
-        );
-
-        res.json({
-          message: "Cancelled",
-          refund: "Refund",
+          message: status === "Returned" ? "Returned" : "Cancelled",
+          refund: status === "Returned" ? "Refund" : "No Refund",
         });
       }
     } else if (paymentMethod == "Cash On Delivery" && status === "Returned") {
+  
       await User.findByIdAndUpdate(
         userId,
         { $set: { "wallet.balance": updatedBalance } },
         { new: true }
       );
 
+      for (const productInfo of order.product) {
+        const productId = productInfo.product;
+        const productSize = productInfo.size; // Assuming you have a size field in the order
+
+        const product = await Product.findById(productId);
+        if (product) {
+          // Find the corresponding size stock and update it
+          const stockToUpdate = `stock.${productSize}`;
+          const quantityReturnedOrCancelled = productInfo.quantity;
+          const updateQuery = {};
+          updateQuery[stockToUpdate] = quantityReturnedOrCancelled;
+
+          await Product.findByIdAndUpdate(productId, { $inc: updateQuery });
+        }
+      }
       const transaction = {
         date: new Date(),
         details: `Returned Order - ${orderIdValue}`,
@@ -395,10 +418,32 @@ exports.updateOrder = async (req, res) => {
         refund: "Refund",
       });
     } else if (paymentMethod == "Cash On Delivery" && status === "Cancelled") {
+   
       await Order.findByIdAndUpdate(orderId, {
         $set: { status: status },
         $unset: { ExpectedDeliveryDate: "" },
       });
+
+      for (const productInfo of order.product) {
+        const productId = productInfo.product;
+
+        const productSize = productInfo.size; // Assuming you have a size field in the order
+
+        const product = await Product.findById(productId);
+
+        if (product) {
+          // Find the corresponding size stock and update it
+
+          const stockToUpdate = `stock.${productSize}`;
+
+          const quantityReturnedOrCancelled = productInfo.quantity;
+
+          const updateQuery = {};
+          updateQuery[stockToUpdate] = quantityReturnedOrCancelled;
+
+          await Product.findByIdAndUpdate(productId, { $inc: updateQuery });
+        }
+      }
       res.json({
         message: "Cancelled",
         refund: "No Refund",

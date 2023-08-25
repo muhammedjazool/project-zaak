@@ -1,138 +1,98 @@
 <%- include('../partials/adminPartials/header')%>
 
   <div id="app">
-    <aside class="aside is-placed-left is-expanded">
-      <div class="aside-tools">
-        <div>
-          <b class="font-black">Admin</b>
+    <style>
+      body {
+        background-color: rgb(225, 222, 222);
+      }
+
+      .centered-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      }
+    </style>
+    <%- include('../partials/adminPartials/nav')%>
+
+      <section class="is-title-bar">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <ul>
+            <li>Admin</li>
+            <li>Category</li>
+            <li>Edit Category</li>
+          </ul>
         </div>
-      </div>
-      <div class="menu is-menu-main">
-        <!-- <p class="menu-label">General</p> -->
-        <ul class="menu-list">
-          <li class="active">
-            <a href="/admin/dashboard" class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-              <span class="menu-item-label">Dashboard</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/user" class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-account"></i></span>
-              <span class="menu-item-label">Users</span>
-            </a>
-          </li>
+      </section>
 
-          <li class="active">
-            <a href="/admin/categories" class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Category</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/products" class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
-              <span class="menu-item-label">Products</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/orders" class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-ticket-percent"></i></span>
-              <span class="menu-item-label">Orders</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/coupons" class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
-              <span class="menu-item-label">Coupons</span>
-            </a>
-          </li>
-          <li class="active">
-            <a href="/admin/logout" class="text-decoration-none">
-              <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
-              <span class="menu-item-label"><b>Logout</b></span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </aside>
 
-    <section class="is-title-bar">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-        <ul>
-          <li>Admin</li>
-          <li>Category</li>
-          <li>Edit Category</li>
-        </ul>
-      </div>
-    </section>
 
-    <section class="is-hero-bar">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-        <h1 class="title">Edit Category</h1>
-      </div>
-    </section>
+      <section class="is-hero-bar">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <h1 class="title">Edit Category</h1>
+        </div>
+      </section>
 
-    <section class="section main-section addCat">
-      <div class="card mb-6">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-ballot"></i></span>
-            Edit Category
-          </p>
-        </header>
-        <div class="card-content inner-addCat">
-          <form id="updateCategoryValidate" method="post" action="/admin/updateCategory/<%= categoryData._id %>"
-            enctype="multipart/form-data">
-            <div class="field">
-              <label class="label"> New Category Name</label>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control icons-left">
-                    <input class="input" type="text" placeholder="Category name" name="name" id="name"
-                      value="<%= categoryData.category %>" />
-                    <span class="icon left"><i class="mdi mdi-table"></i></span>
+      <section class="section main-section addCat">
+        <div class="card mb-6">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-ballot"></i></span>
+              Edit Category
+            </p>
+          </header>
+          <div class="card-content inner-addCat">
+            <form id="updateCategoryValidate" method="post" action="/admin/updateCategory/<%= categoryData._id %>"
+              enctype="multipart/form-data">
+              <div class="field">
+                <label class="label"> New Category Name</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control icons-left">
+                      <input class="input" type="text" placeholder="Category name" name="name" id="name"
+                        value="<%= categoryData.category %>" />
+                      <span class="icon left"><i class="mdi mdi-table"></i></span>
+                    </div>
                   </div>
-                </div>
 
-                <!-- <p class="text-danger error-message">Category Already Exists!!</p> -->
+                  <!-- <p class="text-danger error-message">Category Already Exists!!</p> -->
+                </div>
               </div>
-            </div>
-            <div class="field">
-              <label class="label"> New Description</label>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control icons-left">
-                    <input class="input" type="text" placeholder="Description" name="categoryDescription"
-                      id="categoryDescription" value="<%= categoryData.description %>" />
-                    <span class="icon left"><i class="mdi mdi-note-outline"></i></span>
+              <div class="field">
+                <label class="label"> New Description</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control icons-left">
+                      <input class="input" type="text" placeholder="Description" name="categoryDescription"
+                        id="categoryDescription" value="<%= categoryData.description %>" />
+                      <span class="icon left"><i class="mdi mdi-note-outline"></i></span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <br />
-            <div class="field">
-              <label class="label" for="image">New Category Image</label>
-              <div class="field-body">
-                <div class="field file">
-                  <label class="upload control">
-                    <a class="button red"> Image Upload </a>
-                    <input type="file" id="image" name="image" accept="image/*" />
-                    <img id="preview" src="<%= categoryData.imageUrl.url %>" alt="Image Preview"
-                      style="display: none" />
-                  </label>
+              <br />
+              <div class="field">
+                <label class="label" for="image">New Category Image</label>
+                <div class="field-body">
+                  <div class="field file">
+                    <label class="upload control">
+                      <a class="button red"> Image Upload </a>
+                      <input type="file" id="image" name="image" accept="image/*" />
+                      <img id="preview" src="<%= categoryData.imageUrl.url %>" alt="Image Preview"
+                        style="display: none" />
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <hr />
-            <button type="submit" class="button green"
-              style="display: inline-block; margin-top: 1rem; margin-left: 33rem">
-              Update
-            </button>
-          </form>
+              <hr />
+              <button type="submit" class="button green"
+                style="display: inline-block; margin-top: 1rem; margin-left: 33rem">
+                Update
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   </div>
 
   <%- include('../partials/adminPartials/footer')%>

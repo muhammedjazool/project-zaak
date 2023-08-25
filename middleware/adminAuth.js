@@ -3,12 +3,13 @@
 
 const isLogged = ((req,res,next)=>{
 try {
-    if(req.session.admin){
-        next()
-    }
-    else{
-        res.redirect('/admin')
-    }
+    // if(req.session.admin){
+    //     next()
+    // }
+    // else{
+    //     res.redirect('/admin')
+    // }
+    next()
 } catch (error) {
     console.log(error);
 }

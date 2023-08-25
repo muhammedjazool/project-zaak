@@ -14,9 +14,19 @@
             type: String,
             required: true,
         },
+
+        shortDescription:{
+            type:String,
+            required:true,
+        },
         category: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Category",
+            ref: "category",
+            required: true,
+        },
+        subCategory: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "subCategory",
             required: true,
         },
         imageUrl: [
@@ -44,7 +54,7 @@
                 type: Number,
                 required: true,
             },
-            xlarge: {
+            xlarge: {   
                 type: Number,
                 required: true,
             },
@@ -59,7 +69,19 @@
             type: Boolean,
             default: false,
         },
+        offerlabel: {
+            type: Array,
+            default: [],
+        },
     
+        oldPrice: {
+            type: Number,
+            default: 0,
+        },
+        isNewProduct: {
+             type: Boolean,
+             default: true 
+        },
     })
 
     module.exports = mongoose.model("Product", productSchema)

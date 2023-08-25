@@ -152,7 +152,7 @@
                                                             <a href="#"
                                                                  class="btn btn-outline-primary-2"><span>Available
                                                                       Balance : ₹ <%= userDetail.wallet.balance %>
-                                                                           </span></a>
+                                                                 </span></a>
                                                        </div><!-- .End .tab-pane -->
 
 
@@ -179,7 +179,7 @@
                                                                                                     <%= address.email %>
                                                                                                          <br>
                                                                                                          <strong>Address:</strong>
-                                                                                                         <%= address.addressLine
+                                                                                                         <%= address.address
                                                                                                               %><br>
                                                                                                               <strong>City:</strong>
                                                                                                               <%= address.city
@@ -196,9 +196,8 @@
 
                                                                                                                              <a class="edit-address-btn"
                                                                                                                                   id="editAddressBtn"
-                                                                                                                                  href="#"
-                                                                                                                                  data-id="<%= address._id %>"
-                                                                                                                                  onclick="scrollToForm()">Edit
+                                                                                                                                  href="/editAddress?addressId=<%= address._id %>"
+                                                                                                                                  data-id="<%= address._id %>">Edit
                                                                                                                                   <i
                                                                                                                                        class="icon-edit"></i></a>
                                                                                                                              <a href="#"
@@ -215,6 +214,20 @@
 
 
                                                             </div><!-- End .row -->
+
+                                                            <a href="/newAddress"
+                                                                 class="btn btn-outline-primary-2 mt-1">
+                                                                 <span>Add New Address</span>
+                                                                 <i class="icon-long-arrow-right"></i>
+                                                            </a>
+
+
+
+
+
+
+
+
                                                        </div><!-- .End .tab-pane -->
 
                                                        <div class="tab-pane fade" id="tab-account" role="tabpanel"
@@ -303,94 +316,7 @@
 
 
                     <script>
-                         const handleProfile = async (event) => {
-                              event.preventDefault();
 
-                              const formData = new FormData(event.target);
-                              console.log(JSON.stringify(Object.fromEntries(formData.entries())))
-                              resetError();
-                              try {
-                                   const response = await axios.post("/verifyProfile", formData, {
-                                        headers: {
-                                             'Content-Type': 'application/json'
-                                        }
-                                   });
-
-                                   if (response.status === 200) {
-                                        window.location.href = "/jazool";
-                                   }
-                              } catch (error) {
-                                   if (error.response.status === 400) {
-                                        const validationErrors = error.response.data.error;
-                                        Object.keys(validationErrors).forEach((key) => {
-                                             document.getElementById(key).textContent = validationErrors[key];
-                                        });
-                                   } else {
-                                        alertify.alert("Something went wrong", function () {
-                                             alertify.message("OK");
-                                        });
-                                   }
-                              }
-                         }
-
-                         document.getElementById('profileForm').addEventListener("submit", handleProfile);
-
-                         function resetError() {
-                              const errorElements = document.querySelectorAll(".error-msg");
-                              errorElements.forEach((element) => {
-                                   element.textContent = "";
-                              });
-                         }
-
-
-
-
-
-                         const deleteAddress = async (addressId) => {
-
-                              const result = await Swal.fire({
-                                   title: "Delete Address",
-                                   text: "Do you want to delete this address?\nThis cannot be undone!",
-                                   icon: "question",
-                                   showCancelButton: true,
-                                   confirmButtonColor: "#3085d6",
-                                   cancelButtonColor: "#d33",
-                                   confirmButtonText: "Yes, Delete",
-                                   cancelButtonText: "DISMISS",
-                              });
-
-                              if (result.value) {
-                                   try {
-                                        const response = await fetch(`/deleteAddress?addressId=${addressId}`, {
-                                             method: "GET",
-                                             headers: {
-                                                  "Content-Type": "application/json",
-                                             },
-                                        });
-
-                                        if (response.ok) {
-                                             Swal.fire({
-                                                  icon: "success",
-                                                  title: "Address has been deleted successfully",
-                                                  showConfirmButton: true,
-                                                  confirmButtonText: "OK",
-                                                  confirmButtonColor: "#4CAF50",
-                                             });
-                                             document.getElementById("addressCard" + addressId).innerHTML = "";
-                                        } else {
-                                             Swal.fire({
-                                                  icon: "warning",
-                                                  title: "Something error!!",
-                                                  showConfirmButton: true,
-                                                  confirmButtonText: "DISMISS",
-                                                  confirmButtonColor: "#D22B2B",
-                                             });
-                                        }
-                                   } catch (error) {
-                                        console.log(error.message);
-                                   }
-                              }
-                         };
                     </script>
 
                     <%- include('../partials/userPartials/productFooter') %>

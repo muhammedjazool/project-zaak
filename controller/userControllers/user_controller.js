@@ -1,19 +1,62 @@
 const Category = require("../../model/categoryModel");
 const User = require("../../model/userModel");
 const Address = require("../../model/addressModel");
-const Product = require("../../model/productModel");
+const Products = require("../../model/productModel");
+const SubCategory = require("../../model/subCategoryModel");
+const Banner = require("../../model/bannerModel");
 const cloudinary = require("../../config/cloudinary");
+const { response } = require("express");
+
+
 
 exports.homePage = async (req, res) => {
   try {
     const categoryData = await Category.find({ isNotBlocked: true });
-
+    const subCategoryData = await SubCategory.find({ is_blocked: false });
     const userDetail = req.session.email;
-
+    const bannerData=await Banner.find({active:true})
+    
+    const offerProducts = await Products.aggregate([
+      { $match: { offerlabel: { $ne: [] } } },
+      { $sample: { size: 4 } },
+      {
+          $lookup: {
+              from: "categories",
+              localField: "category",
+              foreignField: "_id",
+              as: "category",
+          },
+      },
+      {
+          $unwind: "$category",
+      },
+      {
+          $lookup: {
+              from: "subcategories",
+              localField: "subCategory",
+              foreignField: "_id",
+              as: "subCategory",
+          },
+      },
+      {
+          $unwind: "$subCategory",
+      },
+  ]);
+     const newProducts= await Products.find({isNew:true}).limit(5)
+     
+     
     if (userDetail) {
-      res.render("home", { userDetail, categoryData });
+      const userId = userDetail._id;
+            let cartId = null;
+            const user = await User.findOne({ _id: userId }).populate("cart.product").lean();
+           
+            if (user.cart && user.cart.length > 0) {
+                cartId = user.cart[0]._id;
+            }
+
+      res.render("home", { userDetail, categoryData ,cartId, bannerData, subCategoryData, offerProducts, newProducts,});
     } else {
-      res.render("home", { categoryData });
+      res.render("home", { categoryData ,subCategoryData, bannerData, offerProducts, newProducts,});
     }
   } catch (error) {
     console.log(error);
@@ -86,6 +129,15 @@ async function validation(data) {
   };
 }
 
+
+
+exports.newAddress=(req,res)=>{
+ 
+  res.render("addAddress",{title:"Add New Address"})
+}
+
+
+
 exports.addNewAddress = async (req, res) => {
   try {
     const userDetail = req.session.email;
@@ -136,7 +188,57 @@ exports.deleteAddress = async (req, res) => {
   }
 };
 
-////////////////WISHLIST//////////////
-exports.wishlistLoad = (req, res) => {
-  res.render("wishlist");
+
+
+
+exports.loadEditAddress=async(req,res)=>{
+  try {
+
+    const addresId=req.query.addressId
+  
+    const categoryData = await Category.find({ isNotBlocked: true });
+    const userDetail = req.session.email;
+    const userId = userDetail._id;
+    const addressData = await Address.findById(addresId);
+
+    const user = await User.findById(userId);
+
+
+    res.render("editAddress",{title:"Edit Address",
+    userDetail,
+    addressData,
+    categoryData,
+  })
+  } catch (error) {
+    
+  }
+}
+
+
+
+exports.verifyUpdateAddress = async (req, res) => {
+  try {
+      const { addressId, name, email,address, city, state, pincode, mobile } = req.body;
+      console.log(218,req.body);
+      // Update the address details in the database using the addressId
+      await Address.findByIdAndUpdate(addressId, {
+          name,
+          email,
+          address,
+          city,
+          state,
+          pincode,
+          mobile,
+      });
+   res.redirect("/profile")
+    
+  } catch (error) {
+      // Handle errors
+  }
 };
+
+
+
+////////////////WISHLIST//////////////
+
+

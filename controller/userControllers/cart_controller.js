@@ -13,12 +13,26 @@ exports.loadCart = async (req, res) => {
     const userId = userDetail._id; // Assuming the user's ID is stored in req.session.user._id
 
     const categoryData = await Category.find({ isNotBlocked: true });
+    const productData = await Product.find()
+
 
     const user = await User.findOne({ _id: userId })
       .populate("cart.product")
       .lean();
 
-    const cart = user.cart;
+    const cart = user.cart.map(cartItem => {
+      const product = cartItem.product;
+      const stockForSize = product.stock;
+
+
+      return {
+        ...cartItem,
+        stockForSize,
+        selectedSize: cartItem.size,
+      };
+    });
+
+
     const cartLength = user.cart.length;
 
     let subTotal = 0;
@@ -55,6 +69,8 @@ exports.loadCart = async (req, res) => {
   }
 };
 
+
+
 exports.addToCart = async (req, res) => {
   try {
     const userDetail = req.session.email;
@@ -62,60 +78,56 @@ exports.addToCart = async (req, res) => {
     const { size, quantity } = req.body;
     const productId = req.body.productId.trim();
 
+    const userData = await User.findById(userId).populate("cart.product").lean();
     const product = await Product.findById(productId);
 
-    const smallStock = product.stock[0].small;
-    const mediumStock = product.stock[0].medium;
-    const largeStock = product.stock[0].large;
-    const xlargeStock = product.stock[0].xlarge;
-
-    const existed = await User.findOne({
-      _id: userId,
-      "cart.product": productId,
-    });
-
-    let status = false;
-
-    if (size === "s" && quantity > smallStock) {
-      status = true;
-    }
-    if (size === "m" && quantity > mediumStock) {
-      status = true;
-    }
-    if (size === "l" && quantity > largeStock) {
-      status = true;
-    }
-    if (size === "xl" && quantity > xlargeStock) {
-      status = true;
-    }
-
-    if (status) {
-      return res.status(400).json({ message: "Out of stock" });
-    }
-
-    if (existed) {
-      await User.findOneAndUpdate(
-        { _id: userId, "cart.product": productId },
-        { $inc: { "cart.$.quantity": quantity ? quantity : 1 } },
-        { new: true }
-      );
-      res.status(200).json({ message: "item already in cart" });
+    if (!size) {
+      return res.status(400).json({ error: "Size is required" });
     } else {
-      await Product.findOneAndUpdate({ _id: productId }, { isOnCart: true });
-      await User.findByIdAndUpdate(
-        userId,
-        {
-          $push: {
-            cart: {
-              product: product._id,
-              quantity: quantity ? quantity : 1,
-            },
-          },
-        },
-        { new: true }
+      const cartProduct = userData.cart.find(
+        (item) => item.product._id.toString() === productId && item.size === size
       );
 
-      res.status(200).json({ message: "item added to cart" });
+      const sizeMapping = {
+        's': 'small',
+        'm': 'medium',
+        'l': 'large',
+        'xl': 'xlarge'
+      };
+
+      const sizes = product.stock[0][sizeMapping[size]];
+      const totalQuantityInCart = cartProduct
+        ? Number(cartProduct.quantity) + Number(quantity)
+        : Number(quantity);
+
+      if (totalQuantityInCart > sizes) {
+        return res.status(200).json({ message: "Quantity exceeds available stock" });
+      }
+
+      if (cartProduct) {
+        await User.updateOne(
+          { _id: userId, "cart.product": productId, "cart.size": size },
+          { $inc: { "cart.$.quantity": quantity ? quantity : 1 } }
+        );
+
+        res.status(200).json({ message: "Item quantity updated in cart" });
+      } else {
+        await Product.findOneAndUpdate({ _id: productId }, { isOnCart: true });
+        await User.findByIdAndUpdate(
+          userId,
+          {
+            $push: {
+              cart: {
+                product: product._id,
+                size: size,
+                quantity: quantity ? quantity : 1,
+              },
+            },
+          }
+        );
+
+        res.status(200).json({ message: "Item added to cart" });
+      }
     }
   } catch (error) {
     console.log(error);
@@ -123,6 +135,8 @@ exports.addToCart = async (req, res) => {
     res.render("404", { userDetail });
   }
 };
+
+
 
 exports.updateCart = async (req, res) => {
   try {
@@ -147,12 +161,42 @@ exports.updateCart = async (req, res) => {
   }
 };
 
+exports.getStock = async (req, res) => {
+  try {
+
+    const productId = req.query.productId;
+
+    const selectedSize = req.query.size;
+
+
+
+    const product = await Product.findById(productId);
+
+
+    const stockMapping = {
+      's': 'small',
+      'm': 'medium',
+      'l': 'large',
+      'xl': 'xlarge'
+    };
+
+    const selectedStock = product.stock[0][stockMapping[selectedSize]];
+
+    res.status(200).json({ stock: selectedStock });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 exports.removeFromCart = async (req, res) => {
   try {
     const userDetail = req.session.email;
     const userId = userDetail._id;
     const productId = req.query.productId;
+    const size = req.query.size
     const cartId = req.query.cartId;
+
     const newP = await Product.findById(productId);
     await Product.findOneAndUpdate(
       { _id: productId },
@@ -162,7 +206,7 @@ exports.removeFromCart = async (req, res) => {
 
     await User.findOneAndUpdate(
       { _id: userId },
-      { $pull: { cart: { product: productId } } },
+      { $pull: { cart: { product: productId, size: size } } },
       { new: true }
     );
 
@@ -209,7 +253,7 @@ exports.loadCheckOut = async (req, res) => {
       cart,
       availableCoupons,
     });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.validateCoupon = async (req, res) => {

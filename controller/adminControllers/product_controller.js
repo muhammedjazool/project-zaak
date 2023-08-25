@@ -1,6 +1,8 @@
 const User = require("../../model/userModel");
 const Category = require("../../model/categoryModel");
 const Product = require("../../model/productModel");
+const SubCategory = require("../../model/subCategoryModel");
+const Banner = require("../../model/bannerModel");
 const cloudinary = require("../../config/cloudinary");
 const mongoose = require("mongoose");
 
@@ -21,6 +23,17 @@ exports.loadProducts = async (req, res) => {
           path: "$newCategory",
           preserveNullAndEmptyArrays: true,
         },
+      },
+      {
+        $lookup: {
+          from: "subcategories",
+          localField: "subCategory",
+          foreignField: "_id",
+          as: "subCategory",
+        },
+      },
+      {
+        $unwind: "$subCategory",
       },
     ]);
     if (req.session.productUpdate) {
@@ -54,10 +67,14 @@ exports.loadProducts = async (req, res) => {
 
 exports.loadAddProducts = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const categoryData = await Category.find();
+    const subCategoryData = await SubCategory.find()
+    const bannerData = await Banner.find()
     res.render("addProduct", {
       title: "Add Products",
-      categories,
+      categoryData,
+      subCategoryData,
+      bannerData,
       user: req.session.admin,
     });
   } catch (error) {
@@ -67,8 +84,9 @@ exports.loadAddProducts = async (req, res) => {
 
 exports.verifyAddProducts = async (req, res) => {
   try {
-    const { name, price, category, description, small, medium, large, xlarge } =
+    const { name, price, category, subCategory, offerLabel, offerPrice, description, shortDescription, small, medium, large, xlarge } =
       req.body;
+
     const images = req.files;
     const uploadedImages = [];
 
@@ -92,16 +110,28 @@ exports.verifyAddProducts = async (req, res) => {
       },
     ];
 
-   
-
+    let updatedPrice;
+    let oldPrice;
+    if (offerPrice) {
+      updatedPrice = offerPrice;
+      oldPrice = price;
+    } else {
+      updatedPrice = price;
+    }
     const newProduct = new Product({
       name,
-      price,
-      description,
-      category,
+      price: updatedPrice,
+      description: description,
+      shortDescription: shortDescription,
+      category: category,
+      subCategory: subCategory,
       imageUrl: uploadedImages,
+      offerlabel: offerLabel,
+      oldPrice: oldPrice,
       stock: sizeArray,
+      isNew: true,
     });
+
 
     await newProduct.save();
     req.session.products = true;
@@ -116,13 +146,16 @@ exports.loadEditProducts = async (req, res) => {
 
   try {
     const productToEdit = await Product.findById(productId);
-
+    const subCategoryData = await SubCategory.find()
+    const bannerData = await Banner.find()
     const categories = await Category.find();
 
     res.render("editProducts", {
       title: "Edit Products",
       categories,
       productToEdit,
+      subCategoryData,
+      bannerData,
       user: req.session.admin,
     });
   } catch (error) {
@@ -202,9 +235,9 @@ exports.updateProducts = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   try {
     const Id = req.params.id
-    const productAvailable= await Product.findById(Id)
-    await Product.findByIdAndUpdate(Id,{$set:{available:!productAvailable.available}})
-    
+    const productAvailable = await Product.findById(Id)
+    await Product.findByIdAndUpdate(Id, { $set: { available: !productAvailable.available } })
+
     res.redirect("/admin/products");
   } catch (error) {
     console.log(error.message);

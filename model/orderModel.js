@@ -51,6 +51,17 @@ const orderSchema = new mongoose.Schema({
     returnEndDate: {
         type: Date,
     },
+    offerDiscount: {
+        type: Number,
+        default: 0,
+    },
+    discountAmount: {
+        type: Number,
+        default: 0,
+    },
+    amountAfterDiscount: {
+        type: Number,
+    },
     couponName: {
         type: String,
         default: "NIL",

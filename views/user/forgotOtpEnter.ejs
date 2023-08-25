@@ -109,7 +109,7 @@
 
                     <div id="countdownContainer" class="text-center">
                          <span id="countdown"></span>
-                    </div> 
+                    </div>
 
 
                     <div class="resend-link text-center" id="resendContainer" style="display: none;">
@@ -149,7 +149,7 @@
                     event.preventDefault();
 
                     const formData = new FormData(event.target);
-                   console.log(formData);
+                    console.log(formData);
                     resetError()
 
                     try {
@@ -184,39 +184,39 @@
                }
 
           </script>
-<script>
-     document.addEventListener('DOMContentLoaded', function () {
-         let countdown = 30;
-         let countdownInterval;
- 
-         function startCountdown() {
-             countdownInterval = setInterval(updateCountdown, 1000);
-         }
- 
-         function updateCountdown() {
-             const countdownContainer = document.getElementById('countdownContainer');
-             const resendContainer = document.getElementById('resendContainer');
-             const countdownElement = document.getElementById('countdown');
- 
-             countdown--;
- 
-             if (countdown >= 0) {
-                 countdownElement.textContent = countdown;
-             } else {
-                 clearInterval(countdownInterval);
-                 countdownContainer.style.display = 'none';
-                 resendContainer.style.display = 'block';
-             }
-         }
- 
-         document.getElementById('otpEnter').addEventListener('submit', function (event) {
-             event.preventDefault();
-             handleOtp(event);
-         });
- 
-         startCountdown();
-     });
- </script>
+          <script>
+               document.addEventListener('DOMContentLoaded', function () {
+                    let countdown = 30;
+                    let countdownInterval;
+
+                    function startCountdown() {
+                         countdownInterval = setInterval(updateCountdown, 1000);
+                    }
+
+                    function updateCountdown() {
+                         const countdownContainer = document.getElementById('countdownContainer');
+                         const resendContainer = document.getElementById('resendContainer');
+                         const countdownElement = document.getElementById('countdown');
+
+                         countdown--;
+
+                         if (countdown >= 0) {
+                              countdownElement.textContent = countdown;
+                         } else {
+                              clearInterval(countdownInterval);
+                              countdownContainer.style.display = 'none';
+                              resendContainer.style.display = 'block';
+                         }
+                    }
+
+                    document.getElementById('otpEnter').addEventListener('submit', function (event) {
+                         event.preventDefault();
+                         handleOtp(event);
+                    });
+
+                    startCountdown();
+               });
+          </script>
 
 
 

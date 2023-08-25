@@ -8300,7 +8300,8 @@ p {
 .product-nav-thumbs span.active,
 .product-nav-thumbs span:hover,
 .product-nav-thumbs span:focus {
-    box-shadow: 0 0 0 0.1rem #cccccc
+    box-shadow: 0 0 0 0.2rem #cccccc;
+    height: 5.6rem;
 }
 
 .product-nav-thumbs a:last-child,
@@ -9782,7 +9783,7 @@ p {
 .banner-content-static .banner-link {
     opacity: 0;
     position: absolute;
-    bottom: 19px;
+    bottom:1px;
     left: 0;
     right: 0;
     transition: all .3s ease;

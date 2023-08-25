@@ -2,7 +2,7 @@ const User = require("../../model/userModel");
 const Category = require("../../model/categoryModel");
 const Product = require("../../model/productModel");
 const Order = require("../../model/orderModel");
-const  Address= require("../../model/addressModel");
+const Address = require("../../model/addressModel");
 const cloudinary = require("../../config/cloudinary");
 const moment = require("moment");
 
@@ -10,60 +10,60 @@ const moment = require("moment");
 
 
 exports.loadOrders = async (req, res) => {
-  
-     try {
-         const ordersPerPage = 7;
-         const page = parseInt(req.query.page) || 1;
-         const skip = (page - 1) * ordersPerPage;
- 
-         const orders = await Order.find().sort({ date: -1 }).skip(skip).limit(ordersPerPage);
-       
 
-         const totalCount = await Order.countDocuments();
-         const totalPages = Math.ceil(totalCount / ordersPerPage);
- 
-         const orderData = orders.map((order) => {
-             const formattedDate = moment(order.date).format("MMMM D YYYY");
- 
-             return {
-                 ...order.toObject(),
-                 date: formattedDate,
-             };
-         });
- 
+    try {
+        const ordersPerPage = 7;
+        const page = parseInt(req.query.page) || 1;
+        const skip = (page - 1) * ordersPerPage;
+
+        const orders = await Order.find().sort({ date: -1 }).skip(skip).limit(ordersPerPage);
 
 
-         res.render("orders", {
-            title:"order",
-             user: req.session.admin,
-             orderData,
-             currentPage: page,
-             totalPages,
-         });
-     } catch (error) {
-         console.log(error.message);
-     }
- };
+        const totalCount = await Order.countDocuments();
+        const totalPages = Math.ceil(totalCount / ordersPerPage);
+
+        const orderData = orders.map((order) => {
+            const formattedDate = moment(order.date).format("MMMM D YYYY");
+
+            return {
+                ...order.toObject(),
+                date: formattedDate,
+            };
+        });
 
 
 
- exports.updateOrder = async (req, res) => {
-    
+        res.render("orders", {
+            title: "order",
+            user: req.session.admin,
+            orderData,
+            currentPage: page,
+            totalPages,
+        });
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+
+
+exports.updateOrder = async (req, res) => {
+
     try {
         const orderId = req.query.orderId;
 
 
-        
+
 
         const status = req.body.status;
 
-      
 
 
-      
+
+
 
         if (status === "Delivered") {
-            
+
             const returnEndDate = new Date();
             returnEndDate.setDate(returnEndDate.getDate() + 7);
 
@@ -80,7 +80,7 @@ exports.loadOrders = async (req, res) => {
                 { new: true }
             );
         } else if (status === "Cancelled") {
-           
+
             await Order.findByIdAndUpdate(
                 orderId,
                 {
@@ -92,7 +92,7 @@ exports.loadOrders = async (req, res) => {
                 { new: true }
             );
         } else {
-         
+
             await Order.findByIdAndUpdate(
                 orderId,
                 {
@@ -103,7 +103,7 @@ exports.loadOrders = async (req, res) => {
                 { new: true }
             );
         }
-      
+
         res.json({
             messaage: "Success",
         });
@@ -114,25 +114,28 @@ exports.loadOrders = async (req, res) => {
 
 
 
-exports. orderDetails = async (req, res) => {
-    
+exports.orderDetails = async (req, res) => {
+
     try {
         const orderId = req.query.orderId;
-       
-        const orderDetails = await Order.findById(orderId);
-        
-        const orderProductData = orderDetails.product;
-       
-        const addressId = orderDetails.address;
-       
-        const addressData = await Address.findById(addressId);
 
+        const orderDetails = await Order.findById(orderId);
+
+        const orderProductData = orderDetails.product;
+
+        const addressId = orderDetails.address;
+
+        const addressData = await Address.findById(addressId);
         
+        const formattedDate = moment(orderDetails.date).format('MMM D, YYYY');
+
+
         res.render("adminOrderDetails", {
-            title:"Order Details",
+            title: "Order Details",
             orderDetails,
             orderProductData,
             addressData,
+            formattedDate,
         });
     } catch (error) {
         console.log(error.message);

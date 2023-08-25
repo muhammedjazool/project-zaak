@@ -30,14 +30,12 @@
 	                        }
 	                    }'>
 							<div class="intro-slide" data-hash="one">
-	                            <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/1.html" alt="Image Desc">
-	                            <a href="https://www.portotheme.com/html/molla/popup/popup/fullscreen.html" class="btn-fullscreen">
-                                    <i class="icon-arrows"></i>
-                                </a>
+	                            <img src="<%= product.imageUrl[0].url %>" alt="Image Desc">
+
 		                    </div><!-- End .intro-slide -->
 
 		                    <div class="intro-slide" data-hash="two">
-	                            <img src="../../../../www.portotheme.com/html/molla/popup/assets/images/popup/quickView/2.html" alt="Image Desc">
+	                            <img src="<%= product.imageUrl[0].url %>" alt="Image Desc">
 	                            <a href="https://www.portotheme.com/html/molla/popup/popup/fullscreen.html" class="btn-fullscreen">
                                     <i class="icon-arrows"></i>
                                 </a>
@@ -62,7 +60,7 @@
 			</div>
 			<div class="col-lg-5 col-md-6">
 				<h2 class="product-title">Linen-blend dress</h2>
-				<h3 class="product-price">$60.00</h3>
+				<h3 class="product-price"> ₹ <%= product.price %></h3>
 
                 <div class="ratings-container">
                     <div class="ratings">

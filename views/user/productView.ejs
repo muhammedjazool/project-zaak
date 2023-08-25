@@ -17,17 +17,7 @@
                                 <input type="hidden" value=" <%= productData._id %>" id="productId">
                             </ol>
 
-                            <!-- <nav class="product-pager ml-auto" aria-label="Product">
-                        <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
-                            <i class="icon-angle-left"></i>
-                            <span>Prev</span>
-                        </a>
-
-                        <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
-                            <span>Next</span>
-                            <i class="icon-angle-right"></i>
-                        </a>
-                    </nav>End .pager-nav -->
+                        
                         </div><!-- End .container -->
                     </nav><!-- End .breadcrumb-nav -->
 
@@ -83,7 +73,7 @@
                                         </div><!-- End .product-gallery -->
                                     </div><!-- End .col-md-6 -->
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 mt-5">
                                         <div class="product-details product-details-centered">
                                             <h1 class="product-title">
                                                 <%= productData.name %>
@@ -105,10 +95,20 @@
 
 
 
+
+
+                                            <div class="product-content" style="text-align: justify;">
+                                                <p>
+                                                    <%= productData.description %>
+                                                </p>
+                                            </div><!-- End .product-content -->
+
+
                                             <div class="details-filter-row details-row-size">
                                                 <label for="size">Size</label>
-                                                <div class="select-custom">
+                                                <div class="select-custom" style="border: 1px solid #ce9d42de;">
                                                     <select name="size" id="size" class="form-control">
+                                                        <option value="" disabled selected>Available Sizes</option>
                                                         <% productData.stock.forEach((size)=> { %>
                                                             <% if (size.small> 0) { %>
                                                                 <option value="s">Small</option>
@@ -127,8 +127,7 @@
                                                     </select>
                                                 </div><!-- End .select-custom -->
                                             </div>
-
-
+                                            <span id="sizeError" class="text-danger error-msg "></span>
                                             <!-- <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a> -->
                                         </div><!-- End .details-filter-row -->
 
@@ -136,27 +135,31 @@
                                             <div class="details-action-col">
                                                 <div class="product-details-quantity ml-5">
                                                     <input type="number" id="quantity" class="form-control" value="1"
-                                                        min="1" step="1" data-decimals="0" required>
+                                                        min="1" step="1" data-decimals="0" required
+                                                        style="border: 1px solid #ce9d42;">
                                                 </div><!-- End .product-details-quantity -->
 
-                                                <button onclick="addToCart()" class="btn-product btn-cart"><span> Add To
+                                                <button id="addToCartButton" onclick="addToCart()"
+                                                    class="btn-product btn-cart"><span> Add To
                                                         Cart</span></button>
+
                                             </div><!-- End .details-action-col -->
 
-                                            <div class="details-action-wrapper ml-5">
-                                                <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add
-                                                        to Wishlist</span></a>
 
-                                            </div><!-- End .details-action-wrapper -->
                                         </div><!-- End .product-details-action -->
 
                                         <div class="product-details-footer">
-                                            <!-- <div class="product-cat">
-                                            <span>Category:</span>
-                                            <a href="#">Women</a>,
-                                            <a href="#">Dresses</a>,
-                                            <a href="#">Yellow</a>
-                                        </div>End .product-cat -->
+                                            <div class="product-cat">
+                                                <span>Category:</span>
+                                                <a href="#" style="text-transform: uppercase;">
+                                                    <%= categoryName.category %>
+                                                </a>,
+                                                <a href="#" style="text-transform: uppercase;">
+                                                    <%= subCategoryName.subCategory %>
+                                                </a>
+
+
+                                            </div>
 
                                             <div class="social-icons social-icons-sm">
                                                 <span class="social-label">Share:</span>
@@ -166,8 +169,7 @@
                                                         class="icon-twitter"></i></a>
                                                 <a href="#" class="social-icon" title="Instagram" target="_blank"><i
                                                         class="icon-instagram"></i></a>
-                                                <a href="#" class="social-icon" title="Pinterest" target="_blank"><i
-                                                        class="icon-pinterest"></i></a>
+                                              
                                             </div>
                                         </div><!-- End .product-details-footer -->
                                     </div><!-- End .product-details -->
@@ -297,15 +299,20 @@
             </div><!-- End .page-content -->
             </main><!-- End .main -->
             <script>
+
+
+
                 async function addToCart() {
+
+
                     event.preventDefault();
                     const quantity = document.getElementById("quantity").value;
-                    console.log(253, "addcrtscrpt", quantity)
                     const productId = document.getElementById("productId").value;
-                    console.log(255, "addcrtscrpt", productId)
                     const size = document.getElementById("size").value;
-                    console.log(257, "addcrtscrpt", size)
+
                     const data = { size, quantity, productId };
+
+                    resetError();
 
                     try {
                         const response = await axios.post("/addToCart", data, {
@@ -313,46 +320,62 @@
                                 'Content-Type': 'application/json'
                             }
                         });
-
-                        if (response.status === 200) {
-
+                        console.log(316, "axiosprductview", response)
+                        if (response.data) {
                             if (response.data.message === "item already in cart") {
 
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Item is already in the cart',
                                     showConfirmButton: true,
-                                    timer: 1500
+                                    timer: 1000
                                 });
-                            } else if (response.data.message === "item added to cart") {
+                            } else if (response.data.message === "Item quantity updated in cart") {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Item qunatity added to cart successfully',
+                                    showConfirmButton: true,
+                                    timer: 1000
+                                });
+                            } else if (response.data.message === "Item added to cart") {
 
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Item added to cart successfully',
                                     showConfirmButton: true,
-                                    timer: 1500
+                                    timer: 1000
                                 });
-
-                            } else if (response.data.message === "Out of stock") {
+                            } else if (response.data.message === "Quantity exceeds available stock") {
 
                                 Swal.fire({
-                                    icon: 'error',
+                                    icon: 'warning',
                                     title: 'Out of stock',
-                                    text: 'The selected quantity is not available.',
+                                    text: 'The selected quantity is more than the available stock.',
                                     confirmButtonText: 'OK'
                                 });
                             }
                         }
                     } catch (error) {
+                        if (error.response && error.response.status === 400) {
 
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Out of Stock',
-                            text: 'The selected quantity is not available',
-                            confirmButtonText: 'OK'
-                        });
-                        console.error(error);
+                            const err = error.response.data.error;
+                            const sizeError = document.getElementById("sizeError");
+                            sizeError.textContent = err;
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Out of Stock',
+                                text: 'The selected quantity is not available',
+                                confirmButtonText: 'OK'
+                            });
+                            console.error(error);
+                        }
                     }
+                }
+                function resetError() {
+                    const errorElement = document.getElementById("sizeError");
+                    errorElement.textContent = "";
                 }
             </script>
 

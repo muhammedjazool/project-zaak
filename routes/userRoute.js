@@ -20,7 +20,10 @@ user_router.get("/", userController.homePage)
 user_router.get("/profile", isLogin, blockCheck, profileController.loadProfile)
 user_router.post("/verifyProfile", profileController.verifyProfile)
 
+user_router.get('/newAddress', userController.newAddress)
 user_router.post('/addNewAddress', userController.addNewAddress)
+user_router.get("/editAddress",userController.loadEditAddress)
+user_router.post("/updateAddress",userController.verifyUpdateAddress)
 user_router.get("/deleteAddress", userController.deleteAddress);
 
 
@@ -39,11 +42,22 @@ user_router.post("/resetPassword", isLogout, loginController.verifyResetPassword
 
 
 user_router.get("/products", blockCheck, productController.products)
+user_router.get("/allProducts", blockCheck, productController.allProducts)
 user_router.get("/productView", productController.loadProductView)
+user_router.get("/offerProducts",productController.offerProducts)
+
+
+user_router.get("/categoryFilter",productController.categoryFilter)
+user_router.get("/subCategoryFilter",productController.subCategoryFilter)
+user_router.get("/originalProductData",productController.originalProductData)
+user_router.post("/sortProduct",productController.sortProduct)
+
+
 
 user_router.get("/cart", isLogin, blockCheck, cartController.loadCart)
-user_router.post("/addToCart", cartController.addToCart)
-user_router.post('/cartUpdation', cartController.updateCart)
+user_router.post("/addToCart", isLogin,blockCheck, cartController.addToCart)
+user_router.post('/updateCart', cartController.updateCart)
+user_router.get('/getStock',cartController.getStock)
 user_router.get("/removeFromCart", cartController.removeFromCart)
 user_router.get("/checkOut", isCheckout, isLogin, blockCheck, cartController.loadCheckOut)
 user_router.post("/validateCoupon", cartController.validateCoupon);
@@ -60,7 +74,7 @@ user_router.get("/otp", isLogout, otpController.otpGet)
 user_router.post("/otpEnter", isLogout, otpController.otpVerify)
 
 
-user_router.get("/wishlist", userController.wishlistLoad)
+
 
 
 

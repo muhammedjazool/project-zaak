@@ -199,6 +199,9 @@ const addressRadios = document.querySelectorAll(
   'input[name="selectedAddress"]'
 );
 const paymentRadios = document.querySelectorAll(".payment-radio");
+
+
+
 const placeOrderBtn = document.getElementById("place-order-btn");
 
 addressRadios.forEach((radio) => {
@@ -215,6 +218,8 @@ function handleAddressSelection() {
   );
   const selectedPayment = document.querySelector(".payment-radio:checked");
 
+
+
   if (selectedAddress && selectedPayment) {
     placeOrderBtn.disabled = false;
   } else {
@@ -224,13 +229,16 @@ function handleAddressSelection() {
 
 /////////// Order Management ///////////
 
+
 const placeOrder = async () => {
+ 
   try {
     const selectedPayment = document.querySelector(
       ".payment-radio:checked"
     ).value;
-
+ 
     if (selectedPayment === "Cash On Delivery") {
+   
       cashOnDelivery(selectedPayment);
     } else if (selectedPayment === "Razorpay") {
       razorpay(selectedPayment);
@@ -243,7 +251,9 @@ const placeOrder = async () => {
 };
 
 const cashOnDelivery = async (selectedPayment, updatedBalance) => {
+
   try {
+  
     const selectedAddress = document.querySelector(
       'input[name="selectedAddress"]:checked'
     ).value;
@@ -261,6 +271,7 @@ const cashOnDelivery = async (selectedPayment, updatedBalance) => {
         amount: subTotal,
         walletBalance: updatedBalance,
         couponData: couponData,
+        // size:selectedSize,
       }),
     });
 
@@ -453,6 +464,7 @@ const returnOrder = async () => {
 };
 
 const cancelOrder = async () => {
+
   const orderId = document.getElementById("orderId").value;
 
   const result = await Swal.fire({
@@ -467,11 +479,13 @@ const cancelOrder = async () => {
   });
 
   if (result.value) {
+
     updateOrder(orderId, "Cancelled");
   }
 };
 
 const updateOrder = async (orderId, orderStatus) => {
+
   try {
     const walletBalance = Number(document.getElementById("userWallet").value);
     const grandTotal = Number(document.getElementById("grandTotal").value);

@@ -1,0 +1,136 @@
+<%- include ('../partials/userPartials/productHeader')%>
+    <%- include ('../partials/userPartials/productNavbar')%>
+
+
+        <body>
+            <div class="page-wrapper">
+
+                <main class="main">
+                    <div class="page-header text-center"
+                        style="background-image: url('assets/images/page-header-bg.jpg')">
+                        <div class="container">
+                            <h1 class="page-title">My Profile</h1>
+                        </div><!-- End .container -->
+                    </div><!-- End .page-header -->
+                    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                        <div class="container">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">My Account / Edit Address
+                                </li>
+                            </ol>
+                        </div><!-- End .container -->
+                    </nav><!-- End .breadcrumb-nav -->
+                    <!DOCTYPE html>
+                    <html>
+
+                    <head>
+                        <style>
+                            /* Center the form */
+                            #editAddressForm {
+                                max-width: 600px;
+                                margin: 0 auto;
+                            }
+
+                            /* Center the form fields within columns */
+                            #editAddressForm .col-sm-6 {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                            }
+
+                            /* Add spacing between form fields */
+                            #editAddressForm .form-control {
+                                margin-bottom: 15px;
+                            }
+
+                            /* Style error messages */
+                            .error-msg {
+                                margin-top: 5px;
+                                font-size: 12px;
+                            }
+
+                            /* Style the submit button */
+                            #editAddressFormm .btn-outline-primary-2 {
+                                display: block;
+                                margin: 20px auto;
+                            }
+
+                            /* Align labels to the left */
+                            #editAddressForm label {
+                                text-align: left;
+                                font-weight: bold;
+                            }
+                        </style>
+                    </head>
+
+                    <body>
+                        <h2 class="checkout-title" style="text-align: center;">Add New Address</h2>
+
+                        <form id="editAddressForm" action="/updateAddress" method="post">
+                            <input type="hidden" name="addressId" value="<%= addressData._id %>">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>First Name</label>
+                                    <input type="text" name="name" class="form-control" value=" <%=addressData.name%>">
+                                    <p id="nameError" class="text-danger error-msg"></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control"
+                                        value="<%=addressData.email%>">
+                                    <p id="emailError" class="text-danger error-msg"></p>
+                                </div>
+                            </div>
+                            <label>Address Line</label>
+                            <input type="text" name="address" class="form-control" value="<%=addressData.address%>">
+                            <p id="addressError" class="text-danger error-msg"></p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>City</label>
+                                    <input type="text" name="city" class="form-control" value="<%=addressData.city%>">
+                                    <p id="cityError" class="text-danger error-msg"></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>State</label>
+                                    <input type="text" name="state" class="form-control" value="<%=addressData.state%>">
+                                    <p id="stateError" class="text-danger error-msg"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Postcode / ZIP</label>
+                                    <input type="text" name="pincode" class="form-control"
+                                        value="<%=addressData.pincode%>">
+                                    <p id="pincodeError" class="text-danger error-msg"></p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Phone</label>
+                                    <input type="tel" name="mobile" class="form-control"
+                                        value="<%=addressData.mobile%>">
+                                    <p id="phoneError" class="text-danger error-msg"></p>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary-2 mt-1">
+                                <span>SAVE ADDRESS</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </button>
+                        </form>
+                    </body>
+
+                    </html>
+
+
+                </main><!-- End .main -->
+
+                <script src="/js/axios.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js"></script>
+
+
+                <script>
+
+                </script>
+
+                <%- include('../partials/userPartials/productFooter') %>

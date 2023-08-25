@@ -1,0 +1,133 @@
+<%- include('../partials/adminPartials/header')%>
+
+
+    <div id="app">
+
+        <%- include('../partials/adminPartials/nav')%>
+
+            <style>
+                .nav-7 h2 a {
+                    color: black;
+                }
+
+                body {
+                    background-color: rgb(225, 222, 222);
+                }
+
+                .centered-section {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                }
+
+                .table-container {
+
+                    border-radius: 5px;
+                    overflow: hidden;
+                    background-color: white;
+                }
+
+                .table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                .table th,
+                .table td {
+
+                    padding: 8px;
+                    text-align: left;
+                }
+
+                /* Add hover effect */
+                .table tbody tr:hover {
+                    background-color: #f8f9fa;
+                }
+            </style>
+
+            <div class="container-fluid">
+
+                <section class="is-title-bar" style="border: none;">
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                        <ul>
+                            <li>Admin</li>
+                            <li>Banners</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="centered-section  card"
+                    style="background-color:  #8a8b879a; color: aliceblue; border: none; margin: 0 20px 50px 20px;">
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                        <h1 class="title" style="text-align: center;">Banners</h1>
+                    </div>
+                </section>
+            </div>
+
+
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 m-auto">
+            <div class="table-container">
+                <table class="table table-hover mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">NO</th>
+                            <th scope="col">IMAGE</th>
+                            <th scope="col">BANNER TITLE</th>
+                            <th scope="col">SUBTITLE</th>
+                            <th scope="col">OFFER LABEL</th>
+                            <th scope="col">STATUS</th>
+                            <th scope="col">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bannerData.forEach(function(banner, index) { %>
+                            <tr>
+                                <td scope="row">
+                                    <%= index %>
+                                </td>
+                                <td><img style="width: 100px; height: 60px;" src="<%= banner.image.url %>"
+                                        alt="Category Image"></td>
+                                <td style="width: 20%;">
+                                    <%= banner.title %>
+                                </td>
+                                <td class="description-Cell" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="<%= banner.subtitle %>">
+                                    <%= banner.subtitle %>
+                                </td>
+                                <td>
+                                    <%= banner.label %>
+                                </td>
+                                <% if (banner.active) { %>
+                                    <td>Active</td>
+                                    <% } else { %>
+                                        <td>Unlisted</td>
+                                        <% } %>
+                                            <td style="width: 200px;">
+                                                <a href="/admin/updateBanner/<%= banner.id %>"
+                                                    class="btn btn-sm btn-primary">Update</a>
+                                                <% if (banner.active) { %>
+                                                    <a href="/admin/bannerStatus/<%= banner.id %>"
+                                                        class="btn btn-sm btn-danger">Unlist</a>
+                                                    <% } else { %>
+                                                        <a href="/admin/bannerStatus/<%= banner.id %>"
+                                                            class="btn btn-sm btn-success">List</a>
+                                                        <% } %>
+                                            </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+        <a href="/admin/addBanner"><button class="btn btn-primary add_user" id="addUser">Add Banner</button></a>
+    </div>
+
+
+    <%- include('../partials/adminPartials/footer')%>

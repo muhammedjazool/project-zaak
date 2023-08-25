@@ -1,0 +1,143 @@
+<%- include('../partials/adminPartials/header')%>
+
+  <div id="app">
+
+
+    <%- include('../partials/adminPartials/nav')%>
+
+
+      <section class="is-title-bar">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <ul>
+            <li>Admin</li>
+            <li>Category</li>
+          </ul>
+
+        </div>
+      </section>
+      <style>
+        body {
+          background-color: rgb(225, 222, 222);
+        }
+
+        .centered-section {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+        }
+
+        .List-btn {
+          background-color: #00ff00;
+          color: #ffffff;
+          padding: 6px 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        /* Style for the unblock button */
+        .unList-btn {
+          background-color: rgba(225, 33, 33, 0.774);
+          color: #ffffff;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        /* Hover effect for the buttons */
+        .List-btn:hover,
+        .unList-btn:hover {
+          opacity: 0.8;
+        }
+      </style>
+
+
+      <section class="section main-section">
+        <section class="centered-section  card"
+          style="background-color:  #8a8b879a; color: aliceblue; border: none; margin: 0 20px 20px 20px;">
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+            <h1 class="title" style="text-align: center;">Sub Category</h1>
+          </div>
+        </section>
+        <div class="card has-table">
+          <header class="card-header bg-dark">
+            <p class="card-header-title text-secondary">
+              Details...
+            </p>
+
+            <a href="/admin/addSubCategory"><button class="button secondary m-2">Add Sub Category</button></a>
+            <div class="d-flex justify-content-end m-2">
+
+            </div>
+          </header>
+          <div class="card-content">
+
+            <table id="myTable" class="display">
+              <input type="hidden" value="" id="users_length">
+              <% if (subCategoryData.length> 0) { %>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Sub Category</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <% subCategoryData.forEach((row,index)=> { %>
+                    <tr>
+                      <td>
+                        <%= index+1 %>
+                      </td>
+
+                      <td><img style="width: 75px; height: 75px;" src="<%= row.imageUrl.url %>" alt="Category Image">
+                      </td>
+                      <td id="searchCategoryName">
+                        <%= row.subCategory %>
+                      </td>
+                      <td id="searchCategoryName">
+                        <%= row.categoryId.category %>
+                      </td>
+                      <td>
+                        <%= row.description%>
+                      </td>
+                      <td>
+                        <a href="/admin/editSubCategory/<%= row._id %>"><button class="button bg-success"><i
+                              class="fa-solid fa-pen-to-square"></i></button></a>
+                        <% if (row.is_blocked){%>
+                          <a href="/admin/unListSubCategory/<%= row._id %>">
+                            <button class="unList-btn" data-user-id="<%= row.id %>">unList</button></a>
+                          <%} else {%>
+                            <a href="/admin/unListSubCategory/<%= row._id%>" </a>
+                              <button class="List-btn" data-user-id="<%= row.id%>">List</button>
+                              <% } %>
+                      </td>
+
+                    </tr>
+                    <% }); %>
+                      <% } else { %>
+                        <div class="card empty">
+                          <div class="card-content">
+                            <div>
+                              <span class="icon large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span>
+                            </div>
+                            <p>No Sub category</p>
+                          </div>
+                        </div>
+                        <% } %>
+                </tbody>
+            </table>
+
+
+
+
+
+
+      </section>
+      <%- include('../partials/adminPartials/footer')%>

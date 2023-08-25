@@ -1043,23 +1043,28 @@ body {
 
 .menu-list li.active>a {
     --tw-bg-opacity: 1;
-    background-color: rgba(55, 65, 81, var(--tw-bg-opacity))
+    background-color: rgb(50, 49, 46);;
+    color: white;
 }
 
+
+
 .menu-list li ul {
-    display: none
+    display: none;  
 }
 
 .menu-list li ul a {
     font-size: .875rem;
     line-height: 1.25rem;
-    padding: .75rem
+    padding: .75rem;
+    
 }
 
 .menu-list li.active ul {
     --tw-bg-opacity: 1;
     background-color: rgba(75, 85, 99, var(--tw-bg-opacity));
     display: block
+    
 }
 
 .is-title-bar {

@@ -314,6 +314,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Product</th>
+
                                                                 <th>Total</th>
                                                             </tr>
                                                         </thead>
@@ -324,7 +325,12 @@
                                                                     <td style="color: #c96; font-weight: 500;"><a
                                                                             href="#">
                                                                             <%= item.product.name %>
+                                                                                <div id="selectedSize"
+                                                                                    style="color: #999; font-size: 12px; margin-top: 5px;">
+                                                                                    Size: <%= item.size %>
+                                                                                </div>
                                                                         </a></td>
+
                                                                     <td style="color: #c96; font-weight: 500">₹ <%=
                                                                             item.total %>
                                                                     </td>

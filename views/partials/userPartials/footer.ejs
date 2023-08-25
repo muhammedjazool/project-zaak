@@ -129,11 +129,11 @@
     <div class="mobile-menu-wrapper">
         <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-        <form action="#" method="get" class="mobile-search">
+        <form action="/allProducts" method="get" class="mobile-search">
             <label for="mobile-search" class="sr-only">Search</label>
             <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..."
                 required>
-            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            <!-- <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button> -->
         </form>
 
         <nav class="mobile-nav">
@@ -142,37 +142,42 @@
                     <a href="/">Home</a>
 
                 </li>
-                <% if (typeof categoryData !=='undefined' && categoryData.length> 0) { %>
-                    <% categoryData.forEach((category)=> { %>
+                <% if (typeof categoryData !=='undefined' && categoryData.length> 0) { %> <%
+                    categoryData.forEach((category)=> { %>
+                    <li>
+                      <a href="/products?id=<%= category._id %>" class="sf-with-ul">
+                        <%= category.category %>
+                      </a>
+                    </li>
+                    <% }); %>
+                      <% } %>
                         <li>
-                            <a href="/products?id=<%= category._id %>"" class=" sf-with-ul">
-                                <%= category.category %>
-                            </a>
+                          <a href="/allProducts" class="sf-with-ul">All Products</a>
                         </li>
-                        <% }); %>
-                            <% } %>
+                        <div class="megamenu megamenu-sm">
+                          <div class="row no-gutters"></div>
+                          <!-- End .row -->
+                        </div>
+                        <!-- End .megamenu megamenu-sm -->
 
+                        <li>
+                          <% if (typeof userDetail !=='undefined' ) { %>
+                            <a href="#">Hello <%= userDetail.name %></a>
+                            <ul>
+                              <li>
+                                <a href="/profile">My profile</a>
+                              </li>
+                              <li><a href="/logout">Logout</a></li>
 
+                            </ul>
+                            <% } else { %>
+                              <a href="#">Account</a>
+                              <ul>
+                                <li><a href="/login">Login</a></li>
 
-
-                                <li>
-                                    <% if (typeof userDetail !=='undefined' ) { %>
-                                        <a href="#">Hello <%= userDetail.name %></a>
-                                        <ul>
-                                            <li>
-                                                <a href="/profile">My profile</a>
-                                            </li>
-                                            <li><a href="/logout">Logout</a></li>
-                                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        </ul>
-                                        <% } else { %>
-                                            <a href="#">Account</a>
-                                            <ul>
-                                                <li><a href="/login">Login</a></li>
-                                                <li><a href="coming-soon.html">Coming Soon</a></li>
-                                            </ul>
-                                            <% } %>
-                                </li>
+                              </ul>
+                              <% } %>
+                        </li>
 
             </ul>
         </nav><!-- End .mobile-nav -->

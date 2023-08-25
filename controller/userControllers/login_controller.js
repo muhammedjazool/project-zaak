@@ -165,16 +165,16 @@ exports.verifyForgotPasswordOtp = async (req, res) => {
     } else {
       return res.status(400).json({ error: "Invalid OTP!" });
     }
-  } catch (error) {}
+  } catch (error) { }
 };
 
 exports.loadResetPassword = (req, res) => {
   try {
-   if(req.session.userEmail){ 
-    res.render("reset_password");
-   }else{
+    if (req.session.userEmail) {
+      res.render("reset_password");
+    } else {
       res.redirect("/login")
-   }
+    }
   } catch (error) {
     console.log(error)
   }
@@ -193,11 +193,11 @@ const securePassword = async (password) => {
 exports.verifyResetPassword = async (req, res) => {
   try {
     const email = req.session.userEmail;
-   
+
     const newPassword = req.body.password;
-   
+
     const hashedPassword = await securePassword(newPassword);
-   
+
     const userData = await User.findOneAndUpdate(
       { email: email },
       { $set: { password: hashedPassword } }

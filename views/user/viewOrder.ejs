@@ -52,10 +52,12 @@
                                 <th>Order-Id</th>
                                 <th>Payment Method</th>
                                 <th>Total</th>
+                                <th>Amount After Discount</th>
                                 <th>Order Status</th>
                                 <th></th>
                             </tr>
                         </thead>
+
                         <tbody id="ordersTable">
                             <% myOrders.forEach(order=> { %>
                                 <tr>
@@ -70,37 +72,43 @@
                                     </td>
                                     <td class="price-col">₹ <%= order.total %>
                                     </td>
-                                    <% if (order.status==="Pending" ) { %>
-                                        <td style="color: orange; font-weight: 600;">
+                                    <td class="price-col">
+                                        <% if (order.discountAmount===0 ) { %>
+                                            NIL
+                                            <% } else { %>
+                                                ₹ <%= order.amountAfterDiscount %>
+                                                    <% } %>
+                                                        <% if (order.status==="Pending" ) { %>
+                                    <td style="color: orange; font-weight: 600;">
+                                        <%= order.status %>
+                                    </td>
+                                    <% } else if (order.status==="Shipped" ) { %>
+                                        <td style="color: green; font-weight: 600;">
                                             <%= order.status %>
                                         </td>
-                                        <% } else if (order.status==="Shipped" ) { %>
-                                            <td style="color: green; font-weight: 600;">
+                                        <% } else if (order.status==="Delivered" ) { %>
+                                            <td style="color: teal; font-weight: 600;">
                                                 <%= order.status %>
                                             </td>
-                                            <% } else if (order.status==="Delivered" ) { %>
-                                                <td style="color: teal; font-weight: 600;">
+                                            <% } else if (order.status==="Cancelled" ) { %>
+                                                <td style="color: red; font-weight: 600;">
                                                     <%= order.status %>
                                                 </td>
-                                                <% } else if (order.status==="Cancelled" ) { %>
-                                                    <td style="color: red; font-weight: 600;">
+                                                <% } else if (order.status==="Returned" ) { %>
+                                                    <td style="color: purple; font-weight: 600;">
                                                         <%= order.status %>
                                                     </td>
-                                                    <% } else if (order.status==="Returned" ) { %>
-                                                        <td style="color: purple; font-weight: 600;">
-                                                            <%= order.status %>
+                                                    <% } %>
+                                                        <td>
+                                                            <a style="font-weight: 500;"
+                                                                href="/orderDetails?orderId=<%= order._id %>"
+                                                                class="btn btn-link">
+                                                                <span>More Details</span><i
+                                                                    class="icon-long-arrow-right"></i>
+                                                            </a>
+                                                            <input type="hidden" name="orderId"
+                                                                value="<%= order._id %>">
                                                         </td>
-                                                        <% } %>
-                                                            <td>
-                                                                <a style="font-weight: 500;"
-                                                                    href="/orderDetails?orderId=<%= order._id %>"
-                                                                    class="btn btn-link">
-                                                                    <span>More Details</span><i
-                                                                        class="icon-long-arrow-right"></i>
-                                                                </a>
-                                                                <input type="hidden" name="orderId"
-                                                                    value="<%= order._id %>">
-                                                            </td>
                                 </tr>
                                 <% }); %>
                         </tbody>

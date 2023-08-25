@@ -9,6 +9,8 @@ const categoryController = require("../controller/adminControllers/category_cont
 const productController = require("../controller/adminControllers/product_controller")
 const orderController = require("../controller/adminControllers/order_controller")
 const couponController = require("../controller/adminControllers/coupon_controller")
+const bannerController = require("../controller/adminControllers/banner_controller")
+const subCategoryController = require("../controller/adminControllers/subCategory_controller")
 
 const { isLogged } = auth
 
@@ -17,7 +19,8 @@ admin_router.post("/",adminController.verifyLogin)
 admin_router.get("/logout",adminController.logoutAdmin)
 
 
-admin_router.get("/dashboard", isLogged, dashboardController.getDashboard)
+admin_router.get("/dashboard", isLogged, dashboardController.loadDashboard)
+admin_router.get("/chartData", dashboardController.chartData);
 
 
 
@@ -32,6 +35,20 @@ admin_router.get("/editCategory/:id", isLogged, categoryController.editCategory)
 admin_router.post("/updateCategory/:id", isLogged, store.single("image"), categoryController.updateCategory)
 admin_router.get("/unListCategory/:categoryDataId", isLogged, categoryController.unListCategory)
 
+admin_router.get("/subCategory",isLogged,subCategoryController.loadSubCategory)
+admin_router.get("/addSubCategory",isLogged,subCategoryController.loadAddSubCategory)
+admin_router.post("/addSubCategory",isLogged,store.single("image"),subCategoryController.verifyAddSubCategory)
+admin_router.get("/editSubCategory/:id", isLogged, subCategoryController.editSubCategory)
+admin_router.post("/updateSubCategory/:id", isLogged, store.single("image"), subCategoryController.updateSubCategory)
+admin_router.get("/unListSubCategory/:subCategoryDataId", isLogged, subCategoryController.unListSubCategory)
+
+
+admin_router.get("/banners", isLogged, bannerController.loadBanners);
+admin_router.get("/addBanner", isLogged, bannerController.addBanner);
+admin_router.post("/addBanner", isLogged, store.single("image"), bannerController.addNewBanner);
+admin_router.get("/updateBanner/:id", isLogged, bannerController.editBanner);
+admin_router.post("/updateBanner/:id", isLogged, store.single("image"), bannerController.updateBanner);
+admin_router.get("/bannerStatus/:id", isLogged, bannerController.bannerStatus);
 
 admin_router.get("/products", isLogged, productController.loadProducts)
 admin_router.get("/addProducts", isLogged, productController.loadAddProducts)

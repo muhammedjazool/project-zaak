@@ -1,5 +1,6 @@
 /////////////// SEARCHING ////////////////////
 
+
 // Get the search input and table rows
 const searchInput = document.querySelector('input[type="search"]');
 const tableRows = document.querySelectorAll("tbody tr");
@@ -13,6 +14,7 @@ if (searchInput) {
     let found = false;
 
     // Loop through the table rows and hide/show them based on the search input
+    
     tableRows.forEach(function (row) {
       const name = row
         .querySelector("td:nth-of-type(1)")
@@ -37,6 +39,7 @@ if (searchInput) {
     });
 
     // Show the "No results found" message if no results were found
+
     if (!found) {
       noResultsMessage.style.display = "block";
     } else {
@@ -251,7 +254,8 @@ let months;
 let ordersByMonth;
 let revenueByMonth;
 let orderData;
-
+let categorySalesData; // Define categorySalesData at a global scope
+let paymentMethodSalesData; // Define paymentMethodSalesData at a global scope
 /////////////// Graph data ////////////////////
 
 if (window.location.pathname === "/admin/dashboard") {
@@ -272,10 +276,22 @@ if (window.location.pathname === "/admin/dashboard") {
       months = data.months;
       ordersByMonth = data.ordersByMonth;
       revenueByMonth = data.revenueByMonth;
+      categorySalesData = data.categorySalesData; // Assign categorySalesData from data
+      paymentMethodSalesData = data.paymentMethodSalesData; // Assign paymentMethodSalesData from data
 
+      console.log(278,months);
+      console.log(279,ordersByMonth);
+
+      console.log(285,categorySalesData);
       salesGraph(months, ordersByMonth);
       revenue(months, data.revenueByMonth);
+      categoryDonut(data.categorySalesData);
+      paymentMethodDonut(data.paymentMethodSalesData);
     };
+
+   
+
+ 
 
     function salesGraph(months, ordersByMonth) {
       const ctx = document.getElementById("myChart");
@@ -325,6 +341,57 @@ if (window.location.pathname === "/admin/dashboard") {
       });
     }
 
+    function categoryDonut(categorySalesData) {
+      const ctx = document.getElementById("categoryChart");
+      new Chart(ctx, {
+          type: "doughnut",
+          data: {
+              labels: categorySalesData.map(category => category.category),
+              datasets: [
+                  {
+                      label: "Category Sales",
+                      data: categorySalesData.map(category => category.totalSales),
+                      backgroundColor: generateColors(categorySalesData.length),
+                  },
+              ],
+          },
+      });
+  }
+
+  function paymentMethodDonut(paymentMethodSalesData) {
+    const ctx = document.getElementById("paymentMethodChart");
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: Object.keys(paymentMethodSalesData),
+            datasets: [
+                {
+                    label: "Payment Method Sales",
+                    data: Object.values(paymentMethodSalesData).map(method => method.totalSales),
+                    backgroundColor: generateColors(Object.keys(paymentMethodSalesData).length),
+                },
+            ],
+        },
+    });
+}
+
+function generateColors(count) {
+  // This function generates an array of random colors
+  const colors = [];
+  for (let i = 0; i < count; i++) {
+      colors.push(getRandomColor());
+  }
+  return colors;
+}
+
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
     // Call the getChartData function after the DOM has fully loaded
     getChartData();
   };
@@ -359,124 +426,3 @@ if (startDateField && endDateField) {
   });
 }
 
-let startDate;
-let endDate;
-
-const getSalesData = async () => {
-  startDate = document.getElementById("start-date").value;
-  endDate = document.getElementById("end-date").value;
-
-  Handlebars.registerHelper("for", function (from, to, incr, block) {
-    var accum = "";
-    for (var i = from; i < to; i += incr) accum += block.fn(i);
-    return accum;
-  });
-
-  const salesReportTemplate = `
-<div class="col-xl-12">
-  <!-- Account details card-->
-  <div class="card mb-4">
-    <div class="card-header">Sales Report 
-
-    </div>
-
-    <div class="card-body ml-3 p-5">
-      <ul>   
-        <table id="my-table" class="my-table table table-hover" style="border-top: 1px solid black;">
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Order id</th>
-              <th scope="col">Payment Method</th>
-              <th scope="col">Product Details</th>
-              <th scope="col">Total</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data.orders}}
-            <tr>
-              <td>{{this.date}}</td>
-              <td>{{this.orderId}}</td>
-              <td>{{this.paymentMethod}}</td> 
-              <td>
-                 {{#each this.productName}}
-                 <p>Name: {{this.name}}</p>
-                 <p>Quantity: {{this.quantity}}</p>
-                 <p>Price: <span>₹</span>{{this.price}}</p>
-                 {{/each}}
-                 </td> 
-            
-              <td><span>₹</span>{{this.total}}</td> 
-            </tr>
-            {{/each}} 
-          </tbody>
-        </table>
-                
-        <h5>Total Revenue: ₹<strong class="ml-auto">{{data.grandTotal}}</strong>  </h5>
-       
-      </ul>
-    </div>
-  </div>
-</div>
-<div>
-    <button onclick="downloadSalesReport()" class="btn btn-primary" >DOWNLOAD REPORT</button>
-    </div>
-`;
-
-  function renderSalesReport(orderData) {
-    const compiledTemplate = Handlebars.compile(salesReportTemplate);
-    const salesReportHTML = compiledTemplate({ data: orderData });
-    document.getElementById("table").innerHTML = salesReportHTML;
-
-    jQuery(document).ready(function ($) {
-      $("#my-table").DataTable({
-        dom: "Bfrtip",
-        buttons: ["excelHtml5", "pdfHtml5"],
-      });
-    });
-  }
-
-  ///////////sales report fetch///////////
-
-  const response = await fetch(
-    `/admin/getSales?startDate=${startDate}&endDate=${endDate}`,
-    {
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-
-  orderData = await response.json();
-  if (orderData) {
-    renderSalesReport(orderData);
-  }
-};
-
-const downloadSalesReport = async () => {
-  try {
-    const response = await fetch(
-      `/admin/downloadSalesReport?startDate=${startDate}&endDate=${endDate}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          orderData: orderData,
-        }),
-      }
-    );
-
-    const blobData = await response.blob();
-
-    const url = URL.createObjectURL(blobData);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `SalesReport.pdf`;
-    link.click();
-
-    URL.revokeObjectURL(url);
-  } catch (error) {
-    console.log(error.message);
-  }
-};

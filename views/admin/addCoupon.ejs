@@ -2,166 +2,132 @@
 
 
      <div id="app">
-
-
-          <aside class="aside is-placed-left is-expanded">
-               <div class="aside-tools">
-                    <div>
-                         <b class="font-black">Admin</b>
-                    </div>
-               </div>
-               <div class="menu is-menu-main">
-                    <!-- <p class="menu-label">General</p> -->
-                    <ul class="menu-list">
-                         <li class="active">
-                              <a href="/admin/dashboard" class="text-decoration-none">
-                                   <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-                                   <span class="menu-item-label">Dashboard</span>
-                              </a>
-                         </li>
-                         <li class="active">
-                              <a href="/admin/user" class="text-decoration-none">
-                                   <span class="icon"><i class="mdi mdi-account"></i></span>
-                                   <span class="menu-item-label">Users</span>
-                              </a>
-                         </li>
-
-                         <li class="active">
-                              <a href="/admin/categories" class="text-decoration-none">
-                                   <span class="icon"><i class="mdi mdi-table"></i></span>
-                                   <span class="menu-item-label">Category</span>
-                              </a>
-                         </li>
-                         <li class="active">
-                              <a href="/admin/products" class="text-decoration-none">
-                                   <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
-                                   <span class="menu-item-label">Products</span>
-                              </a>
-                         </li>
-                         <li class="active">
-                              <a href="/admin/orders" class="text-decoration-none">
-                                   <span class="icon"><i class="mdi mdi-cart-arrow-up"></i></span>
-                                   <span class="menu-item-label">Orders</span>
-                              </a>
-                         </li>
-                         <li class="active">
-                              <a href="/admin/coupons" class="text-decoration-none">
-                                   <span class="icon"><i class="mdi mdi-ticket-percent"></i></span>
-                                   <span class="menu-item-label">Coupons</span>
-                              </a>
-                         </li>
-                         <li class="active">
-                              <a href="/admin/logout" class="text-decoration-none">
-                                   <span class="icon"><i class="mdi mdi-logout"></i></span>
-                                   <span class="menu-item-label"><b>Logout</b></span>
-                              </a>
-                         </li>
-                    </ul>
-
-               </div>
-          </aside>
-
-
-          <section class="is-title-bar">
-               <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-                    <ul>
-                         <li>Admin</li>
-                         <li>Add Coupon</li>
-                    </ul>
-
-               </div>
-          </section>
-
-
           <style>
-               form {
+               body {
+                    background-color: rgb(225, 222, 222);
+               }
+
+               .centered-section {
                     display: flex;
-                    flex-direction: column;
-                    margin-top: 30px;
-                    margin: 0 auto;
-                    /* Center the form horizontally */
-                    max-width: 400px;
-               }
+                    justify-content: center;
+                    align-items: center;
 
-               input[type="text"],
-               input[type="number"],
-               input[type="date"] {
-                    margin-bottom: 20px;
-                    padding: 10px;
-                    border: none;
-                    border-radius: 5px;
-                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-                    width: 100%;
-                    background-color: #374151;
-               }
-
-               button {
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 10px 20px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-size: 18px;
-                    font-weight: bold;
-                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-                    width: 100%;
-                    margin-bottom: 2rem;
-               }
-
-               button:hover {
-                    background-color: #3e8e41;
-               }
-
-               .container {
-                    border-radius: 20px;
-                    border: 1px solid black;
-                    background-color: #1f2937;
-                    color: white;
-                    width: 55%;
-                    margin: 0 auto;
-                    /* Center the container horizontally */
-                    margin-bottom: 2rem;
-                    padding: 2rem;
                }
           </style>
 
-          <input type="search" style="display: none;" placeholder="Search Categories" aria-label="Search" />
+          <%- include('../partials/adminPartials/nav')%>
 
-          <div class="container mt-5" id="addCategory">
-               <h1 style="text-align: center; padding-bottom: 10px;">Add New Coupon</h1>
 
-               <form id="addCoupon">
-                    <div class="row">
-                         <div class="col-lg-6">
-                              <input type="text" placeholder="Enter Coupon Code" id="couponCode" name="couponCode">
-                         </div>
-                         <div class="col-lg-6">
-                              <input type="number" placeholder="Discount %" id="couponDiscount" name="couponDiscount">
-                         </div>
+               <section class="is-title-bar">
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                         <ul>
+                              <li>Admin</li>
+                              <li>Add Coupon</li>
+                         </ul>
+
                     </div>
+               </section>
 
-                    <div class="row">
-                         <div class="col-lg-6">
-                              <input type="number" placeholder="Enter minimum discount amount" id="minDiscount"
-                                   name="minDiscount">
-                         </div>
-                         <div class="col-lg-6">
-                              <input type="number" placeholder="Enter maximum discount amount" id="maxDiscount"
-                                   name="maxDiscount">
-                         </div>
+
+               <section class="centered-section  card"
+                    style="background-color:  #8a8b879a; color: aliceblue; border: none; margin: 0 20px 20px 20px;">
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                         <h1 class="title" style="text-align: center;">Coupons</h1>
                     </div>
+               </section>
 
-                    <div class="row">
-                         <div class="col-lg-6">
-                              <input type="date" placeholder="Expiry Date" id="couponDate" name="couponDate" required>
+
+               <style>
+                    form {
+                         display: flex;
+                         flex-direction: column;
+                         margin-top: 30px;
+                         margin: 0 auto;
+                         /* Center the form horizontally */
+                         max-width: 400px;
+                    }
+
+                    input[type="text"],
+                    input[type="number"],
+                    input[type="date"] {
+                         margin-bottom: 20px;
+                         padding: 10px;
+                         border: none;
+                         border-radius: 5px;
+                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+                         width: 100%;
+                         background-color: #374151;
+                    }
+
+                    button {
+                         background-color: #4CAF50;
+                         color: white;
+                         padding: 10px 20px;
+                         border: none;
+                         border-radius: 5px;
+                         cursor: pointer;
+                         font-size: 18px;
+                         font-weight: bold;
+                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+                         width: 100%;
+                         margin-bottom: 2rem;
+                    }
+
+                    button:hover {
+                         background-color: #3e8e41;
+                    }
+
+                    .container {
+                         border-radius: 20px;
+                         border: 1px solid black;
+                         background-color: #1f2937;
+                         color: white;
+                         width: 55%;
+                         margin: 0 auto;
+                         /* Center the container horizontally */
+                         margin-bottom: 2rem;
+                         padding: 2rem;
+                    }
+               </style>
+
+               <input type="search" style="display: none;" placeholder="Search Categories" aria-label="Search" />
+
+               <div class="container mt-5" id="addCategory">
+                    <h1 style="text-align: center; padding-bottom: 10px;">Add New Coupon</h1>
+
+                    <form id="addCoupon">
+                         <div class="row">
+                              <div class="col-lg-6">
+                                   <input type="text" placeholder="Enter Coupon Code" id="couponCode" name="couponCode">
+                              </div>
+                              <div class="col-lg-6">
+                                   <input type="number" placeholder="Discount %" id="couponDiscount"
+                                        name="couponDiscount">
+                              </div>
                          </div>
-                    </div>
 
-                    <button type="submit">ADD COUPON</button>
-               </form>
-          </div>
+                         <div class="row">
+                              <div class="col-lg-6">
+                                   <input type="number" placeholder="Enter minimum discount amount" id="minDiscount"
+                                        name="minDiscount">
+                              </div>
+                              <div class="col-lg-6">
+                                   <input type="number" placeholder="Enter maximum discount amount" id="maxDiscount"
+                                        name="maxDiscount">
+                              </div>
+                         </div>
+
+                         <div class="row">
+                              <div class="col-lg-6">
+                                   <input type="date" placeholder="Expiry Date" id="couponDate" name="couponDate"
+                                        required>
+                              </div>
+                         </div>
+
+                         <button type="submit">ADD COUPON</button>
+                    </form>
+               </div>
 
 
 
-          <%- include('../partials/adminPartials/footer')%>
+               <%- include('../partials/adminPartials/footer')%>

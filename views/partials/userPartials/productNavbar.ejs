@@ -15,13 +15,31 @@
             <i class="icon-bars"></i>
           </button>
 
-          <a href="index.html" class="logo">
+          <a href="/" class="logo">
             <img src="assets/images/demos/demo-7/zaak-logo.png" alt="ZAAK Logo" width="105" height="25" />
           </a>
+          <style>
+            .main-nav .menu li {
+              font-size: 16px;
+              transition: font-size 0.3s ease, transform 0.3s ease;
+             
+            }
 
+            
+            .main-nav .menu li:hover {
+              font-size: 18px;
+             
+              transform: translateY(-3px) scale(1);
+             
+              color: #efae53;
+             
+              text-shadow: 1px 1px 3px rgba(219, 213, 213, 0.1);
+              
+            }
+          </style>
           <nav class="main-nav">
             <ul class="menu sf-arrows">
-              <li class="megamenu-container active">
+              <li>
                 <a href="/" class="sf-with-ul">Home</a>
               </li>
 
@@ -34,6 +52,9 @@
                   </li>
                   <% }); %>
                     <% } %>
+                      <li>
+                        <a href="/allProducts" class="sf-with-ul">All Products</a>
+                      </li>
                       <div class="megamenu megamenu-sm">
                         <div class="row no-gutters"></div>
                         <!-- End .row -->
@@ -48,16 +69,17 @@
                               <a href="/profile">My profile</a>
                             </li>
                             <li><a href="/logout">Logout</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                           
                           </ul>
                           <% } else { %>
                             <a href="#">Account</a>
                             <ul>
                               <li><a href="/login">Login</a></li>
-                              <li><a href="coming-soon.html">Coming Soon</a></li>
+                             
                             </ul>
                             <% } %>
                       </li>
+
             </ul>
             <!-- End .menu -->
           </nav>
@@ -67,61 +89,70 @@
 
         <div class="header-right">
           <div class="header-search">
-            <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-            <form action="#" method="get">
+            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+            <form action="/allProducts" method="get">
               <div class="header-search-wrapper">
                 <label for="q" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required />
-              </div>
-              <!-- End .header-search-wrapper -->
-            </form>
-          </div>
-          <!-- End .header-search -->
+                <input type="search" class="form-control" name="search" id="q" placeholder="Search in..." required>
 
-          <div class="wishlist pl-4">
-            <a href="#"><i class="fa-regular fa-heart fa-xl"></i><span></span></a>
-          </div>
+              </div><!-- End .header-search-wrapper -->
+            </form>
+          </div><!-- End .header-search -->
+
 
           <% if (typeof userDetail !=='undefined' ) { %>
-            <div class="dropdown compare-dropdown">
-              <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                <i class="fa-solid fa-wallet fa-sm"></i>
+            <div class="account pl-5">
+              <a href="/logout"><i class="fa-solid fa-sign-out-alt fa-xl"></i></a>
 
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <ul class="compare-products">
-                  <li class="compare-product text-center">
-                    <h5>Available Wallet Balance</h5>
-                  </li>
-                </ul>
-                <div class="col-lg-12">
-                  <div class="row">
-                    <div class="col-lg-6 d-flex justify-content-center">
-                      <p style="font-size: 2.4rem; font-weight: 500;">₹ <%= userDetail.wallet.balance %>
-                      </p>
-                      <input type="hidden" id="userWallet" value="<%= userDetail.wallet.balance %>">
-                    </div>
-                    <div class="col-lg-6 d-flex justify-content-start align-items-center p-0">
-                      <div class="addFund">
-                        <a href="#" class="btn-outline-primary-2"><span>Add Fund</span><i
-                            class="icon-long-arrow-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- End .dropdown-menu -->
-            </div><!-- End .compare-dropdown -->
-            <% } %>
-
-              <div class="dropdown cart-dropdown">
-                <a href="/cart" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"
-                  data-display="static">
-                  <i class="icon-shopping-cart"></i>
-                  <span class="cart-count"></span>
-                </a>
+            </div>
+            <% } else { %>
+              <div class="account pl-5">
+                <a href="/login"><i class="fa-solid fa-user fa-xl"></i></a>
               </div>
-              <!-- End .cart-dropdown -->
+              <% } %>
+
+
+                <% if (typeof userDetail !=='undefined' ) { %>
+                  <div class="dropdown compare-dropdown">
+                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false" data-display="static" title="Compare Products"
+                      aria-label="Compare Products">
+                      <i class="fa-solid fa-wallet fa-sm"></i>
+
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <ul class="compare-products">
+                        <li class="compare-product text-center">
+                          <h5>Available Wallet Balance</h5>
+                        </li>
+                      </ul>
+                      <div class="col-lg-12">
+                        <div class="row">
+                          <div class="col-lg-6 d-flex justify-content-center">
+                            <p style="font-size: 2.4rem; font-weight: 500;">₹ <%= userDetail.wallet.balance %>
+                            </p>
+                            <input type="hidden" id="userWallet" value="<%= userDetail.wallet.balance %>">
+                          </div>
+                          <div class="col-lg-6 d-flex justify-content-start align-items-center p-0">
+                            <div class="addFund">
+                              <a href="#" class="btn-outline-primary-2"><span>Add Fund</span><i
+                                  class="icon-long-arrow-right"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- End .dropdown-menu -->
+                  </div><!-- End .compare-dropdown -->
+                  <% } %>
+
+                    <div class="dropdown cart-dropdown">
+                      <a href="/cart" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"
+                        data-display="static">
+                        <i class="icon-shopping-cart"></i>
+                        <span class="cart-count"></span>
+                      </a>
+                    </div>
+                    <!-- End .cart-dropdown -->
         </div>
         <!-- End .header-right -->
       </div>

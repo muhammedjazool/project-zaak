@@ -1,0 +1,165 @@
+<%- include('../partials/adminPartials/header')%>
+
+  <div id="app">
+
+    <%- include('../partials/adminPartials/nav')%>
+
+      <section class="is-title-bar">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <ul>
+            <li>Admin</li>
+            <li>Sub Category</li>
+            <li>Edit Sub Category</li>
+          </ul>
+        </div>
+      </section>
+
+
+
+      <style>
+        body {
+          background-color: rgb(225, 222, 222);
+        }
+
+        .centered-section {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          margin-top: 30px;
+          margin-left: 1rem;
+        }
+
+        input[type="text"] {
+          color: black;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+          margin-bottom: 20px;
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+          width: 100%;
+          max-width: 400px;
+
+        }
+
+        label {
+          margin-top: 1rem;
+
+          margin-bottom: 5px;
+        }
+
+        input[type="submit"] {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 18px;
+          font-weight: bold;
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+          width: 100%;
+          max-width: 400px;
+          margin-bottom: 2rem;
+        }
+
+        input[type="submit"]:hover {
+          background-color: #838e3e;
+        }
+
+        img {
+          max-width: 200px;
+          max-height: 200px;
+          margin-bottom: 20px;
+        }
+
+        .container {
+          border-radius: 20px;
+          border: 1px solid black;
+          margin-left: 17.9rem;
+          background-color: #1f2937;
+          color: white;
+          width: 50%;
+          position: relative;
+          left: 2rem;
+          padding-bottom: 1.2rem;
+          padding-left: 6.5rem;
+          margin-bottom: 2rem;
+          margin-top: 4.2rem;
+        }
+      </style>
+
+
+  </div>
+  </div>
+
+
+
+
+
+  <div class="container" id="addCategory">
+    <h1 style="padding-left: 40px;">Edit Sub-Category</h1>
+    <!-- <h5 style="margin-left: 1rem; color: #4CAF50;">{{catSave}}</h5>
+                      <h5 style="margin-left: 1rem; color: red;">{{catExist}}</h5> -->
+    <form action="/admin/updateSubCategory/<%= subCategoryData._id %>" method="post" id="subCategoryValidate"
+      enctype="multipart/form-data">
+
+      <input type="text" placeholder="Enter the Sub-category name" id="name" name="name"
+        value="<%= subCategoryData.subCategory %>">
+
+      <input type="text" placeholder="SubCategory description" id="subCategoryDescription" name="subCategoryDescription"
+        value="<%= subCategoryData.description %>">
+
+
+      <label for="image">Category Image :</label>
+      <input type="file" id="image" name="image" accept="image/*">
+
+      <img id="preview" src="<%= subCategoryData.imageUrl.url %>" alt="Image Preview" style="display: none;">
+
+      <input type="submit" value="Edit Category">
+    </form>
+  </div>
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+  <script>
+    const inputImage = document.getElementById('image');
+    const imgPreview = document.getElementById('preview');
+
+    inputImage.addEventListener('change', function () {
+      const file = this.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.addEventListener('load', function () {
+          imgPreview.setAttribute('src', this.result);
+          imgPreview.style.display = 'block';
+        });
+
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+
+
+
+  <%- include("../partials/adminPartials/footer")%>
