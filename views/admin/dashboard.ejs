@@ -196,6 +196,38 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="container-xl px-4" style="margin-bottom: 80px;">
+                    
+                        <div class="bg-light">
+                        <div class="heading m-4">                            
+                            <h3> Get Sales Report </h3>
+                        </div>
+                        
+                        <div class="form-inline d-flex align-items-center ">
+                            <div class="form-group p-2">
+                                <label for="start-date">Start Date:</label>
+                                <input type="date" class="form-control" id="start-date" min="" max="">
+                            </div>
+                            <div class="form-group p-2">
+                                <label for="end-date">End Date:</label>
+                                <input type="date" class="form-control" id="end-date" min="" max="">
+                            </div>
+                            <div class="form-group p-2 mt-4">
+                                <button id="sales-report-form" onclick="generateSalesReportPDF()" type="button" class="btn btn-primary">Submit</button>
+                            </div>
+                            
+                        </div>     
+                    </div>                     
+                    
+    
+                    <div class="row" id="table">
+    
+                    </div>
+    
+                </div>
+
             </div>
         </div>
     </div>

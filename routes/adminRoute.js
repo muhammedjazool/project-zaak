@@ -21,6 +21,10 @@ admin_router.get("/logout",adminController.logoutAdmin)
 
 admin_router.get("/dashboard", isLogged, dashboardController.loadDashboard)
 admin_router.get("/chartData", dashboardController.chartData);
+admin_router.get("/generateSalesReport", isLogged,dashboardController.generateSalesReport);
+admin_router.post('/downloadSalesReport', dashboardController.downloadSalesReport)
+// admin_router.get('/renderSalesReport', dashboardController.renderSalesReport)
+
 
 
 

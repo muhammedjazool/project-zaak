@@ -214,15 +214,9 @@ exports.loadProductView = async (req, res) => {
 
         res.render("404", { categoryData });
       } else {
-        res.render("productView", {
-          title: "Product View",
-          productData,
-          categoryData,
-          categoryName,
-          subCategoryName,
+       
+        res.redirect("/login"); 
 
-
-        });
       }
     }
   } catch (error) {

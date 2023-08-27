@@ -418,9 +418,9 @@
                                                 <% } %>
                                                     <tr>
                                                         <td class="order-one">Payment method :</td>
-                                                        <td class="order-two" id="paymentMethod">
-                                                            <%= orderDetails.paymentMethod %>
-                                                        </td>
+                                                        <td class="order-two" id="paymentMethod"><%= orderDetails.paymentMethod %></td>
+                                                            
+                                                        
                                                     </tr>
                                                     <tr>
                                                         <td class="order-one">Coupon used :</td>
@@ -464,13 +464,7 @@
                                     </div><!-- End .product-list-action -->
                                 </div><!-- End .sidebar sidebar-shop -->
 
-                                <% if (orderDetails.status==="Delivered" ) { %>
-                                    <div class="download-invoice">
-                                        <a href="/downloadInvoice?orderId=<%= orderDetails._id %>"
-                                            class="btn btn-outline-dark-2 btn-block mb-3"><span>DOWNLOAD
-                                                INVOICE</span><i class="fa-regular fa-file-lines"></i></a>
-                                    </div>
-                                    <% } %>
+                               
                             </div>
                         </aside><!-- End .col-lg-3 -->
                     </div><!-- End .row -->

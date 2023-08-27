@@ -63,9 +63,9 @@ user_router.get("/checkOut", isCheckout, isLogin, blockCheck, cartController.loa
 user_router.post("/validateCoupon", cartController.validateCoupon);
 
 user_router.post("/placeOrder", orderController.placeOrder)
-user_router.get("/orderSuccess", orderController.orderSuccess)
-user_router.get("/myOrder", orderController.myOrders)
-user_router.get("/orderdetails", orderController.orderDetails)
+user_router.get("/orderSuccess",  isLogin, blockCheck,orderController.orderSuccess)
+user_router.get("/myOrder", isLogin, blockCheck, orderController.myOrders)
+user_router.get("/orderdetails",isLogin, blockCheck, orderController.orderDetails)
 user_router.get("/orderFilter", orderController.filterOrder);
 user_router.post("/updateOrder", orderController.updateOrder);
 

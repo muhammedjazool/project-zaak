@@ -279,10 +279,7 @@ if (window.location.pathname === "/admin/dashboard") {
       categorySalesData = data.categorySalesData; // Assign categorySalesData from data
       paymentMethodSalesData = data.paymentMethodSalesData; // Assign paymentMethodSalesData from data
 
-      console.log(278,months);
-      console.log(279,ordersByMonth);
-
-      console.log(285,categorySalesData);
+     
       salesGraph(months, ordersByMonth);
       revenue(months, data.revenueByMonth);
       categoryDonut(data.categorySalesData);
@@ -426,3 +423,117 @@ if (startDateField && endDateField) {
   });
 }
 
+///////////sales report//////////
+
+
+
+    // async function generateSalesReportPDF() {
+    //     try {
+    //         console.log(433, "generateSalesReport");
+    //         const startDate = document.getElementById("start-date").value;
+    //         const endDate = document.getElementById("end-date").value;
+
+    //         // Send a request to the server to generate the PDF
+    //         const response = await fetch(`/admin/generateSalesReport?startDate=${startDate}&endDate=${endDate}`);
+    //         console.log(439, "generateSalesReport", response);
+            
+    //         if (!response.ok) {
+    //             throw new Error("PDF generation failed");
+    //         }
+            
+    //         const blob = await response.blob();
+    //         console.log(441, "generateSalesReport", blob);
+
+    //         // Create a URL for the blob
+    //         const blobUrl = URL.createObjectURL(blob);
+    //         console.log(444, "generateSalesReport", blobUrl);
+
+    //         // Open the PDF in a new tab
+    //         window.open(blobUrl, "_blank");
+    //     } catch (error) {
+    //         console.error("Error generating PDF:", error);
+    //     }
+    // }
+
+    // document.getElementById("sales-report-form").addEventListener("submit", function(event) {
+    //     console.log(448, "salesReport");
+    //     event.preventDefault();
+    //     generateSalesReportPDF();
+    // });
+
+    let startDate
+    let endDate
+
+    
+    async function generateSalesReportPDF() {
+      console.log(472);
+        startDate = document.getElementById("start-date").value;
+        endDate = document.getElementById("end-date").value;
+        console.log(startDate, endDate);
+    
+    
+    
+       
+ 
+    
+ 
+
+ function renderSalesReport(orderData) {
+   
+  //  const salesReportHTML = ejs.render(salesReportTemplate, { data: orderData });
+   document.getElementById("table").innerHTML = orderData;
+ 
+  //  jQuery(document).ready(function ($) {
+  //    $("#my-table").DataTable({
+  //      dom: "Bfrtip",
+  //      buttons: ["excelHtml5", "pdfHtml5"],
+  //    });
+  //  });
+ }
+    
+    
+        ///////////sales report fetch///////////
+    
+        const response = await fetch(`/admin/generateSalesReport?startDate=${startDate}&endDate=${endDate}`, {
+            headers: { "Content-Type": "application/json" },
+        });
+    console.log(553,response);
+        data = await response.json();
+        if (data) {
+            renderSalesReport(data.data);
+        }
+    }
+    
+
+
+   
+
+
+
+
+    const downloadSalesReport = async () => {
+      try {
+        console.log(516,"downloadsalesreport");
+        const response = await fetch(`/admin/downloadSalesReport?startDate=${startDate}&endDate=${endDate}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderData: orderData,
+          }),
+        });
+    console.log(526,response);
+        const blobData = await response.blob();
+        console.log("blobbbbbb")
+        const url = URL.createObjectURL(blobData);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `SalesReport.pdf`;
+        link.click();
+    
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };

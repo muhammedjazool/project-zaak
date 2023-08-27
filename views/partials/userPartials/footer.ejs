@@ -143,41 +143,41 @@
 
                 </li>
                 <% if (typeof categoryData !=='undefined' && categoryData.length> 0) { %> <%
-                    categoryData.forEach((category)=> { %>
-                    <li>
-                      <a href="/products?id=<%= category._id %>" class="sf-with-ul">
-                        <%= category.category %>
-                      </a>
-                    </li>
-                    <% }); %>
-                      <% } %>
+                        categoryData.forEach((category)=> { %>
                         <li>
-                          <a href="/allProducts" class="sf-with-ul">All Products</a>
+                            <a href="/products?id=<%= category._id %>" class="sf-with-ul">
+                                <%= category.category %>
+                            </a>
                         </li>
-                        <div class="megamenu megamenu-sm">
-                          <div class="row no-gutters"></div>
-                          <!-- End .row -->
-                        </div>
-                        <!-- End .megamenu megamenu-sm -->
+                        <% }); %>
+                            <% } %>
+                                <li>
+                                    <a href="/allProducts" class="sf-with-ul">All Products</a>
+                                </li>
+                                <div class="megamenu megamenu-sm">
+                                    <div class="row no-gutters"></div>
+                                    <!-- End .row -->
+                                </div>
+                                <!-- End .megamenu megamenu-sm -->
 
-                        <li>
-                          <% if (typeof userDetail !=='undefined' ) { %>
-                            <a href="#">Hello <%= userDetail.name %></a>
-                            <ul>
-                              <li>
-                                <a href="/profile">My profile</a>
-                              </li>
-                              <li><a href="/logout">Logout</a></li>
+                                <li>
+                                    <% if (typeof userDetail !=='undefined' ) { %>
+                                        <a href="#">Hello <%= userDetail.name %></a>
+                                        <ul>
+                                            <li>
+                                                <a href="/profile">My profile</a>
+                                            </li>
+                                            <li><a href="/logout">Logout</a></li>
 
-                            </ul>
-                            <% } else { %>
-                              <a href="#">Account</a>
-                              <ul>
-                                <li><a href="/login">Login</a></li>
+                                        </ul>
+                                        <% } else { %>
+                                            <a href="#">Account</a>
+                                            <ul>
+                                                <li><a href="/login">Login</a></li>
 
-                              </ul>
-                              <% } %>
-                        </li>
+                                            </ul>
+                                            <% } %>
+                                </li>
 
             </ul>
         </nav><!-- End .mobile-nav -->
@@ -338,6 +338,8 @@
 <!-- Main JS File -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/demos/demo-7.js"></script>
+<script src="assets/js/users.js"></script>
+<script src="assets/js/userOrder.js"></script>
 </body>
 
 <script src="/js/axios.min.js"></script>
@@ -436,6 +438,6 @@
 
 
 
-<!-- molla/index-7.html  22 Nov 2019 09:56:58 GMT -->
+
 
 </html>

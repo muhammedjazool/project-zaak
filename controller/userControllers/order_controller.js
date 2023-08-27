@@ -19,13 +19,15 @@ exports.placeOrder = async (req, res) => {
     const couponData = req.body.couponData;
 
     const user = await User.findOne({ _id: userId }).populate("cart.product");
+
     const userCart = user.cart;
 
     let subTotal = 0;
-
+    let size;
     userCart.forEach((item) => {
       item.total = item.product.price * item.quantity;
       subTotal += item.total;
+      size = item.size;
     });
 
     let productData = userCart.map((item) => {
@@ -36,6 +38,7 @@ exports.placeOrder = async (req, res) => {
         price: item.product.price,
         quantity: item.quantity,
         image: item.product.imageUrl[0].url,
+        size: size,
       };
     });
 
@@ -196,7 +199,7 @@ exports.orderSuccess = async (req, res) => {
       categoryData,
       userDetail,
     });
-  } catch (error) { }
+  } catch (error) {}
 };
 
 exports.myOrders = async (req, res) => {
@@ -315,14 +318,13 @@ exports.updateOrder = async (req, res) => {
     const status = req.body.orderStatus;
 
     const paymentMethod = req.body.paymentMethod;
-  
+
     const updatedBalance = req.body.wallet;
     const total = req.body.total;
     const order = await Order.findOne({ _id: orderId });
     const orderIdValue = order.orderId;
 
     if (paymentMethod != "Cash On Delivery") {
-     
       await User.findByIdAndUpdate(
         userId,
         { $set: { "wallet.balance": updatedBalance } },
@@ -330,34 +332,44 @@ exports.updateOrder = async (req, res) => {
       );
 
       if (status === "Returned" || status === "Cancelled") {
-        // Update order status
-
         await Order.findByIdAndUpdate(orderId, {
           $set: { status: status },
           $unset: { ExpectedDeliveryDate: "" },
         });
 
-        // Handle stock management for each product in the order
         for (const productInfo of order.product) {
-          const productId = productInfo.product;
-          const productSize = productInfo.size; // Assuming you have a size field in the order
+          const sizeMapping = {
+            s: "small",
+            m: "medium",
+            l: "large",
+            xl: "xlarge",
+          };
+
+          const productId = productInfo.id;
+
+          const productSize = productInfo.size;
+
+          const backendSize = sizeMapping[productSize];
 
           const product = await Product.findById(productId);
-          if (product) {
-            // Find the corresponding size stock and update it
-            const stockToUpdate = `stock.${productSize}`;
-            const quantityReturnedOrCancelled = productInfo.quantity;
-            const updateQuery = {};
-            updateQuery[stockToUpdate] = quantityReturnedOrCancelled;
 
-            await Product.findByIdAndUpdate(productId, { $inc: updateQuery });
+          if (product) {
+            const stockToUpdate = backendSize;
+
+            const quantityReturnedOrCancelled = productInfo.quantity;
+
+            const updateObject = {
+              [`stock.0.${backendSize}`]: quantityReturnedOrCancelled,
+            };
+
+            await Product.findByIdAndUpdate(productId, { $inc: updateObject });
           }
         }
-
         const transaction = {
           date: new Date(),
-          details: `${status === "Returned" ? "Returned" : "Cancelled"
-            } Order - ${orderIdValue}`,
+          details: `${
+            status === "Returned" ? "Returned" : "Cancelled"
+          } Order - ${orderIdValue}`,
           amount: total,
           status: "Credit",
         };
@@ -374,7 +386,6 @@ exports.updateOrder = async (req, res) => {
         });
       }
     } else if (paymentMethod == "Cash On Delivery" && status === "Returned") {
-  
       await User.findByIdAndUpdate(
         userId,
         { $set: { "wallet.balance": updatedBalance } },
@@ -382,18 +393,31 @@ exports.updateOrder = async (req, res) => {
       );
 
       for (const productInfo of order.product) {
-        const productId = productInfo.product;
-        const productSize = productInfo.size; // Assuming you have a size field in the order
+        const sizeMapping = {
+          s: "small",
+          m: "medium",
+          l: "large",
+          xl: "xlarge",
+        };
+
+        const productId = productInfo.id;
+
+        const productSize = productInfo.size;
+
+        const backendSize = sizeMapping[productSize];
 
         const product = await Product.findById(productId);
-        if (product) {
-          // Find the corresponding size stock and update it
-          const stockToUpdate = `stock.${productSize}`;
-          const quantityReturnedOrCancelled = productInfo.quantity;
-          const updateQuery = {};
-          updateQuery[stockToUpdate] = quantityReturnedOrCancelled;
 
-          await Product.findByIdAndUpdate(productId, { $inc: updateQuery });
+        if (product) {
+          const stockToUpdate = backendSize;
+
+          const quantityReturnedOrCancelled = productInfo.quantity;
+
+          const updateObject = {
+            [`stock.0.${backendSize}`]: quantityReturnedOrCancelled,
+          };
+
+          await Product.findByIdAndUpdate(productId, { $inc: updateObject });
         }
       }
       const transaction = {
@@ -418,30 +442,37 @@ exports.updateOrder = async (req, res) => {
         refund: "Refund",
       });
     } else if (paymentMethod == "Cash On Delivery" && status === "Cancelled") {
-   
       await Order.findByIdAndUpdate(orderId, {
         $set: { status: status },
         $unset: { ExpectedDeliveryDate: "" },
       });
 
       for (const productInfo of order.product) {
-        const productId = productInfo.product;
+        const sizeMapping = {
+          s: "small",
+          m: "medium",
+          l: "large",
+          xl: "xlarge",
+        };
 
-        const productSize = productInfo.size; // Assuming you have a size field in the order
+        const productId = productInfo.id;
+
+        const productSize = productInfo.size;
+
+        const backendSize = sizeMapping[productSize];
 
         const product = await Product.findById(productId);
 
         if (product) {
-          // Find the corresponding size stock and update it
-
-          const stockToUpdate = `stock.${productSize}`;
+          const stockToUpdate = backendSize;
 
           const quantityReturnedOrCancelled = productInfo.quantity;
 
-          const updateQuery = {};
-          updateQuery[stockToUpdate] = quantityReturnedOrCancelled;
+          const updateObject = {
+            [`stock.0.${backendSize}`]: quantityReturnedOrCancelled,
+          };
 
-          await Product.findByIdAndUpdate(productId, { $inc: updateQuery });
+          await Product.findByIdAndUpdate(productId, { $inc: updateObject });
         }
       }
       res.json({
@@ -453,3 +484,6 @@ exports.updateOrder = async (req, res) => {
     console.log(error.message);
   }
 };
+
+
+

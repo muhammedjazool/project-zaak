@@ -231,14 +231,14 @@ function handleAddressSelection() {
 
 
 const placeOrder = async () => {
- 
+console.log(234)
   try {
     const selectedPayment = document.querySelector(
       ".payment-radio:checked"
     ).value;
- 
+
     if (selectedPayment === "Cash On Delivery") {
-   
+ 
       cashOnDelivery(selectedPayment);
     } else if (selectedPayment === "Razorpay") {
       razorpay(selectedPayment);
@@ -251,14 +251,15 @@ const placeOrder = async () => {
 };
 
 const cashOnDelivery = async (selectedPayment, updatedBalance) => {
-
+console.log(254,"cod");
   try {
   
     const selectedAddress = document.querySelector(
       'input[name="selectedAddress"]:checked'
     ).value;
     const subTotal = Number(document.getElementById("subTotalValue").value);
-
+ 
+    console.log(262,selectedSize);
     const response = await fetch("/placeOrder", {
       method: "POST",
       headers: {
@@ -271,14 +272,17 @@ const cashOnDelivery = async (selectedPayment, updatedBalance) => {
         amount: subTotal,
         walletBalance: updatedBalance,
         couponData: couponData,
-        // size:selectedSize,
+     
       }),
     });
+  console.log(278,response);
 
     const orderConfirmData = await response.json();
-
+console.log(281,orderConfirmData);
     if (orderConfirmData.order === "Success") {
+      console.log(262,selectedSize);
       window.location.href = "/orderSuccess";
+      console.log(262,selectedSize);
     }
   } catch (error) {
     console.log(error.message);
@@ -313,6 +317,15 @@ const razorpay = async (selectedPayment) => {
   }
 };
 
+
+function updateWalletBalanceOnUI(newBalance) {
+  console.log(322);
+  const walletBalanceElement = document.getElementById("userWallet");
+  console.log(324,walletBalanceElement);
+  walletBalanceElement.value = newBalance; // Update the input value
+  
+}
+
 const wallet = async (selectedPayment) => {
   try {
     const balance = document.getElementById("userWallet").value;
@@ -323,7 +336,7 @@ const wallet = async (selectedPayment) => {
 
     if (balance > subTotal) {
       const updatedBalance = balance - subTotal;
-      cashOnDelivery(selectedPayment, updatedBalance);
+      cashOnDelivery(selectedPayment, updatedBalance); 
     } else {
       insufficientBalanceAlert.classList.remove("d-none");
       insufficientBalanceAlert.classList.add("d-flex");
@@ -445,6 +458,7 @@ function getStatusColor(status) {
 /////////// Order cancel and Return ///////////
 
 const returnOrder = async () => {
+
   const orderId = document.getElementById("orderId").value;
 
   const result = await Swal.fire({
