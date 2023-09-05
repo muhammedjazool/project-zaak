@@ -130,7 +130,7 @@ exports.orderDetails = async (req, res) => {
         const formattedDate = moment(orderDetails.date).format('MMM D, YYYY');
 
 
-        res.render("adminOrderDetails", {
+        res.render("adminOrderdetails", {
             title: "Order Details",
             orderDetails,
             orderProductData,
